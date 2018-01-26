@@ -13,7 +13,15 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body ng-app="mixtape">
-    <header ng-include="'assets/partials/header.html'"></header>
+    <nav class="green darken-2">
+        <class="nav-wrapper">
+            <a href="/" class="brand-logo green darken-1">
+                <i class="material-icons md-36">queue_music</i>
+                Mixtape
+            </a>
+            <div ng-include="'assets/partials/menu.html'"></div>
+        </class>
+    </nav>
     <main>
         <div class="row">
             <div class="col s6 m8 l9">
