@@ -1,0 +1,28 @@
+body {
+    background: #303030;
+    color: #ccc;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+      
+i.material-icons {
+    &.md-36 {
+        font-size: 36px !important;
+    }
+    &.md-48 {
+        font-size: 48px !important;
+    }
+}
+nav {
+    .brand-logo {
+        padding: 0 1rem;
+    }
+}
+#sidebar {
+    background: #222;
+}

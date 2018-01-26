@@ -3,10 +3,10 @@
 const angular = require("angular");
 const ngRoute = require("angular-route");
 
-let myApp = angular.module("appName", [ngRoute]);
+let myApp = angular.module("mixtape", [ngRoute]);
 
 require("./router.js");
 
-require("./ctrl/controllers");
+require("./ctrl/spotifySearchTrack");
 
-require("./factory/factories");
+require("./factory/spotify");
