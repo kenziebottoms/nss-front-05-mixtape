@@ -1,5 +1,5 @@
-<ul id="nav-mobile" class="green darken-3 right hide-on-med-and-down">
-    <li><a href="sass.html">Sass</a></li>
-    <li><a href="badges.html">Components</a></li>
-    <li><a href="collapsible.html">JavaScript</a></li>
+<ul id="nav-mobile" class="green darken-3 right hide-on-med-and-down"> 
+    <li ng-repeat="(name, link) in menu">
+        <a href="{{link}}">{{name}}</a>
+    </li>
 </ul>
