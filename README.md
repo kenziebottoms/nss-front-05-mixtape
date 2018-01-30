@@ -1,57 +1,76 @@
-# Blank Grunt project
+# Mixtape take 3
 
-An empty Grunt-running setup including:
+[MindMeister mind map](https://mm.tt/994144307?t=3TqRJrEdLy)
 
-![](https://img.shields.io/badge/updated-jan_26th_2018-green.svg)
-![](https://img.shields.io/badge/grunt-v1.0.1-yellow.svg)
-![](https://img.shields.io/badge/angularJS-v1.6.8-red.svg)
-![](https://img.shields.io/badge/jquery-v3.3.1-blue.svg)
-![](https://img.shields.io/badge/lodash-v4.17.4-blue.svg)
+Experimentation with the Spotify, TMDb, and Goodreads ~~Google Books~~ APIs.
 
-# Using this repo
+## Goals
 
-### Initialize an `npm` project for use with Grunt
+### API Goals
 
-In the root:
+- [ ] Authenticate with Spotify.
+  - [ ] Fetch search results for songs through Spotify API.
+    - [ ] Format results nicely.
+- [ ] Fetch search results for movies through TMDb API.
+  - [ ] Format results nicely.
+- [ ] Fetch search results for TV shows through TMDb API.
+  - [ ] Format results nicely.
+- [ ] ~~Fetch search results for books through Google Books API.~~
+  - [ ] ~~Format results nicely.~~
+- [x] Set up proxy server on Heroku to access Goodreads API.
+  - [ ] Fetch results for books through Goodreads API.
+  - [ ] Format results nicely.
 
-```shell
-> npm init -y
-```
+### Firebase
 
-`-y` says yes to every question `npm init` would otherwise ask you.
+- [ ] Solidify database structure.
+  - [ ] Media
+    - [ ] Books
+    - [x] TV Shows
+    - [x] Movies
+  - [ ] Music
+    - [x] Tracks
+    - [ ] Playlists
+- [ ] Pull recently linked media from database.
+  - [ ] Pull all linked media from database.
+- [ ] Store Spotify user data in Firebase.
+  - [ ] Store Spotify user token in Local Storage.
+- [ ] Allow user to favorite music or media.
+- [ ] Display information relevant to user's favorite music/media.
 
-### Install necessary `npm` modules
+---
 
-These are listed as dependencies in `package.json` already.
+## Resources
 
-```shell
-> npm install
-```
+### Firebase
 
-### File structure
+- [Retrieving data by REST API](https://firebase.google.com/docs/database/rest/retrieve-data)
 
-```
-root
- |--assets
- |   |--css
- |   |
- |   |--js
- |   |   |--ctrl
- |   |   |--data
- |   |   |--factory
- |   |   |--partials
- |   |   |--main.js
- |   |   `--router.js
- |   |
- |   |--sass
- |   `--templates
- |       `--partials
- |
- |--dist
- |   `--bundle.js
- |
- |--.gitignore
- |--Gruntfile.js
- |--package.json
- `--index.html
-```
+### Spotify
+
+#### [API docs](https://developer.spotify.com/web-api/)
+
+- [Endpoint reference](https://developer.spotify.com/web-api/endpoint-reference/)
+- [Spotify for Developers](https://beta.developer.spotify.com/dashboard/applications)
+- [Interactive API console](https://developer.spotify.com/web-api/console/)
+
+### The Movie Db
+
+#### [API docs](https://developers.themoviedb.org/3)
+
+- [Movie endpoints](https://developers.themoviedb.org/3/movies/get-movie-details)
+- [TV show endpoints](https://developers.themoviedb.org/3/tv/get-tv-details)
+- [Your API key](https://www.themoviedb.org/settings/api)
+
+### ~~Google Books~~
+
+~~[API docs](https://developers.google.com/books/docs/v1/reference/)~~
+
+- ~~[Getting started](https://developers.google.com/books/docs/v1/getting_started)~~
+- ~~[In-depth book search](https://developers.google.com/books/docs/v1/reference/volumes/list)~~
+
+### Goodreads
+
+#### [API docs](https://www.goodreads.com/api)
+
+- [Goodreads proxy server](https://github.com/kenziebottoms/goodreads-proxy-server), Kenzie Bottoms
