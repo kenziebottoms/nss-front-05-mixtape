@@ -1,9 +1,8 @@
 "use strict";
 
 const angular = require("angular");
-const myApp = angular.module("mixtape");
 
-myApp.factory("SpotifyFactory", function($q, $http) {
+angular.module("mixtape").factory("SpotifySearchFactory", function($q, $http) {
     let searchTracksByTitle = (title, limit) => {
         let key = require("../keys").spotify_public;
         return $q((resolve, reject) => {

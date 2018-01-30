@@ -10,4 +10,4 @@ require("./router.js");
 require("./ctrl/menu");
 require("./ctrl/spotifySearchTrack");
 
-require("./factory/spotify");
+require("./factory/spotifySearch");
