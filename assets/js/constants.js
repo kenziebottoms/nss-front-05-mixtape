@@ -12,5 +12,6 @@ angular.module("mixtape")
     })
     .constant("spotify", {
         key: "fdcfd222077448d9b1f7f9967fc6f178",
-        secret: "80f8276cd4304917bb153cc2f42a352c"
+        secret: "80f8276cd4304917bb153cc2f42a352c",
+        url: "https://api.spotify.com/v1"
     });

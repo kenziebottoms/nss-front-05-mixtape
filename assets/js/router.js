@@ -10,8 +10,8 @@ myApp.config($routeProvider => {
             controller: "SpotifyTrackSearchCtrl"
         })
         // doesn't work
-        .when("/callback", {
-            templateUrl: "assets/partials/menu.html",
-            controller: "SpotifyLoginCtrl"
+        .when("/", {
+            templateUrl: "assets/partials/home.html",
+            controller: "homeCtrl"
         });
 });

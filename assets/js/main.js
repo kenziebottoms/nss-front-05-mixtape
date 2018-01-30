@@ -9,7 +9,7 @@ require("./router.js");
 require("./constants.js");
 
 require("./ctrl/menu");
-require("./ctrl/spotifySearchTrack");
-require("./ctrl/spotifyLogin");
+require("./ctrl/spotifyUser");
+require("./ctrl/home");
 
-require("./factory/spotifySearch");
+require("./factory/spotifyUser");

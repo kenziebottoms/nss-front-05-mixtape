@@ -2,8 +2,21 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("MenuCtrl", function($scope, spotify) {
-    $scope.menu = {
-        "Login": `https://accounts.spotify.com/authorize?client_id=${spotify.key}&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&scope=user-top-read%20user-read-currently-playing&response_type=token`
+angular.module("mixtape").controller("MenuCtrl", function($scope, spotify, SpotifyUserFactory, $location) {
+    let token = SpotifyUserFactory.getActiveToken();
+    $scope.menu = [];
+    if (token) {
+        $scope.logout = true;
+        $scope.login = false;
+    } else {
+        $scope.logout = false;
+        $scope.login = true;
+        $scope.key = spotify.key;
+    }
+
+    $scope.logOut = () => {
+        SpotifyUserFactory.logOut();
+        $scope.logout = false;
+        $scope.login = true;
     };
 });

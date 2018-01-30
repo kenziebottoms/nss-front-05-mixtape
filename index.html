@@ -17,7 +17,7 @@
         <class="nav-wrapper">
             <a href="/" class="brand-logo green darken-1">
                 <i class="material-icons md-36">queue_music</i>
-                Mixtape
+                Mixify
             </a>
             <div ng-include="'assets/partials/menu.html'" ng-controller="MenuCtrl"></div>
         </class>
@@ -25,11 +25,10 @@
     <main>
         <div class="row">
             <div class="col s6 m8 l9">
-                Body
                 <div ng-view></div>
             </div>
             <div class="col s6 m4 l3" id="sidebar">
-                User info
+                <div id="user" ng-include="'/assets/partials/user.html'" ng-controller="SpotifyUserCtrl"></div>
             </div>
         </div>
     </main>
