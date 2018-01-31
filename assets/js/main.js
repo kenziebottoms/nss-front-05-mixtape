@@ -10,8 +10,8 @@ require("./constants.js");
 
 require("./ctrl/menu");
 require("./ctrl/spotifyUser");
-require("./ctrl/spotifySearch");
 require("./ctrl/home");
+require("./ctrl/search");
 
 require("./factory/spotifyUser");
 require("./factory/spotifySearch");

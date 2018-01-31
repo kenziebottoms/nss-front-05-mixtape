@@ -5,11 +5,10 @@ const myApp = angular.module("mixtape");
 
 myApp.config($routeProvider => {
     $routeProvider
-        .when("/search/songs/:term", {
-            templateUrl: "assets/partials/spotifyTrack.html",
-            controller: "SpotifySearchCtrl"
+        .when("/search/:term", {
+            templateUrl: "assets/partials/search.html",
+            controller: "SearchCtrl"
         })
-        // doesn't work
         .when("/", {
             templateUrl: "assets/partials/home.html",
             controller: "homeCtrl"

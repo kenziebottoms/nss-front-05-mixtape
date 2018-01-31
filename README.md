@@ -8,8 +8,8 @@ Experimentation with the Spotify, TMDb, and Goodreads ~~Google Books~~ APIs.
 
 ### API Goals
 
-- [ ] Authenticate with Spotify.
-  - [ ] Fetch search results for songs through Spotify API.
+- [x] Authenticate with Spotify.
+  - [x] Fetch search results for songs through Spotify API.
     - [ ] Format results nicely.
 - [ ] Fetch search results for movies through TMDb API.
   - [ ] Format results nicely.
