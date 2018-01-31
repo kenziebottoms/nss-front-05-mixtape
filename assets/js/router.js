@@ -7,7 +7,7 @@ myApp.config($routeProvider => {
     $routeProvider
         .when("/search/songs/:term", {
             templateUrl: "assets/partials/spotifyTrack.html",
-            controller: "SpotifyTrackSearchCtrl"
+            controller: "SpotifySearchCtrl"
         })
         // doesn't work
         .when("/", {
