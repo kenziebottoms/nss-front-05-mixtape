@@ -4,7 +4,9 @@ const angular = require("angular");
 
 angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, spotify) {
     // asks spotify for user info using the current token
-    const getActiveUserInfo = token => {
+    // receives:    token
+    // returns:     promise of userData
+    const fetchUserInfo = token => {
         return $q((resolve, reject) => {
             $http({
                 method: "GET",
@@ -13,13 +15,17 @@ angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, spot
                     "Authorization": `Bearer ${token}`
                 }
             })
-                .then(userInfo => {
-                    resolve(userInfo);
+                .then(({data}) => {
+                    cacheUserData(data);
+                    resolve(data);
                 })
                 .catch(err => reject(err));
         });
     };
 
+    // retrieves active token and checks that it's still valid
+    // receieves:   nothing
+    // returns:     token | false
     const getActiveToken = () => {
         let token = localStorage.getItem("spotifyUserToken");
         let expiration = localStorage.getItem("spotifyTokenExpiration");
@@ -43,14 +49,17 @@ angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, spot
 
     // parses spotify callback hash and logs user in
     // receives:    spotify callback hash
-    // returns: nothing
+    // returns:     nothing
     const logIn = hash => {
         let hashes = hash.split(/[?&]/);
         let token = hashes[0].split(/=/)[1];
         let expires_in = hashes[2].split(/=/)[1];
         setActiveToken(token, expires_in);
+        return getUserData();
     };
-
+    // removes all localStorage variables related to the user
+    // recieves:    nothing
+    // returns:     nothing
     const logOut = () => {
         localStorage.removeItem("spotifyUserToken");
         localStorage.removeItem("spotifyTokenExpiration");
@@ -60,22 +69,16 @@ angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, spot
     const cacheUserData = data => {
         localStorage.setItem("spotifyUserInfo", JSON.stringify(data));
     };
-
     const getUserData = () => {
         return $q((resolve, reject) => {
             let userData = localStorage.getItem("spotifyUserInfo");
+            let token = getActiveToken();
             if (userData) {
                 resolve(JSON.parse(userData));
+            } else if (token) {
+                return fetchUserInfo(token);
             } else {
-                let token = getActiveToken();
-                if (token) {
-                    getActiveUserInfo(token).then((data) => {
-                        cacheUserData(data);
-                        resolve(JSON.parse(data));
-                    }).catch(err => console.log("failed to getActiveUserInfo", err));
-                } else {
-                    reject("no token");
-                }
+                reject("No active user");
             }
         });
     };
