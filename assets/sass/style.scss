@@ -1,12 +1,20 @@
+$g1: #303030;
+$g2: #424242;
+$g3: #545454;
+
+$w1: #eee;
+$w2: #ccc;
+
 body {
-    background: #303030;
-    color: #ccc;
+    background: $g1;
+    color: $w2;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
 }
 
 main {
+    padding: 2rem;
     flex: 1 0 auto;
     > .row {
         height: 100%;
@@ -26,6 +34,21 @@ nav {
         padding: 0 1rem;
     }
 }
-#sidebar {
-    background: #222;
+.user-card {
+    background: $g3;
+    display: grid;
+    margin: 1rem 0;
+    grid-template-columns: 7rem 1fr;
+    img {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .body {
+        padding: .25rem .75rem;
+        flex-grow: 3;
+        h3 {
+            font-weight: 100;
+        }
+    }
 }

@@ -1,0 +1,21 @@
+{
+    "display_name": null,
+    "external_urls": {
+        "spotify": "https://open.spotify.com/user/knzgrl"
+    },
+    "followers": {
+        "href": null,
+        "total": 31
+    },
+    "href": "https://api.spotify.com/v1/users/knzgrl",
+    "id": "knzgrl",
+    "images": [
+        {
+            "height": null,
+            "url": "https://profile-images.scdn.co/images/userprofile/default/e4f86e02ceee0bd7c9fda9fec7effa3a71693756",
+            "width": null
+        }
+    ],
+    "type": "user",
+    "uri": "spotify:user:knzgrl"
+}

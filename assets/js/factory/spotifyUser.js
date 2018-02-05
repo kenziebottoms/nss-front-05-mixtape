@@ -30,7 +30,7 @@ angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, spot
         let token = localStorage.getItem("spotifyUserToken");
         let expiration = localStorage.getItem("spotifyTokenExpiration");
         if (expiration < parseInt(Date.now()/1000)) {
-            logOut();
+            logout();
             return false;
         } else {
             return token;
@@ -50,7 +50,7 @@ angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, spot
     // parses spotify callback hash and logs user in
     // receives:    spotify callback hash
     // returns:     nothing
-    const logIn = hash => {
+    const login = hash => {
         let hashes = hash.split(/[?&]/);
         let token = hashes[0].split(/=/)[1];
         let expires_in = hashes[2].split(/=/)[1];
@@ -60,7 +60,7 @@ angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, spot
     // removes all localStorage variables related to the user
     // recieves:    nothing
     // returns:     nothing
-    const logOut = () => {
+    const logout = () => {
         localStorage.removeItem("spotifyUserToken");
         localStorage.removeItem("spotifyTokenExpiration");
         localStorage.removeItem("spotifyUserInfo");
@@ -76,13 +76,13 @@ angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, spot
             if (userData) {
                 resolve(JSON.parse(userData));
             } else if (token) {
-                return fetchUserInfo(token);
+                resolve(fetchUserInfo(token));
             } else {
                 reject("No active user");
             }
         });
     };
 
-    return { logIn, logOut, getActiveToken, getUserData };
+    return { login, logout, getActiveToken, getUserData };
 
 });
