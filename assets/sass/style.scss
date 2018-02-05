@@ -72,8 +72,11 @@ nav {
 }
 
 #movies {
-    & > .col {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    .movie {
+        img {
+            max-width: 100%;
+        }
     }
 }

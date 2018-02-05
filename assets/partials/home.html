@@ -1,11 +1,9 @@
 <div class="row">
     <div class="col s6 m8 l9">
-        <div id="movies" class="row">
-            <h3>Movies</h3>
-            <div class="col s12">
-                <div ng-repeat="movie in movies" class="movie">
-                    <img ng-src="https://image.tmdb.org/t/p/w400_and_h600_bestv2{{movie.image}}">
-                </div>
+        <h3>Movies</h3>
+        <div id="movies">
+            <div ng-repeat="movie in movies" class="movie">
+                <img ng-src="{{moviePrefix}}{{movie.image}}">
             </div>
         </div>
     </div>
