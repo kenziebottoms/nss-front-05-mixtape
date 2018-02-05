@@ -1,7 +1,12 @@
 <div class="row">
     <div class="col s6 m8 l9">
-        <div>
-            Homepage
+        <div id="movies" class="row">
+            <h3>Movies</h3>
+            <div class="col s12">
+                <div ng-repeat="movie in movies" class="movie">
+                    <img ng-src="https://image.tmdb.org/t/p/w400_and_h600_bestv2{{movie.image}}">
+                </div>
+            </div>
         </div>
     </div>
     <div class="col s6 m4 l3" id="sidebar">

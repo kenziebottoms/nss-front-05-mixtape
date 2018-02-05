@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, spotify) {
+angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, SPOTIFY) {
     // asks spotify for user info using the current token
     // receives:    token
     // returns:     promise of userData
@@ -10,7 +10,7 @@ angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, spot
         return $q((resolve, reject) => {
             $http({
                 method: "GET",
-                url: `${spotify.url}/me`,
+                url: `${SPOTIFY.url}/me`,
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }

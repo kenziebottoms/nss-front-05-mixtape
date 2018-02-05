@@ -66,3 +66,14 @@ nav {
         }
     }
 }
+.page-footer {
+    padding-top: 0;
+    text-align: center;
+}
+
+#movies {
+    & > .col {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

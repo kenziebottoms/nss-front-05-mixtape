@@ -15,3 +15,4 @@ require("./ctrl/search");
 
 require("./factory/spotifyUser");
 require("./factory/spotifySearch");
+require("./factory/media");
