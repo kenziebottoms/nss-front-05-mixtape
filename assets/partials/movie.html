@@ -1,0 +1,22 @@
+<div class="row container">
+        <div class="col s12 m4 l3 offset-l1" id="sidebar">
+            <img ng-src="{{movie.poster_path}}">
+            <h1>
+                {{movie.title}}
+            </h1>
+            <h2>{{movie.year}}</h2>
+        </div>
+        <div class="col s12 m8 l6 offset-l1" id="profile-links">
+            <h3>Activity</h3>
+            <div id="{{key}}" ng-repeat="(key, val) in links" class="link">
+                <img ng-src="{{val[1].music.album_cover}}">
+                <div class="body">
+                    <h5>{{val[1].music.title}}</h5>
+                    <h6>{{val[1].music.artist}}</h6>
+                    <div class="tags" ng-show="tags" >
+                        <span class="tag" ng-repeat="tag in val[1].tags">{{tag}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

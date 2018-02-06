@@ -5,10 +5,31 @@ const _ = require("lodash");
 
 angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, FirebaseFactory) {
 
-    // returns loaded links of uid ${uid}, newest first
+    // returns loaded links by uid, newest first
     const getLinksByUid = uid => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="uid"&equalTo="${uid}"`)
+                .then(({data}) => {
+                    let links = Object.entries(data);
+                    let linkPromises = links.map(link => {
+                        return loadLink(link);
+                    });
+                    Promise.all(linkPromises)
+                        .then(loadedLinks => {
+                            // shows newest first
+                            loadedLinks.sort((a,b) => {
+                                return +b[1].added - a[1].added;
+                            });
+                            resolve(loadedLinks);
+                        });
+                });
+        });
+    };
+
+    // returns loaded links by media typeId, newest first
+    const getLinksByMedia = typeId => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="media"&equalTo="${typeId}"`)
                 .then(({data}) => {
                     let links = Object.entries(data);
                     let linkPromises = links.map(link => {
@@ -47,5 +68,5 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
         });
     };
 
-    return { getLinksByUid };
+    return { getLinksByUid, getLinksByMedia };
 });

@@ -72,6 +72,17 @@ nav {
         padding: 0 1rem;
     }
 }
+#sidebar {
+    h1 {
+        font-size: 2rem;
+        color: $w2;
+        margin-bottom: 0;
+    }
+    h2 {
+        font-size: 1.5rem;
+        color: $w4;
+    }
+}
 .user-card {
     background: $g3;
     display: grid;
@@ -127,6 +138,7 @@ nav {
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: flex-start;
             padding: .75rem 1rem;
             h5 {
                 margin: 0;

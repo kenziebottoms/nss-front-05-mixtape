@@ -16,5 +16,9 @@ myApp.config($routeProvider => {
         .when("/user/:id", {
             templateUrl: "assets/partials/profile.html",
             controller: "ProfileCtrl"
+        })
+        .when("/movie/:id", {
+            templateUrl: "assets/partials/movie.html",
+            controller: "MovieCtrl"
         });
 });
