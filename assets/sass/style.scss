@@ -113,3 +113,37 @@ nav {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
 }
+
+#profile-links {
+    .link {
+        display: grid;
+        margin-bottom: 1em;
+        grid-template-columns: 7rem 1fr;
+        background: $g3;
+        .body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: .5rem 1rem;
+            h5 {
+                margin: 0;
+                font-weight: 300;
+                font-size: 1.3rem;
+            }
+            h6 {
+                color: $w3;
+            }
+            .tags {
+                margin-top: .5em;
+                .tag {
+                    font-weight: 300;
+                    font-size: .9rem;
+                    background: $g4;
+                    padding: .25em .5em;
+                    margin-right: .75em;
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}

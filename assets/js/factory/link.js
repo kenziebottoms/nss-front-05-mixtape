@@ -1,8 +1,11 @@
 "use strict";
 
 const angular = require("angular");
+const _ = require("lodash");
 
 angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, FirebaseFactory) {
+
+    // returns loaded links of uid ${uid}, newest first
     const getLinksByUid = uid => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="uid"&equalTo="${uid}"`)
@@ -13,12 +16,17 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
                     });
                     Promise.all(linkPromises)
                         .then(loadedLinks => {
+                            // shows newest first
+                            loadedLinks.sort((a,b) => {
+                                return +b[1].added - a[1].added;
+                            });
                             resolve(loadedLinks);
                         });
                 });
         });
     };
 
+    // takes an object with music/media references and replaces the references with objects
     const loadLink = link => {
         return $q((resolve, reject) => {
             let mediaTypeId = link[1].media;
