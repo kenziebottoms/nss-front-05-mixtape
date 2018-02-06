@@ -9,7 +9,9 @@
         <h3>Movies</h3>
         <div id="movies">
             <div ng-repeat="movie in movies" class="movie media">
-                <img ng-src="{{tmdbPrefix}}{{movie.image}}">
+                <a ng-href="#!/movie/{{movie.id}}">
+                    <img ng-src="{{tmdbPrefix}}{{movie.image}}">
+                </a>
             </div>
         </div>
     </div>
