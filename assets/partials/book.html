@@ -1,0 +1,11 @@
+<div class="row container">
+    <div class="col s12 m4 l5" id="sidebar">
+        <img ng-src="{{book.image_url._text}}">
+        <h1>
+            {{book.title._cdata}}
+        </h1>
+        <h2>{{book.publication_year._text}}</h2>
+    </div>
+    <div class="col s12 m8 l6 offset-l1" id="profile-links" ng-include="'assets/partials/profileLinks.html'">
+    </div>
+</div>

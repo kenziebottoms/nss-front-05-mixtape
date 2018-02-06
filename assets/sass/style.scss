@@ -121,7 +121,7 @@ nav {
     text-align: center;
 }
 
-#movies, #tv {
+#movies, #tv, #books {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
 }

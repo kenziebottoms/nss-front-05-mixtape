@@ -15,9 +15,11 @@ require("./ctrl/search");
 require("./ctrl/profile");
 require("./ctrl/movie");
 require("./ctrl/tv");
+require("./ctrl/book");
 
 require("./factory/spotifyAuth");
 require("./factory/spotifySearch");
 require("./factory/firebase");
 require("./factory/link");
 require("./factory/tmdb");
+require("./factory/goodreads");

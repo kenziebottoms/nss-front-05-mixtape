@@ -24,5 +24,9 @@ myApp.config($routeProvider => {
         .when("/tv/:id", {
             templateUrl: "assets/partials/tvShow.html",
             controller: "TvCtrl"
+        })
+        .when("/book/:id", {
+            templateUrl: "assets/partials/book.html",
+            controller: "BookCtrl"
         });
 });

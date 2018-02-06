@@ -9,10 +9,15 @@ angular.module("mixtape").controller("HomeCtrl", function($scope, $routeParams, 
             $scope.tmdbPrefix = TMDB.image_prefix;
         })
         .catch(err => console.log(err));
+    
     FirebaseFactory.getMediaByType("tv", 4)
         .then(data => {
             $scope.tvShows = data;
             $scope.tmdbPrefix = TMDB.image_prefix;
         })
         .catch(err => console.log(err));
+    FirebaseFactory.getMediaByType("book", 4)
+        .then(data => {
+            $scope.books = data;
+        });
 });

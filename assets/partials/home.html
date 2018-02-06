@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col s6 m8 l9">
-        <h3>TV shows</h3>
-        <div id="tv">
-            <div ng-repeat="show in tvShows" class="tv media">
-                <a ng-href="#!/tv/{{show.id}}">
-                    <img ng-src="{{tmdbPrefix}}{{show.image}}">
+        <h3>Books</h3>
+        <div id="books">
+            <div ng-repeat="book in books" class="book media">
+                <a ng-href="#!/book/{{book.id}}">
+                    <img ng-src="{{book.image}}">
                 </a>
             </div>
         </div>
@@ -13,6 +13,14 @@
             <div ng-repeat="movie in movies" class="movie media">
                 <a ng-href="#!/movie/{{movie.id}}">
                     <img ng-src="{{tmdbPrefix}}{{movie.image}}">
+                </a>
+            </div>
+        </div>
+        <h3>TV shows</h3>
+        <div id="tv">
+            <div ng-repeat="show in tvShows" class="tv media">
+                <a ng-href="#!/tv/{{show.id}}">
+                    <img ng-src="{{tmdbPrefix}}{{show.image}}">
                 </a>
             </div>
         </div>

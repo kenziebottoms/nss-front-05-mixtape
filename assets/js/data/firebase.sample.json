@@ -32,9 +32,26 @@
                 "Eleven"
             ],
             "uid": "knzgrl"
+        },
+        "-L4h6VZtVMerWYvLFqvC": {
+            "added": 1517953251,
+            "media": "book:375802",
+            "music": "track:4G8gkOterJn0Ywt6uhqbhp",
+            "tags": [
+                "Ender"
+            ],
+            "uid": "argfktkjctj5wyte1c3wsqt70"
         }
     },
     "media": {
+        "book:375802": {
+            "date": "1985",
+            "id": 375802,
+            "image": "https://images.gr-assets.com/books/1408303130l/375802.jpg",
+            "last_cached": 1517954487,
+            "title": "Ender's Game",
+            "type": "book"
+        },
         "movie:330459": {
             "date": "2016-12-14",
             "id": 330459,
@@ -74,12 +91,58 @@
             "last_cached": 1516309571,
             "title": "Devils On Our Side"
         },
+        "4G8gkOterJn0Ywt6uhqbhp": {
+            "album": "Night Visions",
+            "album_cover": "https://i.scdn.co/image/443609cd35e43c7bdb272b3d1d9e80290e128bc5",
+            "artist": "Imagine Dragons",
+            "last_cached": 1517953251,
+            "title": "Radioactive"
+        },
         "54bO9jrn1NExmpg6Afsc2A": {
             "album": "Language & Perspective",
             "album_cover": "https://i.scdn.co/image/2ed6f4a26d7e6ec311901d8694ed18b4097d3866",
             "artist": "Bad Suns",
             "last_cached": 1515103391,
             "title": "Salt"
+        }
+    },
+    "users": {
+        "argfktkjctj5wyte1c3wsqt70": {
+            "display_name": "Kenzie",
+            "external_urls": {
+                "spotify": "https://open.spotify.com/user/argfktkjctj5wyte1c3wsqt70"
+            },
+            "followers": {
+                "total": 0
+            },
+            "href": "https://api.spotify.com/v1/users/argfktkjctj5wyte1c3wsqt70",
+            "id": "argfktkjctj5wyte1c3wsqt70",
+            "images": [
+                {
+                    "url": "https://profile-images.scdn.co/images/userprofile/default/e4f86e02ceee0bd7c9fda9fec7effa3a71693756"
+                }
+            ],
+            "type": "user",
+            "uri": "spotify:user:argfktkjctj5wyte1c3wsqt70",
+            "username": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "knzgrl": {
+            "external_urls": {
+                "spotify": "https://open.spotify.com/user/knzgrl"
+            },
+            "followers": {
+                "total": 31
+            },
+            "href": "https://api.spotify.com/v1/users/knzgrl",
+            "id": "knzgrl",
+            "images": [
+                {
+                    "url": "https://profile-images.scdn.co/images/userprofile/default/e4f86e02ceee0bd7c9fda9fec7effa3a71693756"
+                }
+            ],
+            "type": "user",
+            "uri": "spotify:user:knzgrl",
+            "username": "knzgrl"
         }
     }
 }

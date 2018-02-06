@@ -14,5 +14,6 @@ angular.module("mixtape").controller("MovieCtrl", function($scope, TmdbFactory, 
         })
         .then(loadedLinks => {
             $scope.links = loadedLinks;
+            $scope.context = "media";
         });
 });
