@@ -24,10 +24,10 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kenziebottoms/blank-grunt-project-angular.git"
+    "url": "git+https://github.com/kenziebottoms/nss-front-capstone-mixify.git"
   },
   "bugs": {
-    "url": "https://github.com/kenziebottoms/blank-grunt-project-angular/issues"
+    "url": "https://github.com/kenziebottoms/nss-front-capstone-mixify/issues"
   },
-  "homepage": "https://github.com/kenziebottoms/blank-grunt-project-angular#readme"
+  "homepage": "https://github.com/kenziebottoms/nss-front-capstone-mixify#readme"
 }
