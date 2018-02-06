@@ -11,14 +11,15 @@ angular.module("mixtape").factory("MediaFactory", function($q, $http, FIREBASE) 
                 });
         });
     };
-    let getRecentMovies = limit => {
+    
+    let getMediaByType = (type, limit) => {
         return $q((resolve, reject) => {
-            $http.get(`${FIREBASE.dbUrl}/media.json?orderBy="type"&equalTo="movie"`)
+            $http.get(`${FIREBASE.dbUrl}/media.json?orderBy="type"&equalTo="${type}"&limitToFirst=${limit}`)
                 .then(({data}) => {
                     resolve(data);
                 });
         });
     };
 
-    return {getRecentMovies};
+    return {getMediaByType};
 });

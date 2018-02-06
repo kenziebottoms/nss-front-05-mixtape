@@ -1,9 +1,15 @@
 <div class="row">
     <div class="col s6 m8 l9">
+        <h3>TV shows</h3>
+        <div id="tv">
+            <div ng-repeat="show in tvShows" class="tv media">
+                <img ng-src="{{tmdbPrefix}}{{show.image}}">
+            </div>
+        </div>
         <h3>Movies</h3>
         <div id="movies">
-            <div ng-repeat="movie in movies" class="movie">
-                <img ng-src="{{moviePrefix}}{{movie.image}}">
+            <div ng-repeat="movie in movies" class="movie media">
+                <img ng-src="{{tmdbPrefix}}{{movie.image}}">
             </div>
         </div>
     </div>

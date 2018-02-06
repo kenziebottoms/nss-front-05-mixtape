@@ -71,10 +71,10 @@ nav {
     text-align: center;
 }
 
-#movies {
+#movies, #tv {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    .movie {
+    grid-template-columns: repeat(5, 1fr);
+    .media {
         img {
             max-width: 100%;
         }
