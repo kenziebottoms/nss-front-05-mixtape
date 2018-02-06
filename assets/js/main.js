@@ -16,5 +16,5 @@ require("./ctrl/profile");
 
 require("./factory/spotifyAuth");
 require("./factory/spotifySearch");
-require("./factory/media");
+require("./factory/firebase");
 require("./factory/link");
