@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, SPOTIFY) {
+angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOTIFY) {
     // asks spotify for user info using the current token
     // receives:    token
     // returns:     promise of userData
@@ -55,7 +55,7 @@ angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, SPOT
         let token = hashes[0].split(/=/)[1];
         let expires_in = hashes[2].split(/=/)[1];
         setActiveToken(token, expires_in);
-        return getUserData();
+        return getActiveUserData();
     };
     // removes all localStorage variables related to the user
     // recieves:    nothing
@@ -69,7 +69,7 @@ angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, SPOT
     const cacheUserData = data => {
         localStorage.setItem("spotifyUserInfo", JSON.stringify(data));
     };
-    const getUserData = () => {
+    const getActiveUserData = () => {
         return $q((resolve, reject) => {
             let userData = localStorage.getItem("spotifyUserInfo");
             let token = getActiveToken();
@@ -83,6 +83,6 @@ angular.module("mixtape").factory("SpotifyUserFactory", function($q, $http, SPOT
         });
     };
 
-    return { login, logout, getActiveToken, getUserData };
+    return { login, logout, getActiveToken, getActiveUserData };
 
 });

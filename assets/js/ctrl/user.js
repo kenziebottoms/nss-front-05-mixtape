@@ -2,22 +2,23 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("SpotifyUserCtrl", function($scope, SpotifyUserFactory, $location, $window) {
+angular.module("mixtape").controller("UserCtrl", function($scope, SpotifyAuthFactory, $location, $window) {
     let hash = $location.hash();
     if (hash) {
-        SpotifyUserFactory.login(hash).then(userData => {
+        SpotifyAuthFactory.login(hash).then(userData => {
             $scope.user = userData;
             $location.hash("");
         });
     } else {
-        SpotifyUserFactory.getUserData().then(data => {
+        SpotifyAuthFactory.getActiveUserData().then(data => {
             $scope.user = data;
+            $scope.profile_link = `#!/user/${data.uri.split(":")[2]}`;
         }).catch(err => console.log(err));
     }
 
     $scope.logout = () => {
         $scope.user = null;
-        SpotifyUserFactory.logout();
+        SpotifyAuthFactory.logout();
         $scope.login = true;
     };
 });

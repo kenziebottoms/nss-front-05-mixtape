@@ -11,6 +11,10 @@ myApp.config($routeProvider => {
         })
         .when("/", {
             templateUrl: "assets/partials/home.html",
-            controller: "homeCtrl"
+            controller: "HomeCtrl"
+        })
+        .when("/user/:id", {
+            templateUrl: "assets/partials/profile.html",
+            controller: "ProfileCtrl"
         });
 });

@@ -1,7 +1,7 @@
 <div class="user-card" ng-show="user">
     <img src="{{user.images[0].url}}">
     <div class="body">
-        <h5>{{user.display_name ? user.display_name : user.id}}</h5>
+        <h5><a ng-href="{{profile_link}}">{{user.display_name ? user.display_name : user.id}}</a></h5>
         <a href="#" ng-click="logout()" class="button">Logout</a>
     </div>
 </div>

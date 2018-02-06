@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("homeCtrl", function($scope, $routeParams, $location, SpotifyUserFactory, MediaFactory, TMDB) {
+angular.module("mixtape").controller("HomeCtrl", function($scope, $routeParams, $location, SpotifyAuthFactory, MediaFactory, TMDB) {
     MediaFactory.getMediaByType("movie", 4)
         .then(data => {
             $scope.movies = data;

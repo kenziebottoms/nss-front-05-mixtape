@@ -9,10 +9,11 @@ require("./router.js");
 require("./constants.js");
 
 require("./ctrl/menu");
-require("./ctrl/spotifyUser");
+require("./ctrl/user");
 require("./ctrl/home");
 require("./ctrl/search");
+require("./ctrl/profile");
 
-require("./factory/spotifyUser");
+require("./factory/spotifyAuth");
 require("./factory/spotifySearch");
 require("./factory/media");
