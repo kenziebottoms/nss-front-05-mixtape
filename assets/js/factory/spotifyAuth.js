@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOTIFY) {
+angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOTIFY, FirebaseFactory) {
     // asks spotify for user info using the current token
     // receives:    token
     // returns:     promise of userData
@@ -69,6 +69,7 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
     const cacheUserData = data => {
         data.username = data.uri.split(":")[2];
         localStorage.setItem("spotifyUserInfo", JSON.stringify(data));
+        FirebaseFactory.storeUserData(data.username, data);
     };
     const getActiveUserData = () => {
         return $q((resolve, reject) => {

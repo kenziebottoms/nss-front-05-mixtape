@@ -7,8 +7,9 @@
         </h2>
     </div>
     <div class="col s12 m8 l6 offset-l1" id="profile-links">
+        <h3>Activity</h3>
         <div id="{{key}}" ng-repeat="(key, val) in links" class="link">
-            <img src="{{val[1].music.album_cover}}">
+            <img ng-src="{{val[1].music.album_cover}}">
             <div class="body">
                 <h5>{{val[1].music.title}}</h5>
                 <h6>{{val[1].music.artist}}</h6>

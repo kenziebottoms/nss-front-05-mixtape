@@ -2,10 +2,10 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("ProfileCtrl", function($scope, SpotifyAuthFactory, LinkFactory) {
-    SpotifyAuthFactory.getActiveUserData()
-        .then(userData => {
-            $scope.user = userData;
+angular.module("mixtape").controller("ProfileCtrl", function($scope, FirebaseFactory, LinkFactory, $routeParams) {
+    FirebaseFactory.getUserData($routeParams.id)
+        .then(({data}) => {
+            $scope.user = data;
             return LinkFactory.getLinksByUid($scope.user.username);
         })
         .then(data => {

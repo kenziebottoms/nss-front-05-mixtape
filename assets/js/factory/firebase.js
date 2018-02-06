@@ -40,5 +40,19 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    return {getMediaByType, getMediaByTypeId, getTrackByTypeId};
+    const storeUserData = (username, data) => {
+        return $q((resolve, reject) => {
+            $http.put(`${FIREBASE.dbUrl}/users/${username}.json`, data)
+                .then(response => resolve(response));
+        });
+    };
+
+    const getUserData = username => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE.dbUrl}/users/${username}.json`)
+                .then(response => resolve(response));
+        });
+    };
+
+    return {getMediaByType, getMediaByTypeId, getTrackByTypeId, storeUserData, getUserData};
 });

@@ -120,11 +120,14 @@ nav {
         margin-bottom: 1em;
         grid-template-columns: 7rem 1fr;
         background: $g3;
+        img {
+            height: 100%;
+        }
         .body {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: .5rem 1rem;
+            padding: .75rem 1rem;
             h5 {
                 margin: 0;
                 font-weight: 300;
@@ -136,7 +139,6 @@ nav {
             .tags {
                 margin-top: .5em;
                 .tag {
-                    font-weight: 300;
                     font-size: .9rem;
                     background: $g4;
                     padding: .25em .5em;
