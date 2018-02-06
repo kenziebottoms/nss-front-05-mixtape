@@ -1,0 +1,85 @@
+{
+    "links": {
+        "-L2MA3roxuqzTDh1Q1nX": {
+            "added": 1514844644,
+            "media": "tv:66732",
+            "music": "track:54bO9jrn1NExmpg6Afsc2A",
+            "tags": [
+                "Will Byers"
+            ],
+            "uid": "knzgrl"
+        },
+        "-L2MAB2N0fAd1o-XO-Ei": {
+            "added": 1514844624,
+            "media": "tv:66732",
+            "music": "track:2W7DkWXBgqLQmlCBIxeqVe",
+            "tags": [
+                "Will Byers"
+            ],
+            "uid": "knzgrl"
+        },
+        "-L3A88sgjQ_OYU_3dgOc": {
+            "added": 1516310312,
+            "media": "movie:330459",
+            "music": "track:3HaJW8VfBwngwVBY0Us7Vq",
+            "uid": "knzgrl"
+        },
+        "-L3A8Mg_sf4p6skT0J8t": {
+            "added": 1516310435,
+            "media": "tv:66732",
+            "music": "track:0KtMmvqSo5Bvy3bVsxNGwD",
+            "tags": [
+                "Eleven"
+            ],
+            "uid": "knzgrl"
+        }
+    },
+    "media": {
+        "movie:330459": {
+            "date": "2016-12-14",
+            "id": 330459,
+            "image": "/qjiskwlV1qQzRCjpV0cL9pEMF9a.jpg",
+            "last_cached": 1516309439,
+            "title": "Rogue One: A Star Wars Story",
+            "type": "movie"
+        },
+        "tv:66732": {
+            "date": "2016-07-15",
+            "id": 66732,
+            "image": "/lXS60geme1LlEob5Wgvj3KilClA.jpg",
+            "last_cached": 1514844644,
+            "title": "Stranger Things",
+            "type": "tv"
+        }
+    },
+    "tracks": {
+        "0KtMmvqSo5Bvy3bVsxNGwD": {
+            "album": "What We Saw From The Cheap Seats",
+            "album_cover": "https://i.scdn.co/image/0ca0778a882c7b6e4873f8998f2b7dfb741d733e",
+            "artist": "Regina Spektor",
+            "last_cached": 1516309220,
+            "title": "Ballad Of A Politician"
+        },
+        "2W7DkWXBgqLQmlCBIxeqVe": {
+            "album": "Hello Hurricane",
+            "album_cover": "https://i.scdn.co/image/8540b06aa75795f704165699b9f86040d8fc064f",
+            "artist": "Switchfoot",
+            "last_cached": 1515103391,
+            "title": "Hello Hurricane"
+        },
+        "3HaJW8VfBwngwVBY0Us7Vq": {
+            "album": "Safe Travels",
+            "album_cover": "https://i.scdn.co/image/de238e90c58b2c8572ef4dc79572d0ae219a2d5a",
+            "artist": "Jukebox The Ghost",
+            "last_cached": 1516309571,
+            "title": "Devils On Our Side"
+        },
+        "54bO9jrn1NExmpg6Afsc2A": {
+            "album": "Language & Perspective",
+            "album_cover": "https://i.scdn.co/image/2ed6f4a26d7e6ec311901d8694ed18b4097d3866",
+            "artist": "Bad Suns",
+            "last_cached": 1515103391,
+            "title": "Salt"
+        }
+    }
+}
