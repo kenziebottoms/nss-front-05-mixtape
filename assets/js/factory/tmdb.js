@@ -17,6 +17,14 @@ angular.module("mixtape").factory("TmdbFactory", function($q, $http, TMDB) {
                 });
         });
     };
+    const getTvShowById = id => {
+        return $q((resolve, reject) => {
+            $http.get(`${TMDB.url}/tv/${id}?api_key=${TMDB.key}`)
+                .then(({data}) => {
+                    resolve(data);
+                });
+        });
+    };
 
-    return {searchMoviesByTitle, getMovieById};
+    return {searchMoviesByTitle, getMovieById, getTvShowById};
 });

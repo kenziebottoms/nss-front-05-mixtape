@@ -3,7 +3,9 @@
         <h3>TV shows</h3>
         <div id="tv">
             <div ng-repeat="show in tvShows" class="tv media">
-                <img ng-src="{{tmdbPrefix}}{{show.image}}">
+                <a ng-href="#!/tv/{{show.id}}">
+                    <img ng-src="{{tmdbPrefix}}{{show.image}}">
+                </a>
             </div>
         </div>
         <h3>Movies</h3>
