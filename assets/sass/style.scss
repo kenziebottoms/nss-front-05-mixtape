@@ -157,6 +157,9 @@ nav {
                     padding: .25em .5em;
                     margin-right: .75em;
                     display: inline-block;
+                    &.author {
+                        background: $green;
+                    }
                 }
                 a {
                     color: inherit;
