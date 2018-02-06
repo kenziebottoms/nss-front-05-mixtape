@@ -14,7 +14,7 @@
                 <h5>{{val[1].music.title}}</h5>
                 <h6>{{val[1].music.artist}}</h6>
                 <div class="tags">
-                    <span class="tag">{{val[1].media.title}}</span>
+                    <a ng-href="#!/{{val[1].media.type}}/{{val[1].media.id}}" class="tag">{{val[1].media.title}}</a>
                     <span class="tag" ng-repeat="tag in val[1].tags">{{tag}}</span>
                 </div>
             </div>
