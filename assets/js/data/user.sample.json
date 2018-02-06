@@ -17,5 +17,6 @@
         }
     ],
     "type": "user",
-    "uri": "spotify:user:knzgrl"
+    "uri": "spotify:user:knzgrl",
+    "username": "knzgrl"
 }

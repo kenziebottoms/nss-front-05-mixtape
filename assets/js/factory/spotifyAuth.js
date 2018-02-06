@@ -67,6 +67,7 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
     };
 
     const cacheUserData = data => {
+        data.username = data.uri.split(":")[2];
         localStorage.setItem("spotifyUserInfo", JSON.stringify(data));
     };
     const getActiveUserData = () => {

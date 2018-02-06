@@ -12,7 +12,9 @@ angular.module("mixtape").controller("UserCtrl", function($scope, SpotifyAuthFac
     } else {
         SpotifyAuthFactory.getActiveUserData().then(data => {
             $scope.user = data;
-            $scope.profile_link = `#!/user/${data.uri.split(":")[2]}`;
+            if (!data.username) {
+                $scope.user.username = data.uri.split(":")[2];
+            }
         }).catch(err => console.log(err));
     }
 

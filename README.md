@@ -34,7 +34,7 @@ Experimentation with the Spotify, TMDb, and Goodreads ~~Google Books~~ APIs.
 - [ ] Pull recently linked media from database.
   - [ ] Pull all linked media from database.
 - [ ] Store Spotify user data in Firebase.
-  - [ ] Store Spotify user token in Local Storage.
+  - [x] Store Spotify user token in Local Storage.
 - [ ] Allow user to favorite music or media.
 - [ ] Display information relevant to user's favorite music/media.
 
