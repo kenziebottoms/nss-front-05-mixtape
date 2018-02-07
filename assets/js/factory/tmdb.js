@@ -29,10 +29,19 @@ angular.module("mixtape").factory("TmdbFactory", function($q, $http, TMDB) {
     // takes raw data from an API call and returns data ready for Firebase
     const parseApiInfo = (type, data) => {
         let media = {
-            year: data.release_date.slice(0,4),
-            title: data.title,
             image: data.poster_path
         };
+        if (type == "movie") {
+            media = {
+                year: data.release_date.slice(0,4),
+                title: data.title
+            };
+        } else {
+            media = {
+                title: data.name,
+                year: data.first_air_date.slice(0,4)
+            };
+        }
         return media;
     };
 
