@@ -47,15 +47,15 @@
         "book:375802": {
             "id": 375802,
             "image": "https://images.gr-assets.com/books/1408303130l/375802.jpg",
-            "last_cached": 1518017977,
+            "last_cached": 1518018699,
             "title": "Ender's Game (Ender's Saga, #1)",
             "type": "book",
-            "year": 1994
+            "year": "1994"
         },
         "movie:330459": {
             "id": 330459,
             "image": "/qjiskwlV1qQzRCjpV0cL9pEMF9a.jpg",
-            "last_cached": 1518018655,
+            "last_cached": 1518018713,
             "title": "Rogue One: A Star Wars Story",
             "type": "movie",
             "year": "2016"
@@ -63,10 +63,10 @@
         "tv:66732": {
             "id": 66732,
             "image": "/lXS60geme1LlEob5Wgvj3KilClA.jpg",
-            "last_cached": 1514844644,
+            "last_cached": 1518019367,
             "title": "Stranger Things",
             "type": "tv",
-            "year": 2016
+            "year": "2016"
         }
     },
     "tracks": {
