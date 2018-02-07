@@ -17,10 +17,20 @@
             <a class="button" ng-click="search()" ng-class="{'disabled': !active || !mediaSearchTerm}">Search</a>
         </div>
         <div id="searchResults">
-            <div class="search-result" ng-repeat="result in results">
+            <div ng-show="active=='books'" class="search-result books" ng-repeat="result in results">
                 <img ng-src="{{result.best_book.image_url._text}}">
                 <h4>{{result.best_book.title._text}}</h4>
                 <h5>{{result.best_book.author.name._text}}</h5>
+            </div>
+            <div ng-show="active=='movies'" class="search-result movies" ng-repeat="result in results">
+                <img ng-src="{{image_prefix}}{{result.poster_path}}">
+                <h4>{{result.title}}</h4>
+                <h5>{{result.release_date.slice(0,4)}}</h5>
+            </div>
+            <div id="{{result.id}}" ng-show="active=='tv'" class="search-result tv" ng-repeat="result in results">
+                <img ng-src="{{image_prefix}}{{result.poster_path}}">
+                <h4>{{result.name}}</h4>
+                <h5>{{result.first_air_date.slice(0,4)}}</h5>
             </div>
         </div>
     </div>
