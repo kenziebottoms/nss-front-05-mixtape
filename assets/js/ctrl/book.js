@@ -15,6 +15,9 @@ angular.module("mixtape").controller("BookCtrl", function($scope, GoodreadsFacto
 
             // update cached info in Firebase
             FirebaseFactory.cacheInfo(`book:${$scope.id}`, GoodreadsFactory.parseApiInfo(book));
+
+            // displays large image instead of medium
+            book.image_url._text = GoodreadsFactory.getLargeImage(book.image_url._text);
             
             // pass book to dom
             $scope.book = book;
