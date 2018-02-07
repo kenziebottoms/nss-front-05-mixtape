@@ -42,6 +42,17 @@ main {
         height: 100%;
     }
 }
+a.button {
+    display: inline-block;
+    background: $green;
+    color: $w2;
+    padding: .25em .75em;
+    cursor: pointer;
+    &[disabled=true], &.disabled {
+        background: $g3;
+        color: $w4;
+    }
+}
 .kb-badge {
     background: $green;
     width: 2.3em;
@@ -171,12 +182,13 @@ nav {
 #media-choices {
     display: flex;
     justify-content: center;
+    align-items: center;
     a {
+        margin: 0 1rem;
         .material-icons {
             color: $g3;
             cursor: pointer;
             font-size: 2.5rem;
-            margin: 0 1rem;
         }
         &.active {
             .material-icons {

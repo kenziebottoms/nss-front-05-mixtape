@@ -4,16 +4,17 @@
             <input ng-model="mediaSearch" type="text">
             <label for="mediaSearch">Search media</label>
         </div>
-        <div id="media-choices">
-            <a ng-click="setActive('books')" class="{{isActive('books')}}">
+        <div id="media-choices" ng-init="active=false">
+            <a ng-click="active='books'" ng-class="{'active': active=='books'}">
                 <i class="material-icons">chrome_reader_mode</i>
             </a>
-            <a ng-click="setActive('movies')" class="{{isActive('movies')}}">
+            <a ng-click="active='movies'" ng-class="{'active': active=='movies'}">
                 <i class="material-icons">theaters</i>
             </a>
-            <a ng-click="setActive('tv')" class="{{isActive('tv')}}">
+            <a ng-click="active='tv'" ng-class="{'active': active=='tv'}">
                 <i class="material-icons">tv</i>
             </a>
+            <a class="button" ng-class="{'disabled': !active}">Search</a>
         </div>
     </div>
     <div class="col s12 m6">
