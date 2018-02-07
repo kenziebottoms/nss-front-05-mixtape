@@ -3,12 +3,15 @@
 const angular = require("angular");
 
 angular.module("mixtape").controller("MenuCtrl", function($scope, SPOTIFY, SpotifyAuthFactory) {
-    let token = SpotifyAuthFactory.getActiveToken();
+    $scope.token = SpotifyAuthFactory.getActiveToken();
     $scope.menu = [];
-    if (token) {
-        $scope.login = false;
-    } else {
-        $scope.login = true;
+    if (!$scope.token) {
         $scope.key = SPOTIFY.key;
     }
+
+    $scope.logout = () => {
+        $scope.login = true;
+        $scope.logout = false;
+        SpotifyAuthFactory.logout();
+    };
 });
