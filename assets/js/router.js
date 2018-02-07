@@ -28,5 +28,9 @@ myApp.config($routeProvider => {
         .when("/book/:id", {
             templateUrl: "assets/partials/book.html",
             controller: "BookCtrl"
+        })
+        .when("/new", {
+            templateUrl: "assets/partials/newLink.html",
+            controller: "NewLinkCtrl"
         });
 });
