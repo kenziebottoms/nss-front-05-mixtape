@@ -23,7 +23,7 @@ angular.module("mixtape").factory("GoodreadsFactory", function($q, $http, GOODRE
     // takes raw data from an API call and returns Firebase-formatted data
     const parseApiInfo = data => {
         let book = {
-            date: data.publication_year._text,
+            year: data.publication_year._text,
             image: getLargeImage(data.image_url._text),
             title: data.title._cdata
         };

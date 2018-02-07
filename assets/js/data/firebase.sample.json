@@ -45,28 +45,28 @@
     },
     "media": {
         "book:375802": {
-            "date": "1985",
             "id": 375802,
             "image": "https://images.gr-assets.com/books/1408303130l/375802.jpg",
-            "last_cached": 1517954487,
-            "title": "Ender's Game",
-            "type": "book"
+            "last_cached": 1518017977,
+            "title": "Ender's Game (Ender's Saga, #1)",
+            "type": "book",
+            "year": 1994
         },
         "movie:330459": {
-            "date": "2016-12-14",
             "id": 330459,
             "image": "/qjiskwlV1qQzRCjpV0cL9pEMF9a.jpg",
-            "last_cached": 1516309439,
+            "last_cached": 1518018655,
             "title": "Rogue One: A Star Wars Story",
-            "type": "movie"
+            "type": "movie",
+            "year": "2016"
         },
         "tv:66732": {
-            "date": "2016-07-15",
             "id": 66732,
             "image": "/lXS60geme1LlEob5Wgvj3KilClA.jpg",
             "last_cached": 1514844644,
             "title": "Stranger Things",
-            "type": "tv"
+            "type": "tv",
+            "year": 2016
         }
     },
     "tracks": {
@@ -113,7 +113,7 @@
                 "spotify": "https://open.spotify.com/user/argfktkjctj5wyte1c3wsqt70"
             },
             "followers": {
-                "total": 0
+                "total": 31
             },
             "href": "https://api.spotify.com/v1/users/argfktkjctj5wyte1c3wsqt70",
             "id": "argfktkjctj5wyte1c3wsqt70",
@@ -127,6 +127,7 @@
             "username": "argfktkjctj5wyte1c3wsqt70"
         },
         "knzgrl": {
+            "display_name": "knzgrl",
             "external_urls": {
                 "spotify": "https://open.spotify.com/user/knzgrl"
             },
