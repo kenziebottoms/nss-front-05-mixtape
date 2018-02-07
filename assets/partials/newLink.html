@@ -1,1 +1,22 @@
-{{msg}}
+<div class="row container">
+    <div class="col s12 m6">
+        <div class="input-field">
+            <input ng-model="mediaSearch" type="text">
+            <label for="mediaSearch">Search media</label>
+        </div>
+        <div id="media-choices">
+            <a ng-click="searchBooks">
+                <i class="material-icons">chrome_reader_mode</i>
+            </a>
+            <a ng-click="searchMovies" >
+                <i class="material-icons">movie</i>
+            </a>
+            <a ng-click="searchTV">
+                <i class="material-icons">tv</i>
+            </a>
+        </div>
+    </div>
+    <div class="col s12 m6">
+        Search Tracks
+    </div>
+</div>
