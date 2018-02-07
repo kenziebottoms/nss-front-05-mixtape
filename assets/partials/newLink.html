@@ -5,13 +5,13 @@
             <label for="mediaSearch">Search media</label>
         </div>
         <div id="media-choices">
-            <a ng-click="searchBooks">
+            <a ng-click="setActive('books')" class="{{isActive('books')}}">
                 <i class="material-icons">chrome_reader_mode</i>
             </a>
-            <a ng-click="searchMovies" >
-                <i class="material-icons">movie</i>
+            <a ng-click="setActive('movies')" class="{{isActive('movies')}}">
+                <i class="material-icons">theaters</i>
             </a>
-            <a ng-click="searchTV">
+            <a ng-click="setActive('tv')" class="{{isActive('tv')}}">
                 <i class="material-icons">tv</i>
             </a>
         </div>
