@@ -7,17 +7,13 @@ angular.module("mixtape").controller("BookCtrl", function($scope, GoodreadsFacto
     // get book details
     GoodreadsFactory.getBookById($scope.id)
         .then(book => {
-            // update cached info in Firebase
-            FirebaseFactory.cacheInfo(`book:${$scope.id}`, GoodreadsFactory.parseApiInfo(book));
-
-            // displays large image instead of medium
-            book.image_url._text = GoodreadsFactory.getLargeImage(book.image_url._text);
-            
-            // pass book to dom
-            $scope.book = book;
-            
-            // fetch relevant links
             let typeId = `book:${$scope.id}`;
+            // update cached info in Firebase
+            book = GoodreadsFactory.parseApiInfo(book);
+            FirebaseFactory.cacheInfo(typeId, book);
+
+            // pass book to dom            
+            $scope.book = book;
             return LinkFactory.getLinksByMedia(typeId);
         })
         .then(loadedLinks => {

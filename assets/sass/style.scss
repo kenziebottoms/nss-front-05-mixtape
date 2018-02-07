@@ -198,7 +198,7 @@ nav {
         }
     }
 }
-#mediaSearchResults, #musicSearchResults {
+#mediaSearchResults, #musicSearchResults, #selectedMusic, #selectedMedia {
     padding-top: 1rem;
     .search-result {
         > a {
@@ -217,5 +217,10 @@ nav {
 #mediaSearchResults {
     .search-result {
         grid-template-columns: fit-content(4.5rem) 1fr 3rem;
+    }
+}
+#selectedMedia {
+    img {
+        width: 100%;
     }
 }

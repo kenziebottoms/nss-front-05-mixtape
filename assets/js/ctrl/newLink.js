@@ -22,7 +22,6 @@ angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFa
                 $scope.image_prefix = TMDB.small_image_prefix;
                 TmdbFactory.searchTvShowsByTitle($scope.mediaSearchTerm)
                     .then(results => {
-                        console.log(results.results);
                         $scope.mediaResults = results.results.slice(0,5);
                     });
             } else if ($scope.activeMedia == "movies") {
@@ -50,8 +49,17 @@ angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFa
         if ($scope.activeMedia == "tv") {
             TmdbFactory.getTvShowById(id)
                 .then(show => {
-                    console.log(show);
-                    $scope.selectedMedia = show;
+                    $scope.selectedMedia = TmdbFactory.parseApiInfo("tv", show);
+                });
+        } else if ($scope.activeMedia == "movies") {
+            TmdbFactory.getMovieById(id)
+                .then(movie => {
+                    $scope.selectedMedia = TmdbFactory.parseApiInfo("movie", movie);
+                });
+        } else if ($scope.activeMedia == "books") {
+            GoodreadsFactory.getBookById(id)
+                .then(book => {
+                    $scope.selectedMedia = GoodreadsFactory.parseApiInfo(book);
                 });
         }
     };

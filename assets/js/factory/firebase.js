@@ -4,16 +4,6 @@ const angular = require("angular");
 
 angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBASE) {
     
-    // returns 20 most recently updated media items
-    let getRecentMedia = () => {
-        return $q((resolve, reject) => {
-            $http.get(`${FIREBASE.dbUrl}/media.json?orderBy="last_cached"&limitToFirst=20`)
-                .then(data => {
-                    console.log(data);
-                });
-        });
-    };
-    
     // returns a list of $limit media items of given type
     let getMediaByType = (type, limit) => {
         return $q((resolve, reject) => {

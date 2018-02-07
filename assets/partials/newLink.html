@@ -14,9 +14,14 @@
             <a ng-click="activeMedia='tv'" ng-class="{'active': activeMedia=='tv'}">
                 <i class="material-icons">tv</i>
             </a>
-            <a class="button" ng-click="searchMedia()" ng-class="{'disabled': !activeMedia || !mediaSearchTerm}">Search</a>
+            <a class="button" ng-click="searchMedia(); selectedMedia=false" ng-class="{'disabled': !activeMedia || !mediaSearchTerm}">Search</a>
         </div>
-        <div id="mediaSearchResults">
+        <div id="selectedMedia" ng-show="selectedMedia">
+            <img src="{{selectedMedia.image}}">
+            <h1>{{selectedMedia.title}}</h1>
+            <h2>{{selectedMedia.subtitle}}</h2>
+        </div>
+        <div ng-show="!selectedMedia" id="mediaSearchResults">
             <div id="{{result.best_book.id._text}}" ng-show="activeMedia=='books'" class="search-result books" ng-repeat="result in mediaResults">
                 <img ng-src="{{result.best_book.image_url._text}}">
                 <div class="body">
