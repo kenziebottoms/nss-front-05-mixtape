@@ -6,7 +6,13 @@ angular.module("mixtape").factory("TmdbFactory", function($q, $http, TMDB) {
     const searchMoviesByTitle = title => {
         return $q((resolve, reject) => {
             $http.get(`${TMDB.url}/search/movie?api_key=${TMDB.key}&query=${title}`)
-                .then(results => resolve(results));
+                .then(({data}) => resolve(data));
+        });
+    };
+    const searchTvShowsByTitle = title => {
+        return $q((resolve, reject) => {
+            $http.get(`${TMDB.url}/search/tv?api_key=${TMDB.key}&query=${title}`)
+                .then(({data}) => resolve(data));
         });
     };
     const getMovieById = id => {
@@ -45,5 +51,5 @@ angular.module("mixtape").factory("TmdbFactory", function($q, $http, TMDB) {
         return media;
     };
 
-    return {searchMoviesByTitle, getMovieById, getTvShowById, parseApiInfo};
+    return {searchMoviesByTitle, searchTvShowsByTitle, getMovieById, getTvShowById, parseApiInfo};
 });

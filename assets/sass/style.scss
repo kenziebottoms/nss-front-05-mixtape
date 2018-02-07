@@ -42,6 +42,17 @@ main {
         height: 100%;
     }
 }
+a.button {
+    display: inline-block;
+    background: $green;
+    color: $w2;
+    padding: .25em .75em;
+    cursor: pointer;
+    &[disabled=true], &.disabled {
+        background: $g3;
+        color: $w4;
+    }
+}
 .kb-badge {
     background: $green;
     width: 2.3em;
@@ -126,11 +137,11 @@ nav {
     grid-template-columns: repeat(5, 1fr);
 }
 
-#profile-links {
-    .link {
+#profile-links, #mediaSearchResults, #musicSearchResults {
+    .link, .search-result {
         display: grid;
         margin-bottom: 1em;
-        grid-template-columns: 7rem 1fr;
+        grid-template-columns: fit-content(7rem) 1fr 3rem;
         background: $g3;
         img {
             height: 100%;
@@ -148,6 +159,7 @@ nav {
             }
             h6 {
                 color: $w3;
+                margin-bottom: 0;
             }
             .tags {
                 margin-top: .5em;
@@ -166,5 +178,44 @@ nav {
                 }
             }
         }
+    }
+}
+#media-choices, #music-choices {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+        margin: 0 1rem;
+        .material-icons {
+            color: $g3;
+            cursor: pointer;
+            font-size: 2.5rem;
+        }
+        &.active {
+            .material-icons {
+                color: $green;
+            }
+        }
+    }
+}
+#mediaSearchResults, #musicSearchResults {
+    padding-top: 1rem;
+    .search-result {
+        > a {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            background: $green;
+            align-self: stretch;
+            color: $w1;
+            cursor: pointer;
+        }
+    }
+}
+#mediaSearchResults {
+    .search-result {
+        grid-template-columns: fit-content(4.5rem) 1fr 3rem;
     }
 }

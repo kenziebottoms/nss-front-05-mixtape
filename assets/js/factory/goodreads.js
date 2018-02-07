@@ -1,6 +1,8 @@
 "use strict";
 
+const convert = require('xml-js');
 const angular = require("angular");
+
 angular.module("mixtape").factory("GoodreadsFactory", function($q, $http, GOODREADS) {
 
     // returns book details about given book
@@ -8,8 +10,24 @@ angular.module("mixtape").factory("GoodreadsFactory", function($q, $http, GOODRE
         return $q((resolve, reject) => {
             $http.get(`${GOODREADS.url}/book/show/${id}?key=${GOODREADS.key}`)
                 .then(({data}) => {
+                    // convert XML to JSON
+                    data = JSON.parse(convert.xml2json(data, {compact: true}));
+                    // shave down JSON
+                    data = data.GoodreadsResponse.book;
                     resolve(data);
                 });
+        });
+    };
+
+    // returns results for a search by title
+    const searchByTitle = term => {
+        return $q((resolve, reject) => {
+            $http.get(`${GOODREADS.url}/search/index.xml?key=${GOODREADS.key}&q=${term}`)
+                .then(({data}) => {
+                    data = JSON.parse(convert.xml2json(data, {compact: true}));
+                    resolve(data.GoodreadsResponse.search);
+                })
+                .catch(err => reject(err));
         });
     };
 
@@ -30,5 +48,5 @@ angular.module("mixtape").factory("GoodreadsFactory", function($q, $http, GOODRE
         return(book);
     };
 
-    return { getBookById, getLargeImage, parseApiInfo };
+    return { getBookById, getLargeImage, parseApiInfo, searchByTitle };
 });

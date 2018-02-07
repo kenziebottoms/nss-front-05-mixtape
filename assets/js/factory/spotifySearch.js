@@ -13,7 +13,7 @@ angular.module("mixtape").factory("SpotifySearchFactory", function($q, $http, Sp
                     'Authorization' : `Bearer ${token}`
                 }
             })
-                .then(response => resolve(response))
+                .then(({data}) => resolve(data.tracks.items))
                 .catch(err => reject(err));
         });
     };
