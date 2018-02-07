@@ -3,6 +3,8 @@
 const angular = require("angular");
 
 angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBASE) {
+    
+    // returns 20 most recently updated media items
     let getRecentMedia = () => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/media.json?orderBy="last_cached"&limitToFirst=20`)
@@ -12,6 +14,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
     
+    // returns a list of $limit media items of given type
     let getMediaByType = (type, limit) => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/media.json?orderBy="type"&equalTo="${type}"&limitToFirst=${limit}`)
@@ -21,6 +24,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
+    // returns a piece of media by the given type and id
     let getMediaByTypeId = typeId => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/media/${typeId}.json`)
@@ -30,6 +34,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
+    // returns details of track with given id
     let getTrackByTypeId = typeId => {
         return $q((resolve, reject) => {
             let id = typeId.split(":")[1];
@@ -40,6 +45,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
+    // stores data about the current active user in Firebase
     const storeUserData = (username, data) => {
         return $q((resolve, reject) => {
             $http.put(`${FIREBASE.dbUrl}/users/${username}.json`, data)
@@ -47,6 +53,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
+    // gets data about the given user
     const getUserData = username => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/users/${username}.json`)
@@ -54,6 +61,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
+    // gets the display_name of the given user
     const getDisplayName = username => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/users/${username}/display_name.json`)
@@ -61,5 +69,17 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    return {getMediaByType, getMediaByTypeId, getTrackByTypeId, storeUserData, getUserData, getDisplayName};
+    // updates catched info and updates last_cached timestamp
+    const cacheInfo = (typeId, data) => {
+        return $q((resolve, reject) => {
+            data.last_cached = parseInt(Date.now()/1000);
+            $http.patch(`${FIREBASE.dbUrl}/media/${typeId}.json`, data)
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(err => reject(err));
+        });
+    };
+
+    return {getMediaByType, getMediaByTypeId, getTrackByTypeId, storeUserData, getUserData, getDisplayName, cacheInfo};
 });
