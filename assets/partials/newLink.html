@@ -27,7 +27,7 @@
                     <i class="material-icons">add_circle_outline</i>
                 </a>
             </div>
-            <div id="{{result.id}}" ng-show="activeMedia=='movies'" class="search-result movies" ng-repeat="result in results">
+            <div id="{{result.id}}" ng-show="activeMedia=='movies'" class="search-result movies" ng-repeat="result in mediaResults">
                 <img ng-src="{{image_prefix}}{{result.poster_path}}">
                 <div class="body">
                     <h5>{{result.title}}</h5>
@@ -37,7 +37,7 @@
                     <i class="material-icons">add_circle_outline</i>
                 </a>
             </div>
-            <div id="{{result.id}}" ng-show="activeMedia=='tv'" class="search-result tv" ng-repeat="result in results">
+            <div id="{{result.id}}" ng-show="activeMedia=='tv'" class="search-result tv" ng-repeat="result in mediaResults">
                 <img ng-src="{{image_prefix}}{{result.poster_path}}">
                 <div class="body">
                     <h5>{{result.name}}</h5>
