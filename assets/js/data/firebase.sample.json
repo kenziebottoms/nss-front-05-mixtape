@@ -47,62 +47,60 @@
         "book:375802": {
             "id": 375802,
             "image": "https://images.gr-assets.com/books/1408303130l/375802.jpg",
-            "last_cached": 1518018699,
+            "last_cached": 1518040062,
+            "small_image": "https://images.gr-assets.com/books/1408303130m/375802.jpg",
+            "subtitle": "Orson Scott Card",
             "title": "Ender's Game (Ender's Saga, #1)",
-            "type": "book",
-            "year": "1994"
+            "type": "book"
         },
         "movie:330459": {
             "id": 330459,
-            "image": "/qjiskwlV1qQzRCjpV0cL9pEMF9a.jpg",
-            "last_cached": 1518018713,
+            "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/qjiskwlV1qQzRCjpV0cL9pEMF9a.jpg",
+            "last_cached": 1518038427,
+            "small_image": "http://image.tmdb.org/t/p/w185/qjiskwlV1qQzRCjpV0cL9pEMF9a.jpg",
+            "subtitle": "2016",
             "title": "Rogue One: A Star Wars Story",
-            "type": "movie",
-            "year": "2016"
+            "type": "movie"
         },
         "tv:66732": {
             "id": 66732,
-            "image": "/lXS60geme1LlEob5Wgvj3KilClA.jpg",
-            "last_cached": 1518019367,
+            "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/lXS60geme1LlEob5Wgvj3KilClA.jpg",
+            "last_cached": 1518038476,
+            "small_image": "http://image.tmdb.org/t/p/w185/lXS60geme1LlEob5Wgvj3KilClA.jpg",
+            "subtitle": "2016",
             "title": "Stranger Things",
-            "type": "tv",
-            "year": "2016"
+            "type": "tv"
         }
     },
     "tracks": {
         "0KtMmvqSo5Bvy3bVsxNGwD": {
-            "album": "What We Saw From The Cheap Seats",
-            "album_cover": "https://i.scdn.co/image/0ca0778a882c7b6e4873f8998f2b7dfb741d733e",
-            "artist": "Regina Spektor",
+            "image": "https://i.scdn.co/image/0ca0778a882c7b6e4873f8998f2b7dfb741d733e",
             "last_cached": 1516309220,
+            "subtitle": "Regina Spektor",
             "title": "Ballad Of A Politician"
         },
         "2W7DkWXBgqLQmlCBIxeqVe": {
-            "album": "Hello Hurricane",
-            "album_cover": "https://i.scdn.co/image/8540b06aa75795f704165699b9f86040d8fc064f",
-            "artist": "Switchfoot",
+            "image": "https://i.scdn.co/image/8540b06aa75795f704165699b9f86040d8fc064f",
             "last_cached": 1515103391,
+            "subtitle": "Switchfoot",
             "title": "Hello Hurricane"
         },
         "3HaJW8VfBwngwVBY0Us7Vq": {
-            "album": "Safe Travels",
-            "album_cover": "https://i.scdn.co/image/de238e90c58b2c8572ef4dc79572d0ae219a2d5a",
-            "artist": "Jukebox The Ghost",
+            "image": "https://i.scdn.co/image/de238e90c58b2c8572ef4dc79572d0ae219a2d5a",
             "last_cached": 1516309571,
+            "subtitle": "Jukebox The Ghost",
             "title": "Devils On Our Side"
         },
         "4G8gkOterJn0Ywt6uhqbhp": {
-            "album": "Night Visions",
-            "album_cover": "https://i.scdn.co/image/443609cd35e43c7bdb272b3d1d9e80290e128bc5",
-            "artist": "Imagine Dragons",
+            "image": "https://i.scdn.co/image/443609cd35e43c7bdb272b3d1d9e80290e128bc5",
             "last_cached": 1517953251,
+            "subtitle": "Imagine Dragons",
             "title": "Radioactive"
         },
         "54bO9jrn1NExmpg6Afsc2A": {
-            "album": "Language & Perspective",
-            "album_cover": "https://i.scdn.co/image/2ed6f4a26d7e6ec311901d8694ed18b4097d3866",
-            "artist": "Bad Suns",
+            "image": "https://i.scdn.co/image/2ed6f4a26d7e6ec311901d8694ed18b4097d3866",
             "last_cached": 1515103391,
+            "subtitle": "Bad Suns",
             "title": "Salt"
         }
     },
