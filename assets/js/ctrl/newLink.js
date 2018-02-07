@@ -11,7 +11,8 @@ angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFa
         });
 
     $scope.search = () => {
-        if ($scope.mediaSearchTerm != "") {
+        if ($scope.mediaSearchTerm != "" && $scope.active) {
+            $scope.results = {};
             if ($scope.active == "books") {
                 GoodreadsFactory.searchByTitle($scope.mediaSearchTerm)
                     .then(results => {
