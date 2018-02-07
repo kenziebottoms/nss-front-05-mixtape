@@ -4,20 +4,20 @@
             <input ng-model="mediaSearchTerm" type="text">
             <label for="mediaSearchTerm">Search media</label>
         </div>
-        <div id="media-choices" ng-init="active=false" ng-click="results=[]">
-            <a ng-click="active='books'" ng-class="{'active': active=='books'}">
+        <div id="media-choices" ng-init="activeMedia=false" ng-click="results=[]">
+            <a ng-click="activeMedia='books'" ng-class="{'active': activeMedia=='books'}">
                 <i class="material-icons">chrome_reader_mode</i>
             </a>
-            <a ng-click="active='movies'" ng-class="{'active': active=='movies'}">
+            <a ng-click="activeMedia='movies'" ng-class="{'active': activeMedia=='movies'}">
                 <i class="material-icons">theaters</i>
             </a>
-            <a ng-click="active='tv'" ng-class="{'active': active=='tv'}">
+            <a ng-click="activeMedia='tv'" ng-class="{'active': activeMedia=='tv'}">
                 <i class="material-icons">tv</i>
             </a>
-            <a class="button" ng-click="search()" ng-class="{'disabled': !active || !mediaSearchTerm}">Search</a>
+            <a class="button" ng-click="searchMedia()" ng-class="{'disabled': !activeMedia || !mediaSearchTerm}">Search</a>
         </div>
-        <div id="searchResults">
-            <div id="{{result.best_book.id._text}}" ng-show="active=='books'" class="search-result books" ng-repeat="result in results">
+        <div id="mediaSearchResults">
+            <div id="{{result.best_book.id._text}}" ng-show="activeMedia=='books'" class="search-result books" ng-repeat="result in results">
                 <img ng-src="{{result.best_book.image_url._text}}">
                 <div class="body">
                     <h5>{{result.best_book.title._text}}</h5>
@@ -27,7 +27,7 @@
                     <i class="material-icons">add_circle_outline</i>
                 </a>
             </div>
-            <div id="{{result.id}}" ng-show="active=='movies'" class="search-result movies" ng-repeat="result in results">
+            <div id="{{result.id}}" ng-show="activeMedia=='movies'" class="search-result movies" ng-repeat="result in results">
                 <img ng-src="{{image_prefix}}{{result.poster_path}}">
                 <div class="body">
                     <h5>{{result.title}}</h5>
@@ -37,7 +37,7 @@
                     <i class="material-icons">add_circle_outline</i>
                 </a>
             </div>
-            <div id="{{result.id}}" ng-show="active=='tv'" class="search-result tv" ng-repeat="result in results">
+            <div id="{{result.id}}" ng-show="activeMedia=='tv'" class="search-result tv" ng-repeat="result in results">
                 <img ng-src="{{image_prefix}}{{result.poster_path}}">
                 <div class="body">
                     <h5>{{result.name}}</h5>
@@ -50,6 +50,18 @@
         </div>
     </div>
     <div class="col s12 m6">
-        Search Tracks
+        <div class="input-field">
+            <input ng-model="musicSearchTerm" type="text">
+            <label for="musicSearchTerm">Search music</label>
+        </div>
+        <div id="music-choices" ng-init="activeMusic=false" ng-click="results=[]">
+            <a ng-click="activeMusic='tracks'" ng-class="{'active': activeMusic=='tracks'}">
+                <i class="material-icons">music_note</i>
+            </a>
+            <a ng-click="activeMusic='playlists'" ng-class="{'active': activeMusic=='playlists'}">
+                <i class="material-icons">queue_music</i>
+            </a>
+            <a class="button" ng-click="searchMusic()" ng-class="{'disabled': !activeMusic || !musicSearchTerm}">Search</a>
+        </div>
     </div>
 </div>

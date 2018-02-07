@@ -137,7 +137,7 @@ nav {
     grid-template-columns: repeat(5, 1fr);
 }
 
-#profile-links, #searchResults {
+#profile-links, #mediaSearchResults, #musicSearchResults {
     .link, .search-result {
         display: grid;
         margin-bottom: 1em;
@@ -180,7 +180,7 @@ nav {
         }
     }
 }
-#media-choices {
+#media-choices, #music-choices {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -198,7 +198,7 @@ nav {
         }
     }
 }
-#searchResults {
+#mediaSearchResults, #musicSearchResults {
     padding-top: 1rem;
     .search-result {
         grid-template-columns: fit-content(4.5rem) 1fr 3rem;

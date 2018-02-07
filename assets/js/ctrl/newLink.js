@@ -10,21 +10,21 @@ angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFa
             $location.path("/");
         });
 
-    $scope.search = () => {
-        if ($scope.mediaSearchTerm != "" && $scope.active) {
+    $scope.searchMedia = () => {
+        if ($scope.mediaSearchTerm != "" && $scope.activeMedia) {
             $scope.results = {};
-            if ($scope.active == "books") {
+            if ($scope.activeMedia == "books") {
                 GoodreadsFactory.searchByTitle($scope.mediaSearchTerm)
                     .then(results => {
                         $scope.results = results.results.work.slice(0,5);
                     });
-            } else if ($scope.active == "tv") {
+            } else if ($scope.activeMedia == "tv") {
                 $scope.image_prefix = TMDB.small_image_prefix;
                 TmdbFactory.searchTvShowsByTitle($scope.mediaSearchTerm)
                     .then(results => {
                         $scope.results = results.results.slice(0,5);
                     });
-            } else if ($scope.active == "movies") {
+            } else if ($scope.activeMedia == "movies") {
                 $scope.image_prefix = TMDB.small_image_prefix;
                 TmdbFactory.searchMoviesByTitle($scope.mediaSearchTerm)
                     .then(results => {
