@@ -1,8 +1,8 @@
 <div class="row container">
     <div class="col s12 m6">
         <div class="input-field">
-            <input ng-model="mediaSearch" type="text">
-            <label for="mediaSearch">Search media</label>
+            <input ng-model="mediaSearchTerm" type="text">
+            <label for="mediaSearchTerm">Search media</label>
         </div>
         <div id="media-choices" ng-init="active=false">
             <a ng-click="active='books'" ng-class="{'active': active=='books'}">
@@ -14,7 +14,14 @@
             <a ng-click="active='tv'" ng-class="{'active': active=='tv'}">
                 <i class="material-icons">tv</i>
             </a>
-            <a class="button" ng-class="{'disabled': !active}">Search</a>
+            <a class="button" ng-click="search()" ng-class="{'disabled': !active || !mediaSearchTerm}">Search</a>
+        </div>
+        <div id="searchResults">
+            <div class="search-result" ng-repeat="result in results">
+                <img ng-src="{{result.best_book.image_url._text}}">
+                <h4>{{result.best_book.title._text}}</h4>
+                <h5>{{result.best_book.author.name._text}}</h5>
+            </div>
         </div>
     </div>
     <div class="col s12 m6">
