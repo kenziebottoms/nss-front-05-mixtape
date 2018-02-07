@@ -54,5 +54,12 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    return {getMediaByType, getMediaByTypeId, getTrackByTypeId, storeUserData, getUserData};
+    const getDisplayName = username => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE.dbUrl}/users/${username}/display_name.json`)
+                .then(({data}) => resolve(data));
+        });
+    };
+
+    return {getMediaByType, getMediaByTypeId, getTrackByTypeId, storeUserData, getUserData, getDisplayName};
 });

@@ -7,7 +7,7 @@
         <div class="tags">
             <span class="tag" ng-repeat="tag in val[1].tags">{{tag}}</span>
             <a ng-href="#!/{{val[1].media.type}}/{{val[1].media.id}}" ng-show="context!='media'" class="tag">{{val[1].media.title}}</a>
-            <a ng-href="#!/user/{{val[1].uid}}" ng-show="context!='profile'" class="author tag">{{val[1].uid}}</a>
+            <a ng-href="#!/user/{{val[1].uid}}" ng-show="context!='profile'" class="author tag">{{val[1].name}}</a>
         </div>
     </div>
 </div>

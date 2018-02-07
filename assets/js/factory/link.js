@@ -63,6 +63,10 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
                 })
                 .then(music => {
                     link[1].music = music;
+                    return FirebaseFactory.getDisplayName(link[1].uid);
+                })
+                .then(name => {
+                    link[1].name = name;
                     resolve(link);
                 });
         });
