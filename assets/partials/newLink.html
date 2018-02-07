@@ -4,7 +4,7 @@
             <input ng-model="mediaSearchTerm" type="text">
             <label for="mediaSearchTerm">Search media</label>
         </div>
-        <div id="media-choices" ng-init="activeMedia=false" ng-click="results=[]">
+        <div id="media-choices" ng-init="activeMedia=false" ng-click="mediaResults=[]">
             <a ng-click="activeMedia='books'" ng-class="{'active': activeMedia=='books'}">
                 <i class="material-icons">chrome_reader_mode</i>
             </a>
@@ -17,7 +17,7 @@
             <a class="button" ng-click="searchMedia()" ng-class="{'disabled': !activeMedia || !mediaSearchTerm}">Search</a>
         </div>
         <div id="mediaSearchResults">
-            <div id="{{result.best_book.id._text}}" ng-show="activeMedia=='books'" class="search-result books" ng-repeat="result in results">
+            <div id="{{result.best_book.id._text}}" ng-show="activeMedia=='books'" class="search-result books" ng-repeat="result in mediaResults">
                 <img ng-src="{{result.best_book.image_url._text}}">
                 <div class="body">
                     <h5>{{result.best_book.title._text}}</h5>
@@ -54,7 +54,7 @@
             <input ng-model="musicSearchTerm" type="text">
             <label for="musicSearchTerm">Search music</label>
         </div>
-        <div id="music-choices" ng-init="activeMusic=false" ng-click="results=[]">
+        <div id="music-choices" ng-init="activeMusic=false" ng-click="musicResults=[]">
             <a ng-click="activeMusic='tracks'" ng-class="{'active': activeMusic=='tracks'}">
                 <i class="material-icons">music_note</i>
             </a>
@@ -62,6 +62,18 @@
                 <i class="material-icons">queue_music</i>
             </a>
             <a class="button" ng-click="searchMusic()" ng-class="{'disabled': !activeMusic || !musicSearchTerm}">Search</a>
+        </div>
+        <div id="musicSearchResults">
+            <div id="{{result.id}}" ng-show="activeMusic=='tracks'" class="search-result tracks" ng-repeat="result in musicResults">
+                <img ng-src="{{result.album.images[2].url}}">
+                <div class="body">
+                    <h5>{{result.name}}</h5>
+                    <h6>{{result.artists[0].name}}</h6>
+                </div>
+                <a ng-click="selectMusic(result.id)">
+                    <i class="material-icons">add_circle_outline</i>
+                </a>
+            </div>
         </div>
     </div>
 </div>

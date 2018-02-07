@@ -201,7 +201,6 @@ nav {
 #mediaSearchResults, #musicSearchResults {
     padding-top: 1rem;
     .search-result {
-        grid-template-columns: fit-content(4.5rem) 1fr 3rem;
         > a {
             text-align: center;
             display: flex;
@@ -213,5 +212,10 @@ nav {
             color: $w1;
             cursor: pointer;
         }
+    }
+}
+#mediaSearchResults {
+    .search-result {
+        grid-template-columns: fit-content(4.5rem) 1fr 3rem;
     }
 }
