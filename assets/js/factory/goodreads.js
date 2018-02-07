@@ -2,6 +2,8 @@
 
 const angular = require("angular");
 angular.module("mixtape").factory("GoodreadsFactory", function($q, $http, GOODREADS) {
+
+    // returns book details about given book
     const getBookById = id => {
         return $q((resolve, reject) => {
             $http.get(`${GOODREADS.url}/book/show/${id}?key=${GOODREADS.key}`)
@@ -18,5 +20,15 @@ angular.module("mixtape").factory("GoodreadsFactory", function($q, $http, GOODRE
         return mediumImgUrl.replace(mediumPath, largePath);
     };
 
-    return { getBookById, getLargeImage };
+    // takes raw data from an API call and returns Firebase-formatted data
+    const parseApiInfo = data => {
+        let book = {
+            date: data.publication_year._text,
+            image: getLargeImage(data.image_url._text),
+            title: data.title._cdata
+        };
+        return(book);
+    };
+
+    return { getBookById, getLargeImage, parseApiInfo };
 });
