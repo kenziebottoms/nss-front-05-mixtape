@@ -1,6 +1,6 @@
 <h3>Activity</h3>
 <div id="{{val[1].music.id}}" ng-repeat="(key, val) in links" class="link">
-    <img ng-src="{{val[1].music.small_image}}">
+    <div class="img" style="background-image:url({{val[1].music.small_image}});"></div>
     <div class="body">
         <h5><a ng-href="#!/track/{{val[1].music.id}}">{{val[1].music.title}}</a></h5>
         <h6>{{val[1].music.subtitle}}</h6>

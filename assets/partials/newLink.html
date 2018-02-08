@@ -75,7 +75,7 @@
         </div>
         <div id="musicSearchResults" ng-show="!selectedMusic">
             <div id="{{result.id}}" ng-show="activeMusic=='track'" class="search-result tracks" ng-repeat="result in musicResults">
-                <img ng-src="{{result.album.images[2].url}}">
+                <div class="img" style="background-image:url({{result.album.images[2].url}});"></div>
                 <div class="body">
                     <h5>{{result.name}}</h5>
                     <h6>{{result.artists[0].name}}</h6>
