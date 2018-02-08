@@ -71,5 +71,30 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    return {getMediaByType, getMediaByTypeId, getTrackByTypeId, storeUserData, getUserData, getDisplayName, cacheInfo};
+    const storeMedia = (typeId, data) => {
+        return $q((resolve, reject) => {
+            data.type = typeId.split(":")[0];
+            data.last_cached = parseInt(Date.now()/1000);
+            $http.put(`${FIREBASE.dbUrl}/media/${typeId}.json`, data)
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(err => reject(err));
+        });
+    };
+
+    const storeMusic = (typeId, data) => {
+        return $q((resolve, reject) => {
+            if (typeId.split(":")[0] == "track") {
+                data.last_cached = parseInt(Date.now()/1000);
+                $http.put(`${FIREBASE.dbUrl}/tracks/${typeId}.json`, data)
+                    .then(response => {
+                        resolve(response);
+                    })
+                    .catch(err => reject(err));
+            }
+        });
+    };
+
+    return {getMediaByType, getMediaByTypeId, getTrackByTypeId, storeUserData, getUserData, getDisplayName, cacheInfo, storeMedia, storeMusic};
 });
