@@ -56,7 +56,10 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
                 .then(media => {
                     link[1].media = media;
                     if (musicTypeId.split(":")[0] == "track") {
-                        return FirebaseFactory.getTrackByTypeId(musicTypeId);
+                        FirebaseFactory.getTrackByTypeId(musicTypeId)
+                            .then(music => {
+                                link[1].music = music;
+                            });
                     } else {
                         // TODO: deal with playlist links
                     }

@@ -30,6 +30,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
             let id = typeId.split(":")[1];
             $http.get(`${FIREBASE.dbUrl}/tracks/${id}.json`)
                 .then(({data}) => {
+                    data.id = id;
                     resolve(data);
                 });
         });
@@ -59,18 +60,6 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    // updates catched info and updates last_cached timestamp
-    const cacheInfo = (typeId, data) => {
-        return $q((resolve, reject) => {
-            data.last_cached = parseInt(Date.now()/1000);
-            $http.patch(`${FIREBASE.dbUrl}/media/${typeId}.json`, data)
-                .then(response => {
-                    resolve(response);
-                })
-                .catch(err => reject(err));
-        });
-    };
-
     const storeMedia = (typeId, data) => {
         return $q((resolve, reject) => {
             data.type = typeId.split(":")[0];
@@ -96,5 +85,5 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    return {getMediaByType, getMediaByTypeId, getTrackByTypeId, storeUserData, getUserData, getDisplayName, cacheInfo, storeMedia, storeMusic};
+    return {getMediaByType, getMediaByTypeId, getTrackByTypeId, storeUserData, getUserData, getDisplayName, storeMedia, storeMusic};
 });
