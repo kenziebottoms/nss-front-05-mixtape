@@ -68,7 +68,6 @@ angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFa
         if ($scope.activeMusic == "tracks") {
             SpotifySearchFactory.getTrackById(id)
                 .then(track => {
-                    console.log(track);
                     $scope.selectedMusic = SpotifySearchFactory.parseApiInfo("track", track);
                 });
         }

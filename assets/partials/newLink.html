@@ -1,4 +1,4 @@
-<div class="row container">
+<div class="row container" id="newMix">
     <div class="col s12 m6">
         <div class="input-field">
             <input ng-model="mediaSearchTerm" type="text">
@@ -73,7 +73,7 @@
             <h1>{{selectedMusic.title}}</h1>
             <h2>{{selectedMusic.subtitle}}</h2>
         </div>
-        <div id="musicSearchResults">
+        <div id="musicSearchResults" ng-show="!selectedMusic">
             <div id="{{result.id}}" ng-show="activeMusic=='tracks'" class="search-result tracks" ng-repeat="result in musicResults">
                 <img ng-src="{{result.album.images[2].url}}">
                 <div class="body">
@@ -85,5 +85,8 @@
                 </a>
             </div>
         </div>
+    </div>
+    <div class="col s12" id="submit" ng-show="selectedMusic && selectedMedia">
+        <a class="button wide big">Post Mix</a>
     </div>
 </div>
