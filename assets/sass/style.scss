@@ -137,7 +137,22 @@ nav {
 
 #movies, #tv, #books {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 1rem;
+    @media screen and (min-width: 601px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @media screen and (min-width: 993px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    @media screen and (min-width: 1200px) {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    a {
+        display: block;
+        padding: 80% 0;
+        background-position: center;
+        background-size: cover;
+    }
 }
 .tags {
     margin-top: .5em;

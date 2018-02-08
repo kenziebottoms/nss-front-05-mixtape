@@ -3,8 +3,7 @@
         <h3>Books</h3>
         <div id="books">
             <div ng-repeat="book in books" class="book media">
-                <a ng-href="#!/book/{{book.id}}">
-                    <img ng-src="{{book.image}}">
+                <a ng-href="#!/book/{{book.id}}" style="background-image: url({{book.image}});">
                 </a>
             </div>
         </div>
