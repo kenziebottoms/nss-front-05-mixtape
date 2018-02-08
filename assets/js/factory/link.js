@@ -106,6 +106,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                             reject(`You've already mixed these. Try editing it.`);
                         }
                     });
+                    if (tags == "") { tags = []; }
                     let link = {
                         added: parseInt(Date.now() / 1000),
                         media: mediaTypeId,

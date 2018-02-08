@@ -91,7 +91,7 @@
             <input ng-model="tags" type="text">
             <label for="tags">Add tags separated by commas</label>
         </div>
-        <div class="tags">
+        <div class="tags" ng-show="tags!=''">
             <div class="tag" ng-repeat="tag in tags.trim().split(',')">
                 {{tag}}
             </div>
