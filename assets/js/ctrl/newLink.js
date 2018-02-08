@@ -2,9 +2,10 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifySearchFactory, FirebaseFactory, $q) {
+angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifySearchFactory, FirebaseFactory, $q, LinkFactory) {
     SpotifyAuthFactory.getActiveUserData()
         .then(data => {
+            $scope.uid = data.username;
         })
         .catch(err => {
             $location.path("/");
@@ -81,10 +82,11 @@ angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFa
                 let promises = [];
                 promises.push(FirebaseFactory.storeMedia(mediaTypeId, $scope.selectedMedia));
                 promises.push(FirebaseFactory.storeMusic(musicTypeId, $scope.selectedMusic));
-                return Promise.all(promises)
+                Promise.all(promises)
                     .then(response => {
-                        resolve(response);
+                        return LinkFactory.storeNewLink(mediaTypeId, musicTypeId, [], $scope.uid);
                     })
+                    .then(response => resolve(response))
                     .catch(err => reject(err));
             } else {
                 reject("Please select music and media.");

@@ -87,7 +87,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         return $q((resolve, reject) => {
             if (typeId.split(":")[0] == "track") {
                 data.last_cached = parseInt(Date.now()/1000);
-                $http.put(`${FIREBASE.dbUrl}/tracks/${typeId}.json`, data)
+                $http.put(`${FIREBASE.dbUrl}/tracks/${typeId.split(":")[1]}.json`, data)
                     .then(response => {
                         resolve(response);
                     })
