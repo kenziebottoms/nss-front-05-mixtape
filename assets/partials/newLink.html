@@ -87,6 +87,15 @@
         </div>
     </div>
     <div class="col s12" id="submit" ng-show="selectedMusic && selectedMedia">
+        <div class="input-field" ng-init="tags=''">
+            <input ng-model="tags" type="text">
+            <label for="tags">Add tags separated by commas</label>
+        </div>
+        <div class="tags">
+            <div class="tag" ng-repeat="tag in commaSplit(tags)">
+                {{tag}}
+            </div>
+        </div>
         <a ng-click="submit()" class="button wide big">Post Mix</a>
     </div>
 </div>

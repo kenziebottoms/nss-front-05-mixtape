@@ -78,6 +78,7 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
                 added: parseInt(Date.now()/1000),
                 media: mediaTypeId,
                 music: musicTypeId,
+                tags,
                 uid
             };
             $http.post(`${FIREBASE.dbUrl}/links.json`, JSON.stringify(link))

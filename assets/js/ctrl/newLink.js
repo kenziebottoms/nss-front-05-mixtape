@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifySearchFactory, FirebaseFactory, $q, LinkFactory) {
+angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifySearchFactory, FirebaseFactory, $q, LinkFactory, $window) {
     SpotifyAuthFactory.getActiveUserData()
         .then(data => {
             $scope.uid = data.username;
@@ -75,22 +75,26 @@ angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFa
     };
 
     $scope.submit = () => {
-        return $q((resolve, reject) => {
-            if ($scope.selectedMedia && $scope.selectedMusic) {
-                let mediaTypeId = `${$scope.activeMedia}:${$scope.selectedMedia.id}`;
-                let musicTypeId = `${$scope.activeMusic}:${$scope.selectedMusic.id}`;
-                let promises = [];
-                promises.push(FirebaseFactory.storeMedia(mediaTypeId, $scope.selectedMedia));
-                promises.push(FirebaseFactory.storeMusic(musicTypeId, $scope.selectedMusic));
-                Promise.all(promises)
-                    .then(response => {
-                        return LinkFactory.storeNewLink(mediaTypeId, musicTypeId, [], $scope.uid);
-                    })
-                    .then(response => resolve(response))
-                    .catch(err => reject(err));
-            } else {
-                reject("Please select music and media.");
-            }
-        });
+        if ($scope.selectedMedia && $scope.selectedMusic) {
+            let mediaTypeId = `${$scope.activeMedia}:${$scope.selectedMedia.id}`;
+            let musicTypeId = `${$scope.activeMusic}:${$scope.selectedMusic.id}`;
+            let promises = [];
+            promises.push(FirebaseFactory.storeMedia(mediaTypeId, $scope.selectedMedia));
+            promises.push(FirebaseFactory.storeMusic(musicTypeId, $scope.selectedMusic));
+            Promise.all(promises)
+                .then(response => {
+                    return LinkFactory.storeNewLink(mediaTypeId, musicTypeId, $scope.tags.split(","), $scope.uid);
+                })
+                .then(response => {
+                    $window.location.href = `#!/${$scope.activeMedia}/${mediaTypeId.split(":")[1]}`;
+                });
+        }
+    };
+    $scope.commaSplit = input => {
+        if (input == "") {
+            return [];
+        } else {
+            return input.split(",");
+        }
     };
 });
