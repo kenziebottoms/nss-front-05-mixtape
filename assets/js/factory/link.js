@@ -47,6 +47,27 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
         });
     };
 
+    // returns loaded links by music typeId, newest first
+    const getLinksByMusic = typeId => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="music"&equalTo="${typeId}"`)
+                .then(({data}) => {
+                    let links = Object.entries(data);
+                    let linkPromises = links.map(link => {
+                        return loadLink(link);
+                    });
+                    Promise.all(linkPromises)
+                        .then(loadedLinks => {
+                            // shows newest first
+                            loadedLinks.sort((a,b) => {
+                                return +b[1].added - a[1].added;
+                            });
+                            resolve(loadedLinks);
+                        });
+                });
+        });
+    };
+
     // takes an object with music/media references and replaces the references with objects
     const loadLink = link => {
         return $q((resolve, reject) => {
@@ -56,7 +77,10 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
                 .then(media => {
                     link[1].media = media;
                     if (musicTypeId.split(":")[0] == "track") {
-                        return FirebaseFactory.getTrackByTypeId(musicTypeId);
+                        FirebaseFactory.getTrackByTypeId(musicTypeId)
+                            .then(music => {
+                                link[1].music = music;
+                            });
                     } else {
                         // TODO: deal with playlist links
                     }
@@ -86,5 +110,5 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
         });
     };
 
-    return { getLinksByUid, getLinksByMedia, storeNewLink };
+    return { getLinksByUid, getLinksByMedia, getLinksByMusic, storeNewLink };
 });

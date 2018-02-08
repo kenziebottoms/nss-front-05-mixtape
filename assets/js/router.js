@@ -32,5 +32,9 @@ myApp.config($routeProvider => {
         .when("/new", {
             templateUrl: "assets/partials/newLink.html",
             controller: "NewLinkCtrl"
+        })
+        .when("/track/:id", {
+            templateUrl: "assets/partials/track.html",
+            controller: "TrackCtrl"
         });
 });

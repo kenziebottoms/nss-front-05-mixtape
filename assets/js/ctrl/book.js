@@ -10,7 +10,7 @@ angular.module("mixtape").controller("BookCtrl", function($scope, GoodreadsFacto
             let typeId = `book:${$scope.id}`;
             // update cached info in Firebase
             book = GoodreadsFactory.parseApiInfo(book);
-            FirebaseFactory.cacheInfo(typeId, book);
+            FirebaseFactory.storeMedia(typeId, book);
 
             // pass book to dom            
             $scope.media = book;

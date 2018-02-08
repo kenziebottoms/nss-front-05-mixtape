@@ -9,7 +9,7 @@ angular.module("mixtape").controller("TvCtrl", function($scope, TmdbFactory, $ro
             let typeId = `tv:${show.id}`;
             // update cached info in firebase
             show = TmdbFactory.parseApiInfo("tv", show);
-            FirebaseFactory.cacheInfo(typeId, show);
+            FirebaseFactory.storeMedia(typeId, show);
 
             // pass data to dom
             $scope.media = show;

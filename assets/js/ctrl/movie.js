@@ -9,7 +9,7 @@ angular.module("mixtape").controller("MovieCtrl", function($scope, TmdbFactory, 
             let typeId = `movie:${movie.id}`;
             // update cached info in Firebase
             movie =  TmdbFactory.parseApiInfo("movie", movie);
-            FirebaseFactory.cacheInfo(typeId, movie);
+            FirebaseFactory.storeMedia(typeId, movie);
 
             // pass data to dom
             $scope.media = movie;
