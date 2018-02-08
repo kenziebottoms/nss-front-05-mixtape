@@ -3,20 +3,24 @@
 const angular = require("angular");
 
 angular.module("mixtape").controller("MenuCtrl", function($scope, SPOTIFY, SpotifyAuthFactory) {
-    $scope.token = SpotifyAuthFactory.getActiveToken();
+
     $scope.menu = [];
-    if (!$scope.token) {
-        $scope.key = SPOTIFY.key;
-    } else {
-        $scope.menu.push({
-            url: "#!/new",
-            label: "New Mix"
+    SpotifyAuthFactory.getActiveUserData()
+        .then(data => {
+            $scope.menu.push({
+                url: "#!/new",
+                label: "New Mix"
+            });
+            $scope.authenticated = true;
+        })
+        .catch(err => {
+            $scope.key = SPOTIFY.key;
+            $scope.authenticated = false;
         });
-    }
 
     $scope.logout = () => {
-        $scope.login = true;
-        $scope.logout = false;
+        $scope.user = null;
         SpotifyAuthFactory.logout();
+        $scope.authenticated = false;
     };
 });

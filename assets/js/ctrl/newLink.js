@@ -3,6 +3,7 @@
 const angular = require("angular");
 
 angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifySearchFactory, FirebaseFactory, $q, LinkFactory, $window) {
+    
     SpotifyAuthFactory.getActiveUserData()
         .then(data => {
             $scope.uid = data.username;
