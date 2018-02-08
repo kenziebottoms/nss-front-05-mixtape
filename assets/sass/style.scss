@@ -160,7 +160,7 @@ nav {
         font-size: .9rem;
         background: $g4;
         padding: .25em .5em;
-        margin-right: .75em;
+        margin: .75em .75em 0 0;
         display: inline-block;
         &.author {
             background: $green;
@@ -193,7 +193,7 @@ nav {
             }
             h6 {
                 color: $w3;
-                margin-bottom: 0;
+                margin-bottom: -.5em;
             }
         }
     }
