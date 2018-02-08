@@ -42,7 +42,7 @@ angular.module("mixtape").factory("SpotifySearchFactory", function($q, $http, Sp
                 subtitle: data.artists[0].name,
                 id: data.id,
                 image: data.album.images[0].url,
-                small_image: data.album.images[2].url
+                small_image: data.album.images[1].url
             };
         }
         return obj;
