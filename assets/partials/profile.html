@@ -5,6 +5,9 @@
             {{user.display_name ? user.display_name : user.id}}
             <span class="kb-badge">{{user.followers.total}}</span>
         </h1>
+        <div>
+            {{linkCount}} links
+        </div>
     </div>
     <div class="col s12 m8 l6 offset-l1" id="profile-links" ng-include="'assets/partials/profileLinks.html'">
     </div>

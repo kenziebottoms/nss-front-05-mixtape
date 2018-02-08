@@ -10,6 +10,7 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, FirebaseFac
         })
         .then(data => {
             $scope.links = data;
+            $scope.linkCount = data.length;
             $scope.context = "profile";
         });
 });
