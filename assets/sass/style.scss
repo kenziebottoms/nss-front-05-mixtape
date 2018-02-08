@@ -190,6 +190,9 @@ nav {
                 margin: 0;
                 font-weight: 300;
                 font-size: 1.3rem;
+                a {
+                    color: inherit;
+                }
             }
             h6 {
                 color: $w3;
