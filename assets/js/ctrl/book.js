@@ -13,7 +13,7 @@ angular.module("mixtape").controller("BookCtrl", function($scope, GoodreadsFacto
             FirebaseFactory.cacheInfo(typeId, book);
 
             // pass book to dom            
-            $scope.book = book;
+            $scope.media = book;
             return LinkFactory.getLinksByMedia(typeId);
         })
         .then(loadedLinks => {

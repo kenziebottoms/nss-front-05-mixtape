@@ -12,7 +12,7 @@ angular.module("mixtape").controller("TvCtrl", function($scope, TmdbFactory, $ro
             FirebaseFactory.cacheInfo(typeId, show);
 
             // pass data to dom
-            $scope.show = show;
+            $scope.media = show;
             return LinkFactory.getLinksByMedia(typeId);
         })
         .then(loadedLinks => {

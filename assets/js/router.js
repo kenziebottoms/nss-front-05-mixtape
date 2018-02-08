@@ -18,15 +18,15 @@ myApp.config($routeProvider => {
             controller: "ProfileCtrl"
         })
         .when("/movie/:id", {
-            templateUrl: "assets/partials/movie.html",
+            templateUrl: "assets/partials/media.html",
             controller: "MovieCtrl"
         })
         .when("/tv/:id", {
-            templateUrl: "assets/partials/tvShow.html",
+            templateUrl: "assets/partials/media.html",
             controller: "TvCtrl"
         })
         .when("/book/:id", {
-            templateUrl: "assets/partials/book.html",
+            templateUrl: "assets/partials/media.html",
             controller: "BookCtrl"
         })
         .when("/new", {
