@@ -8,11 +8,8 @@ angular.module("mixtape").controller("TvCtrl", function($scope, TmdbFactory, $ro
         .then(show => {
             let typeId = `tv:${show.id}`;
             // update cached info in firebase
-            FirebaseFactory.cacheInfo(typeId, TmdbFactory.parseApiInfo("tv", show));
-
-            // complete poster path
-            show.year = show.first_air_date.slice(0,4);
-            show.poster_path = TMDB.image_prefix + show.poster_path;
+            show = TmdbFactory.parseApiInfo("tv", show);
+            FirebaseFactory.cacheInfo(typeId, show);
 
             // pass data to dom
             $scope.show = show;

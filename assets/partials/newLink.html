@@ -1,23 +1,28 @@
-<div class="row container">
+<div class="row container" id="newMix">
     <div class="col s12 m6">
         <div class="input-field">
             <input ng-model="mediaSearchTerm" type="text">
             <label for="mediaSearchTerm">Search media</label>
         </div>
         <div id="media-choices" ng-init="activeMedia=false" ng-click="mediaResults=[]">
-            <a ng-click="activeMedia='books'" ng-class="{'active': activeMedia=='books'}">
+            <a ng-click="activeMedia='book'" ng-class="{'active': activeMedia=='book'}">
                 <i class="material-icons">chrome_reader_mode</i>
             </a>
-            <a ng-click="activeMedia='movies'" ng-class="{'active': activeMedia=='movies'}">
+            <a ng-click="activeMedia='movie'" ng-class="{'active': activeMedia=='movie'}">
                 <i class="material-icons">theaters</i>
             </a>
             <a ng-click="activeMedia='tv'" ng-class="{'active': activeMedia=='tv'}">
                 <i class="material-icons">tv</i>
             </a>
-            <a class="button" ng-click="searchMedia()" ng-class="{'disabled': !activeMedia || !mediaSearchTerm}">Search</a>
+            <a class="button" ng-click="searchMedia(); selectedMedia=false" ng-class="{'disabled': !activeMedia || !mediaSearchTerm}">Search</a>
         </div>
-        <div id="mediaSearchResults">
-            <div id="{{result.best_book.id._text}}" ng-show="activeMedia=='books'" class="search-result books" ng-repeat="result in mediaResults">
+        <div id="selectedMedia" ng-show="selectedMedia">
+            <img src="{{selectedMedia.image}}">
+            <h1>{{selectedMedia.title}}</h1>
+            <h2>{{selectedMedia.subtitle}}</h2>
+        </div>
+        <div ng-show="!selectedMedia" id="mediaSearchResults">
+            <div id="{{result.best_book.id._text}}" ng-show="activeMedia=='book'" class="search-result books" ng-repeat="result in mediaResults">
                 <img ng-src="{{result.best_book.image_url._text}}">
                 <div class="body">
                     <h5>{{result.best_book.title._text}}</h5>
@@ -27,7 +32,7 @@
                     <i class="material-icons">add_circle_outline</i>
                 </a>
             </div>
-            <div id="{{result.id}}" ng-show="activeMedia=='movies'" class="search-result movies" ng-repeat="result in results">
+            <div id="{{result.id}}" ng-show="activeMedia=='movie'" class="search-result movies" ng-repeat="result in mediaResults">
                 <img ng-src="{{image_prefix}}{{result.poster_path}}">
                 <div class="body">
                     <h5>{{result.title}}</h5>
@@ -37,7 +42,7 @@
                     <i class="material-icons">add_circle_outline</i>
                 </a>
             </div>
-            <div id="{{result.id}}" ng-show="activeMedia=='tv'" class="search-result tv" ng-repeat="result in results">
+            <div id="{{result.id}}" ng-show="activeMedia=='tv'" class="search-result tv" ng-repeat="result in mediaResults">
                 <img ng-src="{{image_prefix}}{{result.poster_path}}">
                 <div class="body">
                     <h5>{{result.name}}</h5>
@@ -55,16 +60,21 @@
             <label for="musicSearchTerm">Search music</label>
         </div>
         <div id="music-choices" ng-init="activeMusic=false" ng-click="musicResults=[]">
-            <a ng-click="activeMusic='tracks'" ng-class="{'active': activeMusic=='tracks'}">
+            <a ng-click="activeMusic='track'" ng-class="{'active': activeMusic=='track'}">
                 <i class="material-icons">music_note</i>
             </a>
-            <a ng-click="activeMusic='playlists'" ng-class="{'active': activeMusic=='playlists'}">
+            <a ng-click="activeMusic='playlist'" ng-class="{'active': activeMusic=='playlist'}">
                 <i class="material-icons">queue_music</i>
             </a>
-            <a class="button" ng-click="searchMusic()" ng-class="{'disabled': !activeMusic || !musicSearchTerm}">Search</a>
+            <a class="button" ng-click="searchMusic(); selectedMusic=false" ng-class="{'disabled': !activeMusic || !musicSearchTerm}">Search</a>
         </div>
-        <div id="musicSearchResults">
-            <div id="{{result.id}}" ng-show="activeMusic=='tracks'" class="search-result tracks" ng-repeat="result in musicResults">
+        <div id="selectedMusic" ng-show="selectedMusic">
+            <img src="{{selectedMusic.image}}">
+            <h1>{{selectedMusic.title}}</h1>
+            <h2>{{selectedMusic.subtitle}}</h2>
+        </div>
+        <div id="musicSearchResults" ng-show="!selectedMusic">
+            <div id="{{result.id}}" ng-show="activeMusic=='track'" class="search-result tracks" ng-repeat="result in musicResults">
                 <img ng-src="{{result.album.images[2].url}}">
                 <div class="body">
                     <h5>{{result.name}}</h5>
@@ -75,5 +85,8 @@
                 </a>
             </div>
         </div>
+    </div>
+    <div class="col s12" id="submit" ng-show="selectedMusic && selectedMedia">
+        <a ng-click="submit()" class="button wide big">Post Mix</a>
     </div>
 </div>

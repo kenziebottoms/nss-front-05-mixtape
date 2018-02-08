@@ -4,16 +4,6 @@ const angular = require("angular");
 
 angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBASE) {
     
-    // returns 20 most recently updated media items
-    let getRecentMedia = () => {
-        return $q((resolve, reject) => {
-            $http.get(`${FIREBASE.dbUrl}/media.json?orderBy="last_cached"&limitToFirst=20`)
-                .then(data => {
-                    console.log(data);
-                });
-        });
-    };
-    
     // returns a list of $limit media items of given type
     let getMediaByType = (type, limit) => {
         return $q((resolve, reject) => {
@@ -81,5 +71,30 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    return {getMediaByType, getMediaByTypeId, getTrackByTypeId, storeUserData, getUserData, getDisplayName, cacheInfo};
+    const storeMedia = (typeId, data) => {
+        return $q((resolve, reject) => {
+            data.type = typeId.split(":")[0];
+            data.last_cached = parseInt(Date.now()/1000);
+            $http.put(`${FIREBASE.dbUrl}/media/${typeId}.json`, data)
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(err => reject(err));
+        });
+    };
+
+    const storeMusic = (typeId, data) => {
+        return $q((resolve, reject) => {
+            if (typeId.split(":")[0] == "track") {
+                data.last_cached = parseInt(Date.now()/1000);
+                $http.put(`${FIREBASE.dbUrl}/tracks/${typeId.split(":")[1]}.json`, data)
+                    .then(response => {
+                        resolve(response);
+                    })
+                    .catch(err => reject(err));
+            }
+        });
+    };
+
+    return {getMediaByType, getMediaByTypeId, getTrackByTypeId, storeUserData, getUserData, getDisplayName, cacheInfo, storeMedia, storeMusic};
 });

@@ -12,7 +12,7 @@
         <div id="movies">
             <div ng-repeat="movie in movies" class="movie media">
                 <a ng-href="#!/movie/{{movie.id}}">
-                    <img ng-src="{{tmdbPrefix}}{{movie.image}}">
+                    <img ng-src="{{movie.small_image}}">
                 </a>
             </div>
         </div>
@@ -20,7 +20,7 @@
         <div id="tv">
             <div ng-repeat="show in tvShows" class="tv media">
                 <a ng-href="#!/tv/{{show.id}}">
-                    <img ng-src="{{tmdbPrefix}}{{show.image}}">
+                    <img ng-src="{{show.small_image}}">
                 </a>
             </div>
         </div>

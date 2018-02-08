@@ -40,10 +40,15 @@ angular.module("mixtape").factory("GoodreadsFactory", function($q, $http, GOODRE
 
     // takes raw data from an API call and returns Firebase-formatted data
     const parseApiInfo = data => {
+        if (!data.title._cdata) {
+            data.title._cdata = data.title._text;
+        }
         let book = {
-            year: data.publication_year._text,
+            subtitle: data.authors.author.name._text,
+            small_image: data.image_url._text,
             image: getLargeImage(data.image_url._text),
-            title: data.title._cdata
+            title: data.title._cdata,
+            id: data.id._text
         };
         return(book);
     };

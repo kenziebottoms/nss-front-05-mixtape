@@ -34,18 +34,22 @@ angular.module("mixtape").factory("TmdbFactory", function($q, $http, TMDB) {
 
     // takes raw data from an API call and returns data ready for Firebase
     const parseApiInfo = (type, data) => {
-        let media = {
-            image: data.poster_path
-        };
+        let media = {};
         if (type == "movie") {
             media = {
-                year: data.release_date.slice(0,4),
-                title: data.title
+                image: TMDB.image_prefix+data.poster_path,
+                small_image: TMDB.small_image_prefix+data.poster_path,
+                title: data.title,
+                subtitle: data.release_date.slice(0,4),
+                id: data.id
             };
         } else {
             media = {
+                image: TMDB.image_prefix+data.poster_path,
+                small_image: TMDB.small_image_prefix+data.poster_path,
                 title: data.name,
-                year: data.first_air_date.slice(0,4)
+                subtitle: data.first_air_date.slice(0,4),
+                id: data.id
             };
         }
         return media;

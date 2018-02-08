@@ -71,6 +71,19 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
                 });
         });
     };
+    
+    const storeNewLink = (mediaTypeId, musicTypeId, tags, uid) => {
+        return $q((resolve, reject) => {
+            let link = {
+                added: parseInt(Date.now()/1000),
+                media: mediaTypeId,
+                music: musicTypeId,
+                uid
+            };
+            $http.post(`${FIREBASE.dbUrl}/links.json`, JSON.stringify(link))
+                .then(response => resolve(response));
+        });
+    };
 
-    return { getLinksByUid, getLinksByMedia };
+    return { getLinksByUid, getLinksByMedia, storeNewLink };
 });
