@@ -6,7 +6,7 @@ angular.module("mixtape").controller("TrackCtrl", function($scope, SpotifySearch
     $scope.id = $routeParams.id;
     SpotifySearchFactory.getTrackById($scope.id)
         .then(track => {
-            let typeId = `track:${track.id}`;
+            let typeId = `track:${$scope.id}`;
 
             // update cached info in Firebase
             track = SpotifySearchFactory.parseApiInfo("track", track);
