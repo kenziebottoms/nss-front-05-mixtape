@@ -66,7 +66,12 @@
             <a ng-click="activeMusic='playlists'" ng-class="{'active': activeMusic=='playlists'}">
                 <i class="material-icons">queue_music</i>
             </a>
-            <a class="button" ng-click="searchMusic()" ng-class="{'disabled': !activeMusic || !musicSearchTerm}">Search</a>
+            <a class="button" ng-click="searchMusic(); selectedMusic=false" ng-class="{'disabled': !activeMusic || !musicSearchTerm}">Search</a>
+        </div>
+        <div id="selectedMusic" ng-show="selectedMusic">
+            <img src="{{selectedMusic.image}}">
+            <h1>{{selectedMusic.title}}</h1>
+            <h2>{{selectedMusic.subtitle}}</h2>
         </div>
         <div id="musicSearchResults">
             <div id="{{result.id}}" ng-show="activeMusic=='tracks'" class="search-result tracks" ng-repeat="result in musicResults">

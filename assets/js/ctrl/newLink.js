@@ -63,4 +63,14 @@ angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFa
                 });
         }
     };
+
+    $scope.selectMusic = (id) => {
+        if ($scope.activeMusic == "tracks") {
+            SpotifySearchFactory.getTrackById(id)
+                .then(track => {
+                    console.log(track);
+                    $scope.selectedMusic = SpotifySearchFactory.parseApiInfo("track", track);
+                });
+        }
+    };
 });
