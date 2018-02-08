@@ -15,7 +15,7 @@ angular.module("mixtape").controller("UserCtrl", function($scope, SpotifyAuthFac
             if (!data.username) {
                 $scope.user.username = data.uri.split(":")[2];
             }
-        }).catch(err => console.log());
+        });
     }
 
     $scope.logout = () => {

@@ -3,13 +3,13 @@
 const angular = require("angular");
 const _ = require("lodash");
 
-angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, FirebaseFactory) {
+angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, FirebaseFactory) {
 
     // returns loaded links by uid, newest first
     const getLinksByUid = uid => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="uid"&equalTo="${uid}"`)
-                .then(({data}) => {
+                .then(({ data }) => {
                     let links = Object.entries(data);
                     let linkPromises = links.map(link => {
                         return loadLink(link);
@@ -17,7 +17,7 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
                     Promise.all(linkPromises)
                         .then(loadedLinks => {
                             // shows newest first
-                            loadedLinks.sort((a,b) => {
+                            loadedLinks.sort((a, b) => {
                                 return +b[1].added - a[1].added;
                             });
                             resolve(loadedLinks);
@@ -30,7 +30,7 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
     const getLinksByMedia = typeId => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="media"&equalTo="${typeId}"`)
-                .then(({data}) => {
+                .then(({ data }) => {
                     let links = Object.entries(data);
                     let linkPromises = links.map(link => {
                         return loadLink(link);
@@ -38,7 +38,7 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
                     Promise.all(linkPromises)
                         .then(loadedLinks => {
                             // shows newest first
-                            loadedLinks.sort((a,b) => {
+                            loadedLinks.sort((a, b) => {
                                 return +b[1].added - a[1].added;
                             });
                             resolve(loadedLinks);
@@ -51,7 +51,7 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
     const getLinksByMusic = typeId => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="music"&equalTo="${typeId}"`)
-                .then(({data}) => {
+                .then(({ data }) => {
                     let links = Object.entries(data);
                     let linkPromises = links.map(link => {
                         return loadLink(link);
@@ -59,7 +59,7 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
                     Promise.all(linkPromises)
                         .then(loadedLinks => {
                             // shows newest first
-                            loadedLinks.sort((a,b) => {
+                            loadedLinks.sort((a, b) => {
                                 return +b[1].added - a[1].added;
                             });
                             resolve(loadedLinks);
@@ -95,18 +95,27 @@ angular.module("mixtape").factory("LinkFactory", function($q, $http, FIREBASE, F
                 });
         });
     };
-    
+
     const storeNewLink = (mediaTypeId, musicTypeId, tags, uid) => {
         return $q((resolve, reject) => {
-            let link = {
-                added: parseInt(Date.now()/1000),
-                media: mediaTypeId,
-                music: musicTypeId,
-                tags,
-                uid
-            };
-            $http.post(`${FIREBASE.dbUrl}/links.json`, JSON.stringify(link))
-                .then(response => resolve(response));
+            $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="uid"&equalTo="${uid}"`)
+                .then(({ data }) => {
+                    Object.values(data).forEach(link => {
+                        if (link.media == mediaTypeId &&
+                            link.music == musicTypeId) {
+                            reject(`You've already mixed these. Try editing it.`);
+                        }
+                    });
+                    let link = {
+                        added: parseInt(Date.now() / 1000),
+                        media: mediaTypeId,
+                        music: musicTypeId,
+                        tags,
+                        uid
+                    };
+                    $http.post(`${FIREBASE.dbUrl}/links.json`, JSON.stringify(link))
+                        .then(response => resolve(response));
+                });
         });
     };
 
