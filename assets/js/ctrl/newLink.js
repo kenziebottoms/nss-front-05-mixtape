@@ -88,6 +88,9 @@ angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFa
                 })
                 .then(response => {
                     $window.location.href = `#!/${$scope.activeMedia}/${mediaTypeId.split(":")[1]}`;
+                })
+                .catch(err => {
+                    Materialize.toast(err, 3000, "pink accent-2");
                 });
         }
     };
