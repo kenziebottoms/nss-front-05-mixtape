@@ -83,18 +83,11 @@ angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFa
             promises.push(FirebaseFactory.storeMusic(musicTypeId, $scope.selectedMusic));
             Promise.all(promises)
                 .then(response => {
-                    return LinkFactory.storeNewLink(mediaTypeId, musicTypeId, $scope.tags.split(","), $scope.uid);
+                    return LinkFactory.storeNewLink(mediaTypeId, musicTypeId, $scope.tags.trim().split(","), $scope.uid);
                 })
                 .then(response => {
                     $window.location.href = `#!/${$scope.activeMedia}/${mediaTypeId.split(":")[1]}`;
                 });
-        }
-    };
-    $scope.commaSplit = input => {
-        if (input == "") {
-            return [];
-        } else {
-            return input.split(",");
         }
     };
 });
