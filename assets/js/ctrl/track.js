@@ -9,15 +9,14 @@ angular.module("mixtape").controller("TrackCtrl", function($scope, SpotifySearch
             let typeId = `track:${track.id}`;
 
             // update cached info in Firebase
-            track =  SpotifySearchFactory.parseApiInfo("track", track);
-            FirebaseFactory.storeMedia(typeId, track);
+            track = SpotifySearchFactory.parseApiInfo("track", track);
+            FirebaseFactory.storeMusic(typeId, track);
 
             // pass data to dom
             $scope.music = track;
-            // return LinkFactory.getLinksByMusic(typeId);
+            return LinkFactory.getLinksByMusic(typeId);
         })
         .then(loadedLinks => {
             $scope.links = loadedLinks;
-            $scope.context = "track";
         });
 });
