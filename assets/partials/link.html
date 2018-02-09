@@ -84,7 +84,7 @@
             </div>
         </div>
     </div>
-    <div class="col s12" id="submit" ng-show="selectedMusic && selectedMedia">
+    <div class="col s12" id="submit" ng-show="selectedMusic && selectedMedia" ng-init="tags=''">
         <div class="input-field" ng-init="tags=''">
             <input ng-model="tags" type="text">
             <label for="tags">Add tags separated by commas</label>

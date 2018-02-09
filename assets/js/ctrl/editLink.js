@@ -15,7 +15,7 @@ angular.module("mixtape").controller("EditLinkCtrl", function($scope, GoodreadsF
                     } else {
                         $scope.activeMedia = link.media.split(":")[0];
                         $scope.activeMusic = link.music.split(":")[0];
-                        $scope.tags = link.tags;
+                        $scope.tags = link.tags.join(", ");
                         FirebaseFactory.getMediaByTypeId(link.media)
                             .then(media => {
                                 $scope.selectedMedia = media;
