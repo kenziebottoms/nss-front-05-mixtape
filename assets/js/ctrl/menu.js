@@ -2,13 +2,12 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("MenuCtrl", function($scope, SPOTIFY, SpotifyAuthFactory, UserFactory) {
+angular.module("mixtape").controller("MenuCtrl", function($scope, SPOTIFY, SpotifyAuthFactory) {
 
     $scope.menu = [];
-    $scope.user = UserFactory;
     SpotifyAuthFactory.getActiveUserData()
         .then(userData => {
-            UserFactory = userData;
+            $scope.user = userData;
             $scope.menu.push({
                 url: "#!/new",
                 label: "New Mix",
