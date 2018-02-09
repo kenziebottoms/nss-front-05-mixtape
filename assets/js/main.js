@@ -21,6 +21,7 @@ require("./ctrl/track");
 
 require("./factory/spotify/auth");
 require("./factory/spotify/track");
+require("./factory/spotify/playlist");
 require("./factory/firebase");
 require("./factory/link");
 require("./factory/tmdb");
