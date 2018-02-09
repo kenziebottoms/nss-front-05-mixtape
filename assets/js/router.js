@@ -30,11 +30,15 @@ myApp.config($routeProvider => {
             controller: "BookCtrl"
         })
         .when("/new", {
-            templateUrl: "assets/partials/newLink.html",
+            templateUrl: "assets/partials/link.html",
             controller: "NewLinkCtrl"
         })
         .when("/track/:id", {
             templateUrl: "assets/partials/track.html",
             controller: "TrackCtrl"
+        })
+        .when("/link/:id", {
+            templateUrl: "assets/partials/link.html",
+            controller: "EditLinkCtrl"
         });
 });

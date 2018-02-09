@@ -131,5 +131,28 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    return { getLinksByUid, getLinksByMedia, getLinksByMusic, storeNewLink };
+    const editLink = (key, mediaTypeId, musicTypeId, tags, uid) => {
+        return $q((resolve, reject) => {
+            let link = {
+                added: parseInt(Date.now() / 1000),
+                media: mediaTypeId,
+                music: musicTypeId,
+                tags,
+                uid
+            };
+            $http.patch(`${FIREBASE.dbUrl}/links/${key}.json`, JSON.stringify(link))
+                .then(response => resolve(response));
+        });
+    };
+
+    let getLinkByKey = key => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE.dbUrl}/links/${key}.json`)
+                .then(({data}) => {
+                    resolve(data);
+                });
+        });
+    };
+
+    return { getLinksByUid, getLinksByMedia, getLinksByMusic, storeNewLink, getLinkByKey, editLink };
 });
