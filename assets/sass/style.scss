@@ -216,6 +216,12 @@ nav {
 #profile-links {
     .link {
         grid-template-columns: 9rem 1fr 3rem;
+        &.track {
+            grid-template-columns: 6rem 1fr 3rem;
+            .img {
+                padding: 80% 0;
+            }
+        }
         .img {
             padding: 50% 0;
         }
