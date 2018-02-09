@@ -35,3 +35,5 @@ Mixify is a platform on which to share playlists inspired by works of fiction an
 - Goodreads
   - [API docs](https://www.goodreads.com/api)
   - [Goodreads proxy server](https://github.com/kenziebottoms/goodreads-proxy-server), Kenzie Bottoms
+- [Musixmatch](https://developer.musixmatch.com/)
+  - [API docs](https://developer.musixmatch.com/documentation)
