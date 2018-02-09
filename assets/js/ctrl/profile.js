@@ -6,11 +6,10 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, FirebaseFac
     FirebaseFactory.getUserData($routeParams.id)
         .then(({data}) => {
             $scope.user = data;
-            return LinkFactory.getLinksByUid($scope.user.username);
+            return LinkFactory.getLinksByUid($scope.user.username, 5);
         })
         .then(data => {
             $scope.links = data;
-            $scope.linkCount = data.length;
             $scope.context = "profile";
         });
 });

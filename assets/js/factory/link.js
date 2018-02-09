@@ -6,17 +6,24 @@ const _ = require("lodash");
 angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, FirebaseFactory) {
 
     // returns loaded links by uid, newest first
-    const getLinksByUid = uid => {
+    const getLinksByUid = (uid, limit) => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="uid"&equalTo="${uid}"`)
                 .then(({ data }) => {
                     let links = Object.entries(data);
+                    // sorts newest first
+                    links.sort((a, b) => {
+                        return +b[1].added - a[1].added;
+                    });
+                    // takes only the first few
+                    links = links.slice(0, limit);
+                    // loads each link
                     let linkPromises = links.map(link => {
                         return loadLink(link);
                     });
                     Promise.all(linkPromises)
                         .then(loadedLinks => {
-                            // shows newest first
+                            // sorts newest first
                             loadedLinks.sort((a, b) => {
                                 return +b[1].added - a[1].added;
                             });
