@@ -48,7 +48,9 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
     const getUserData = username => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/users/${username}.json`)
-                .then(response => resolve(response));
+                .then(({data}) => {
+                    resolve(data);
+                });
         });
     };
 

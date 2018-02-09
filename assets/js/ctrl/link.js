@@ -112,9 +112,9 @@ angular.module("mixtape").controller("LinkCtrl", function($scope, GoodreadsFacto
             Promise.all(promises)
                 .then(response => {
                     if ($scope.context == "new") {
-                        return LinkFactory.storeNewLink(mediaTypeId, musicTypeId, $scope.tags.trim().split(","), $scope.uid);
+                        return LinkFactory.storeNewLink(mediaTypeId, musicTypeId, $scope.tags.trim().split(","), $scope.user.id);
                     } else {
-                        return LinkFactory.editLink($scope.key, mediaTypeId, musicTypeId, $scope.tags.trim().split(","), $scope.uid);
+                        return LinkFactory.editLink($scope.key, mediaTypeId, musicTypeId, $scope.tags.trim().split(","), $scope.user.id);
                     }
                 })
                 .then(response => {
