@@ -13,7 +13,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                     let links = Object.entries(data);
                     // sorts newest first
                     links.sort((a, b) => {
-                        return +b[1].added - a[1].added;
+                        return +b.added - a.added;
                     });
                     // takes only the first few
                     links = links.slice(0, limit);
@@ -25,7 +25,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                         .then(loadedLinks => {
                             // sorts newest first
                             loadedLinks.sort((a, b) => {
-                                return +b[1].added - a[1].added;
+                                return +b.added - a.added;
                             });
                             resolve(loadedLinks);
                         });
@@ -46,7 +46,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                         .then(loadedLinks => {
                             // shows newest first
                             loadedLinks.sort((a, b) => {
-                                return +b[1].added - a[1].added;
+                                return +b.added - a.added;
                             });
                             resolve(loadedLinks);
                         });
@@ -67,7 +67,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                         .then(loadedLinks => {
                             // shows newest first
                             loadedLinks.sort((a, b) => {
-                                return +b[1].added - a[1].added;
+                                return +b.added - a.added;
                             });
                             resolve(loadedLinks);
                         });
@@ -78,26 +78,30 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     // takes an object with music/media references and replaces the references with objects
     const loadLink = link => {
         return $q((resolve, reject) => {
-            let mediaTypeId = link[1].media;
-            let musicTypeId = link[1].music;
+            if (link[1]) {
+                link = link[1];
+                link.key = link[0];
+            }
+            let mediaTypeId = link.media;
+            let musicTypeId = link.music;
             FirebaseFactory.getMediaByTypeId(mediaTypeId)
                 .then(media => {
-                    link[1].media = media;
+                    link.media = media;
                     if (musicTypeId.split(":")[0] == "track") {
                         FirebaseFactory.getTrackByTypeId(musicTypeId)
                             .then(music => {
-                                link[1].music = music;
+                                link.music = music;
                             });
                     } else {
                         // TODO: deal with playlist links
                     }
                 })
                 .then(music => {
-                    link[1].music = music;
-                    return FirebaseFactory.getDisplayName(link[1].uid);
+                    link.music = music;
+                    return FirebaseFactory.getDisplayName(link.uid);
                 })
                 .then(name => {
-                    link[1].name = name;
+                    link.name = name;
                     resolve(link);
                 });
         });

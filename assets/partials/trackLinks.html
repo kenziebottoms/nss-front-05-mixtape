@@ -1,12 +1,12 @@
 <h3>Activity</h3>
-<div id="{{val[1].media.id}}" ng-repeat="(key, val) in links" class="link track">
-    <div class="img" style="background-image:url({{val[1].media.small_image}});"></div>
+<div id="{{link.media.id}}" ng-repeat="link in links" class="link track">
+    <div class="img" style="background-image:url({{link.media.small_image}});"></div>
     <div class="body">
-        <h5><a ng-href="#!/{{val[1].media.type}}/{{val[1].media.id}}">{{val[1].media.title}}</a></h5>
-        <h6>{{val[1].media.subtitle}}</h6>
+        <h5><a ng-href="#!/{{link.media.type}}/{{link.media.id}}">{{link.media.title}}</a></h5>
+        <h6>{{link.media.subtitle}}</h6>
         <div class="tags">
-            <span class="tag" ng-repeat="tag in val[1].tags">{{tag}}</span>
-            <a ng-href="#!/user/{{val[1].uid}}" ng-show="context!='profile'" class="author tag">{{val[1].name}}</a>
+            <span class="tag" ng-repeat="tag in link.tags">{{tag}}</span>
+            <a ng-href="#!/user/{{link.uid}}" ng-show="context!='profile'" class="author tag">{{link.name}}</a>
         </div>
     </div>
 </div>

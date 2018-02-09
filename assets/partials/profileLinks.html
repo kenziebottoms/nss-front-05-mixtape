@@ -1,13 +1,13 @@
 <h3>Activity</h3>
-<div id="{{val[1].music.id}}" ng-repeat="(key, val) in links" class="link">
-    <div class="img" style="background-image:url({{val[1].music.small_image}});"></div>
+<div id="{{link.music.id}}" ng-repeat="link in links" class="link">
+    <div class="img" style="background-image:url({{link.music.small_image}});"></div>
     <div class="body">
-        <h5><a ng-href="#!/track/{{val[1].music.id}}">{{val[1].music.title}}</a></h5>
-        <h6>{{val[1].music.subtitle}}</h6>
+        <h5><a ng-href="#!/track/{{link.music.id}}">{{link.music.title}}</a></h5>
+        <h6>{{link.music.subtitle}}</h6>
         <div class="tags">
-            <span class="tag" ng-repeat="tag in val[1].tags">{{tag}}</span>
-            <a ng-href="#!/{{val[1].media.type}}/{{val[1].media.id}}" ng-show="context!='media'" class="tag">{{val[1].media.title}}</a>
-            <a ng-href="#!/user/{{val[1].uid}}" ng-show="context!='profile'" class="author tag">{{val[1].name}}</a>
+            <span class="tag" ng-repeat="tag in link.tags">{{tag}}</span>
+            <a ng-href="#!/{{link.media.type}}/{{link.media.id}}" ng-show="context!='media'" class="tag">{{link.media.title}}</a>
+            <a ng-href="#!/user/{{link.uid}}" ng-show="context!='profile'" class="author tag">{{link.name}}</a>
         </div>
     </div>
 </div>
