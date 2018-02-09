@@ -20,7 +20,6 @@ require("./ctrl/newLink");
 require("./ctrl/track");
 
 require("./factory/spotifyAuth");
-require("./factory/user");
 require("./factory/spotifySearch");
 require("./factory/firebase");
 require("./factory/link");
