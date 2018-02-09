@@ -19,7 +19,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                     links = links.slice(0, limit);
                     // loads each link
                     let linkPromises = links.map(link => {
-                        return loadLink(link);
+                        return loadLink(link, false);
                     });
                     Promise.all(linkPromises)
                         .then(loadedLinks => {
@@ -40,7 +40,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                 .then(({ data }) => {
                     let links = Object.entries(data);
                     let linkPromises = links.map(link => {
-                        return loadLink(link);
+                        return loadLink(link, true);
                     });
                     Promise.all(linkPromises)
                         .then(loadedLinks => {
@@ -61,7 +61,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                 .then(({ data }) => {
                     let links = Object.entries(data);
                     let linkPromises = links.map(link => {
-                        return loadLink(link);
+                        return loadLink(link, true);
                     });
                     Promise.all(linkPromises)
                         .then(loadedLinks => {
@@ -76,7 +76,8 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     };
 
     // takes an object with music/media references and replaces the references with objects
-    const loadLink = link => {
+    // username = true/false, whether or not to fetch user's display_name
+    const loadLink = (link, username) => {
         return $q((resolve, reject) => {
             if (link[1]) {
                 link = link[1];
@@ -98,11 +99,15 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                 })
                 .then(music => {
                     link.music = music;
-                    return FirebaseFactory.getDisplayName(link.uid);
-                })
-                .then(name => {
-                    link.name = name;
-                    resolve(link);
+                    if (username) {
+                        FirebaseFactory.getDisplayName(link.uid)
+                            .then(name => {
+                                link.name = name;
+                                resolve(link);
+                            });
+                    } else {
+                        resolve(link);
+                    }
                 });
         });
     };
