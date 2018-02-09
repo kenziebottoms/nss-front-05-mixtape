@@ -16,8 +16,7 @@ require("./ctrl/profile");
 require("./ctrl/movie");
 require("./ctrl/tv");
 require("./ctrl/book");
-require("./ctrl/newLink");
-require("./ctrl/editLink");
+require("./ctrl/link");
 require("./ctrl/track");
 
 require("./factory/spotify/auth");
