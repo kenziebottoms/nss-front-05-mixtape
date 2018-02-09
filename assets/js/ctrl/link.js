@@ -2,12 +2,39 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifyTrackFactory, FirebaseFactory, $q, LinkFactory, $window) {
-    
+angular.module("mixtape").controller("LinkCtrl", function($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifyTrackFactory, FirebaseFactory, $q, LinkFactory, $window, $routeParams) {
+    // get active user
     SpotifyAuthFactory.getActiveUserData()
         .then(data => {
-            $scope.uid = data.username;
+            $scope.user = data;
+            $scope.key = $routeParams.id;
+            // if it's an edit page
+            if ($scope.key) {
+                $scope.context = "edit";
+                // grab the link
+                LinkFactory.getLinkByKey($scope.key)
+                    .then(link => {
+                        if ($scope.user.id != link.uid) {
+                            $location.path("/");
+                        } else {
+                            $scope.activeMedia = link.media.split(":")[0];
+                            $scope.activeMusic = link.music.split(":")[0];
+                            $scope.tags = link.tags.join(", ");
+                            FirebaseFactory.getMediaByTypeId(link.media)
+                                .then(media => {
+                                    $scope.selectedMedia = media;
+                                });
+                            FirebaseFactory.getTrackByTypeId(link.music)
+                                .then(music => {
+                                    $scope.selectedMusic = music;
+                                });
+                        }
+                    });
+            } else {
+                $scope.context = "new";
+            }
         })
+        // no user logged in
         .catch(err => {
             $location.path("/");
         });
@@ -84,7 +111,11 @@ angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFa
             promises.push(FirebaseFactory.storeMusic(musicTypeId, $scope.selectedMusic));
             Promise.all(promises)
                 .then(response => {
-                    return LinkFactory.storeNewLink(mediaTypeId, musicTypeId, $scope.tags.trim().split(","), $scope.uid);
+                    if ($scope.context == "new") {
+                        return LinkFactory.storeNewLink(mediaTypeId, musicTypeId, $scope.tags.trim().split(","), $scope.uid);
+                    } else {
+                        return LinkFactory.editLink($scope.key, mediaTypeId, musicTypeId, $scope.tags.trim().split(","), $scope.uid);
+                    }
                 })
                 .then(response => {
                     $window.location.href = `#!/${$scope.activeMedia}/${mediaTypeId.split(":")[1]}`;

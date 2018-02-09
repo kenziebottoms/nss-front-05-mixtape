@@ -94,6 +94,7 @@
                 {{tag}}
             </div>
         </div>
-        <a ng-click="submit()" class="button wide big">Post Mix</a>
+        <a ng-click="submit()" ng-show="context=='new'" class="button wide big">Post Mix</a>
+        <a ng-click="submit()" ng-show="context=='edit'" class="button wide big">Save Mix</a>
     </div>
 </div>
