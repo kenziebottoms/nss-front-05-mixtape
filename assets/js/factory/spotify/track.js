@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").factory("SpotifySearchFactory", function($q, $http, SpotifyAuthFactory, SPOTIFY) {
+angular.module("mixtape").factory("SpotifyTrackFactory", function($q, $http, SpotifyAuthFactory, SPOTIFY) {
 
     let searchTracksByTitle = (title, limit) => {
         let token = SpotifyAuthFactory.getActiveToken();

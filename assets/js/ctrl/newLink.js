@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifySearchFactory, FirebaseFactory, $q, LinkFactory, $window) {
+angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifyTrackFactory, FirebaseFactory, $q, LinkFactory, $window) {
     
     SpotifyAuthFactory.getActiveUserData()
         .then(data => {
@@ -39,7 +39,7 @@ angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFa
     $scope.searchMusic = () => {
         if ($scope.searchMusicTerm != "" && $scope.activeMusic) {
             if ($scope.activeMusic == "track") {
-                SpotifySearchFactory.searchTracksByTitle($scope.musicSearchTerm)
+                SpotifyTrackFactory.searchTracksByTitle($scope.musicSearchTerm)
                     .then(results => {
                         $scope.musicResults = results.slice(0,5);
                     });
@@ -68,9 +68,9 @@ angular.module("mixtape").controller("NewLinkCtrl", function($scope, GoodreadsFa
 
     $scope.selectMusic = (id) => {
         if ($scope.activeMusic == "track") {
-            SpotifySearchFactory.getTrackById(id)
+            SpotifyTrackFactory.getTrackById(id)
                 .then(track => {
-                    $scope.selectedMusic = SpotifySearchFactory.parseApiInfo("track", track);
+                    $scope.selectedMusic = SpotifyTrackFactory.parseApiInfo("track", track);
                 });
         }
     };

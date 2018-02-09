@@ -20,8 +20,8 @@ require("./ctrl/newLink");
 require("./ctrl/editLink");
 require("./ctrl/track");
 
-require("./factory/spotifyAuth");
-require("./factory/spotifySearch");
+require("./factory/spotify/auth");
+require("./factory/spotify/track");
 require("./factory/firebase");
 require("./factory/link");
 require("./factory/tmdb");

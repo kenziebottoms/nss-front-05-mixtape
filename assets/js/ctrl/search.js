@@ -2,9 +2,9 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("SearchCtrl", function($scope, SpotifySearchFactory, $routeParams) {
+angular.module("mixtape").controller("SearchCtrl", function($scope, SpotifyTrackFactory, $routeParams) {
     $scope.term = $routeParams.term;
-    SpotifySearchFactory.searchTracksByTitle($scope.term).then(({data}) => {
+    SpotifyTrackFactory.searchTracksByTitle($scope.term).then(({data}) => {
         $scope.tracks = data.tracks.items;
     });
 });
