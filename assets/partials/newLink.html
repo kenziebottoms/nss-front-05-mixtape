@@ -5,16 +5,15 @@
             <label for="mediaSearchTerm">Search media</label>
         </div>
         <div id="media-choices" ng-init="activeMedia=false" ng-click="mediaResults=[]">
-            <a ng-click="activeMedia='book'" ng-class="{'active': activeMedia=='book'}">
+            <a ng-click="activeMedia='book'; searchMedia(); selectedMedia=false" ng-class="{'active': activeMedia=='book'}">
                 <i class="material-icons">chrome_reader_mode</i>
             </a>
-            <a ng-click="activeMedia='movie'" ng-class="{'active': activeMedia=='movie'}">
+            <a ng-click="activeMedia='movie'; searchMedia(); selectedMedia=false" ng-class="{'active': activeMedia=='movie'}">
                 <i class="material-icons">theaters</i>
             </a>
-            <a ng-click="activeMedia='tv'" ng-class="{'active': activeMedia=='tv'}">
+            <a ng-click="activeMedia='tv'; searchMedia(); selectedMedia=false" ng-class="{'active': activeMedia=='tv'}">
                 <i class="material-icons">tv</i>
             </a>
-            <a class="button" ng-click="searchMedia(); selectedMedia=false" ng-class="{'disabled': !activeMedia || !mediaSearchTerm}">Search</a>
         </div>
         <div id="selectedMedia" ng-show="selectedMedia">
             <img src="{{selectedMedia.image}}">
@@ -60,13 +59,12 @@
             <label for="musicSearchTerm">Search music</label>
         </div>
         <div id="music-choices" ng-init="activeMusic=false" ng-click="musicResults=[]">
-            <a ng-click="activeMusic='track'" ng-class="{'active': activeMusic=='track'}">
+            <a ng-click="activeMusic='track'; searchMusic(); selectedMusic=false" ng-class="{'active': activeMusic=='track'}">
                 <i class="material-icons">music_note</i>
             </a>
-            <a ng-click="activeMusic='playlist'" ng-class="{'active': activeMusic=='playlist'}">
+            <a ng-click="activeMusic='playlist'; searchMusic(); selectedMusic=false" ng-class="{'active': activeMusic=='playlist'}">
                 <i class="material-icons">queue_music</i>
             </a>
-            <a class="button" ng-click="searchMusic(); selectedMusic=false" ng-class="{'disabled': !activeMusic || !musicSearchTerm}">Search</a>
         </div>
         <div id="selectedMusic" ng-show="selectedMusic">
             <img src="{{selectedMusic.image}}">
