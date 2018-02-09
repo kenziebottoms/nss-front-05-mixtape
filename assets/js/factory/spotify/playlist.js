@@ -3,12 +3,12 @@
 const angular = require("angular");
 
 angular.module("mixtape").factory("SpotifyPlaylistFactory", function($q, $http, SPOTIFY, SpotifyAuthFactory) {
-    let getPlaylistsByUid = (uid, limit) => {
+    let getPlaylistsByUid = (uid, limit, offset) => {
         return $q((resolve, reject) => {
             let token = SpotifyAuthFactory.getActiveToken();
             $http({
                 method: "GET",
-                url: `${SPOTIFY.url}/users/${uid}/playlists?limit=${limit}`,
+                url: `${SPOTIFY.url}/users/${uid}/playlists?limit=${limit}&offset=${offset}`,
                 headers: {
                     'Authorization' : `Bearer ${token}`
                 }
@@ -18,18 +18,15 @@ angular.module("mixtape").factory("SpotifyPlaylistFactory", function($q, $http, 
                 });
         });
     };
-    let searchUserPlaylists = (uid, term) => {
+    let searchUserPlaylists = (uid, term, limit, offset) => {
         return $q((resolve, reject) => {
-            getPlaylistsByUid(uid, 50)
+            getPlaylistsByUid(uid, limit, offset)
                 .then(results => {
                     let searchTerm = RegExp(term,"i");
                     let searchResults = results.items.filter(item => {
                         return searchTerm.test(item.name);
                     });
-                    resolve({
-                        results: searchResults,
-                        nextLink: results.next
-                    });
+                    resolve(searchResults);
                 });
         });
     };

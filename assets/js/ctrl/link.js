@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("LinkCtrl", function($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifyTrackFactory, FirebaseFactory, LinkFactory, $window, $routeParams, SpotifyPlaylistFactory) {
+angular.module("mixtape").controller("LinkCtrl", function($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifyTrackFactory, FirebaseFactory, LinkFactory, $window, $routeParams, SpotifyPlaylistFactory, $http, $q) {
     // get active user
     SpotifyAuthFactory.getActiveUserData()
         .then(data => {
@@ -71,13 +71,21 @@ angular.module("mixtape").controller("LinkCtrl", function($scope, GoodreadsFacto
                         $scope.musicResults = results.slice(0,5);
                     });
             } else {
-                SpotifyPlaylistFactory.searchUserPlaylists($scope.user.id, $scope.musicSearchTerm)
-                    .then(data => {
-                        $scope.musicResults = data.results;
-                        $scope.loadMore = data.nextLink;
+                SpotifyPlaylistFactory.searchUserPlaylists($scope.user.id, $scope.musicSearchTerm, 50, 0)
+                    .then(results => {
+                        $scope.musicResults = results;
+                        $scope.offset = 50;
                     });
             }
         }
+    };
+
+    $scope.searchMorePlaylists = () => {
+        SpotifyPlaylistFactory.searchUserPlaylists($scope.user.id, $scope.musicSearchTerm, 50, $scope.offset)
+            .then(results => {
+                $scope.offset += 50;
+                $scope.musicResults = $scope.musicResults.concat(Object.values(results));
+            });
     };
 
     $scope.selectMedia = (id) => {

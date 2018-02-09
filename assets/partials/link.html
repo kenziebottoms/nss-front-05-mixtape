@@ -82,7 +82,7 @@
                     <i class="material-icons">add_circle_outline</i>
                 </a>
             </div>
-            <a id="loadMore" class="button" href="button" ng-show="musicResults && activeMusic=='playlist'" ng-click="searchMorePlaylists()">Load More</a>
+            <a id="loadMore" class="button" ng-show="musicResults && activeMusic=='playlist'" ng-click="searchMorePlaylists()">Load More</a>
             <div id="{{result.id}}" ng-show="activeMusic=='track'" class="search-result tracks" ng-repeat="result in musicResults">
                 <div class="img" style="background-image:url({{result.album.images[2].url}});"></div>
                 <div class="body">
