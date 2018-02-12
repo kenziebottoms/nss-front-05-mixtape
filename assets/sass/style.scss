@@ -9,7 +9,7 @@ $w3: #ccc;
 $w4: #aaa;
 
 $green: #00a849;
-$green-hl: #00E560;
+$green-hl: #16d064;
 
 body {
     background: $g1;
@@ -206,6 +206,25 @@ nav {
             h6 {
                 color: $w3;
                 margin-bottom: -.5em;
+            }
+        }
+        .ops {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: stretch;
+            background: $green;
+            color: $w1;
+            a {
+                text-align: center;
+                align-self: stretch;
+                padding: .25rem;
+                display: block;
+                color: $g3;
+                cursor: pointer;
+                &:hover {
+                    background: $green-hl;
+                }
             }
         }
     }

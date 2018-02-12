@@ -11,7 +11,11 @@
         </div>
     </div>
     <div class="ops">
-        <a ng-href="#!/link/{{link.key}}">Edit</a>
-        <a ng-click="deleteLink(link.key)">Delete</a>
+        <a ng-href="#!/link/{{link.key}}">
+            <i class="material-icons">edit</i>
+        </a>
+        <a ng-click="deleteLink(link.key)">
+            <i class="material-icons">clear</i>
+        </a>
     </div>
 </div>
