@@ -9,7 +9,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     const getRecentLinks = limit => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="added"&limitTo=${limit}`)
-                .then(({data}) => {
+                .then(({ data }) => {
                     data = Object.entries(data);
                     let links = data.map(link => {
                         link[1].key = link[0];
@@ -100,6 +100,8 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
+    // takes a link object with a reference to music
+    // returns a link object with a music object as a property
     const loadMusic = link => {
         return $q((resolve, reject) => {
             let typeId = link.music;
@@ -130,30 +132,42 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    // takes an object with music/media references and replaces the references with objects
-    // username = true/false, whether or not to fetch user's display_name
+    // takes a link object with a reference to media
+    // returns a link object with a media object as a property
+    const loadMedia = link => {
+        return $q((resolve, reject) => {
+            let typeId = link.media;
+            FirebaseFactory.getMediaByTypeId(typeId)
+                .then(media => {
+                    link.media = media;
+                    resolve(link);
+                })
+                .catch(err => reject(err));
+        });
+    };
+
+    // takes a link object with music & media references
+    // returns a link object with a music & media objects as properties
+    // NOTE: username = true/false, whether or not to fetch user's display_name
     const loadLink = (link, username) => {
         return $q((resolve, reject) => {
             if (link[1]) {
                 link[1].key = link[0];
                 link = link[1];
             }
-            let mediaTypeId = link.media;
-            let musicTypeId = link.music;
-            FirebaseFactory.getMediaByTypeId(mediaTypeId)
-                .then(media => {
-                    link.media = media;
-                    return loadMusic(link);
+            loadMedia(link)
+                .then(mediaLink => {
+                    return loadMusic(mediaLink);
                 })
-                .then(link => {
+                .then(loadedLink => {
                     if (username) {
-                        FirebaseFactory.getDisplayName(link.uid)
+                        FirebaseFactory.getDisplayName(loadedLink.uid)
                             .then(name => {
-                                link.name = name;
-                                resolve(link);
+                                loadedLink.name = name;
+                                resolve(loadedLink);
                             });
                     } else {
-                        resolve(link);
+                        resolve(loadedLink);
                     }
                 });
         });
@@ -202,7 +216,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     let getLinkByKey = key => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links/${key}.json`)
-                .then(({data}) => {
+                .then(({ data }) => {
                     resolve(data);
                 });
         });
