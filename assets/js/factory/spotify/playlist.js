@@ -30,6 +30,33 @@ angular.module("mixtape").factory("SpotifyPlaylistFactory", function($q, $http, 
                 });
         });
     };
+    let getPlaylistByIds = (uid, playlistId) => {
+        return $q((resolve, reject) => {
+            let token = SpotifyAuthFactory.getActiveToken();
+            $http({
+                method: "GET",
+                url: `${SPOTIFY.url}/users/${uid}/playlists/${playlistId}`,
+                headers: {
+                    'Authorization' : `Bearer ${token}`
+                }
+            })
+                .then(({data}) => {
+                    resolve(data);
+                });
+        });
+    };
+
+    let parseApiInfo = data => {
+        let obj = {
+            title: data.name,
+            subtitle: `${data.tracks.total} tracks`,
+            id: data.id,
+            image: data.images[0].url,
+            small_image: data.images[0].url,
+            uid: data.uid
+        };
+        return obj;
+    };
     
-    return { getPlaylistsByUid, searchUserPlaylists };
+    return { getPlaylistsByUid, searchUserPlaylists, getPlaylistByIds, parseApiInfo };
 });

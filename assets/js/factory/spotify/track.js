@@ -34,17 +34,14 @@ angular.module("mixtape").factory("SpotifyTrackFactory", function($q, $http, Spo
         });
     };
 
-    let parseApiInfo = (type, data) => {
-        let obj = {};
-        if (type == "track") {
-            obj = {
-                title: data.name,
-                subtitle: data.artists[0].name,
-                id: data.id,
-                image: data.album.images[0].url,
-                small_image: data.album.images[1].url
-            };
-        }
+    let parseApiInfo = data => {
+        let obj = {
+            title: data.name,
+            subtitle: data.artists[0].name,
+            id: data.id,
+            image: data.album.images[0].url,
+            small_image: data.album.images[1].url
+        };
         return obj;
     };
 

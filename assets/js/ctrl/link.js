@@ -111,7 +111,13 @@ angular.module("mixtape").controller("LinkCtrl", function($scope, GoodreadsFacto
         if ($scope.activeMusic == "track") {
             SpotifyTrackFactory.getTrackById(id)
                 .then(track => {
-                    $scope.selectedMusic = SpotifyTrackFactory.parseApiInfo("track", track);
+                    $scope.selectedMusic = SpotifyTrackFactory.parseApiInfo(track);
+                });
+        } else if ($scope.activeMusic == "playlist") {
+            SpotifyPlaylistFactory.getPlaylistByIds($scope.user.id, id)
+                .then(info => {
+                    info.uid = $scope.user.id;
+                    $scope.selectedMusic = SpotifyPlaylistFactory.parseApiInfo(info);
                 });
         }
     };

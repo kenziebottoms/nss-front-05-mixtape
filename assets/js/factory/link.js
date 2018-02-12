@@ -1,7 +1,6 @@
 "use strict";
 
 const angular = require("angular");
-const _ = require("lodash");
 
 angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, FirebaseFactory) {
 
