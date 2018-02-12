@@ -11,8 +11,8 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                 .then(({ data }) => {
                     let links = Object.entries(data);
                     // sorts newest first
-                    links.sort((a, b) => {
-                        return +b.added - a.added;
+                    links = links.sort((a, b) => {
+                        return +b[1].added - a[1].added;
                     });
                     // takes only the first few
                     links = links.slice(0, limit);
@@ -79,8 +79,8 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     const loadLink = (link, username) => {
         return $q((resolve, reject) => {
             if (link[1]) {
+                link[1].key = link[0];
                 link = link[1];
-                link.key = link[0];
             }
             let mediaTypeId = link.media;
             let musicTypeId = link.music;
