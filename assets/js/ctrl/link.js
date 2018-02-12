@@ -22,15 +22,26 @@ angular.module("mixtape").controller("LinkCtrl", function ($scope, GoodreadsFact
                             // populate page with existing link's contents
                             $scope.activeMedia = link.media.split(":")[0];
                             $scope.activeMusic = link.music.split(":")[0];
-                            $scope.tags = link.tags.join(", ");
+                            if (link.tags) {
+                                $scope.tags = link.tags.join(", ");
+                            } else {
+                                $scope.tags = "";
+                            }
                             FirebaseFactory.getMediaByTypeId(link.media)
                                 .then(media => {
                                     $scope.selectedMedia = media;
                                 });
-                            FirebaseFactory.getTrackByTypeId(link.music)
-                                .then(music => {
-                                    $scope.selectedMusic = music;
-                                });
+                            if ($scope.activeMusic == "track") {
+                                FirebaseFactory.getTrackById(link.music.split(":")[1])
+                                    .then(music => {
+                                        $scope.selectedMusic = music;
+                                    });
+                            } else {
+                                FirebaseFactory.getPlaylistByIds(link.music.split(":")[1], link.music.split(":")[2])
+                                    .then(music => {
+                                        $scope.selectedMusic = music;
+                                    });
+                            }
                         }
                     });
                 // if adding a new page

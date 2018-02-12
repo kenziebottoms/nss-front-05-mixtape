@@ -143,6 +143,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
 
     const editLink = (key, mediaTypeId, musicTypeId, tags, uid) => {
         return $q((resolve, reject) => {
+            if (tags == "") { tags = []; }
             let link = {
                 added: parseInt(Date.now() / 1000),
                 media: mediaTypeId,
@@ -155,6 +156,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
+    // gets link by key
     let getLinkByKey = key => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links/${key}.json`)
@@ -164,5 +166,14 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    return { getLinksByUid, getLinksByMedia, getLinksByMusic, storeNewLink, getLinkByKey, editLink };
+    // removes link by key
+    let deleteLink = key => {
+        return $q((resolve, reject) => {
+            $http.delete(`${FIREBASE.dbUrl}/links/${key}.json`)
+                .then(result => resolve(result))
+                .catch(err => reject(err));
+        });
+    };
+
+    return { getLinksByUid, getLinksByMedia, getLinksByMusic, storeNewLink, getLinkByKey, editLink, deleteLink };
 });
