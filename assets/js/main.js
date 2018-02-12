@@ -18,6 +18,7 @@ require("./ctrl/tv");
 require("./ctrl/book");
 require("./ctrl/link");
 require("./ctrl/track");
+require("./ctrl/playlist");
 
 require("./factory/spotify/auth");
 require("./factory/spotify/track");

@@ -13,6 +13,10 @@ myApp.config($routeProvider => {
             templateUrl: "assets/partials/home.html",
             controller: "HomeCtrl"
         })
+        .when("/user/:uid/playlist/:id", {
+            templateUrl: "assets/partials/playlist.html",
+            controller: "PlaylistCtrl"
+        })
         .when("/user/:id", {
             templateUrl: "assets/partials/profile.html",
             controller: "ProfileCtrl"
