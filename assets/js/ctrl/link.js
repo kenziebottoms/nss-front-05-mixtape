@@ -27,7 +27,7 @@ angular.module("mixtape").controller("LinkCtrl", function ($scope, GoodreadsFact
                                 .then(media => {
                                     $scope.selectedMedia = media;
                                 });
-                            FirebaseFactory.getTrackByTypeId(link.music)
+                            FirebaseFactory.getTrackById(link.music.split(":")[1])
                                 .then(music => {
                                     $scope.selectedMusic = music;
                                 });
