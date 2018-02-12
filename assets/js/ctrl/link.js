@@ -128,6 +128,12 @@ angular.module("mixtape").controller("LinkCtrl", function($scope, GoodreadsFacto
             let musicTypeId = `${$scope.activeMusic}:${$scope.selectedMusic.id}`;
             let promises = [];
             promises.push(FirebaseFactory.storeMedia(mediaTypeId, $scope.selectedMedia));
+            if (musicTypeId.split(":")[0] == "playlist") {
+                musicTypeId = `${$scope.user.id}:${musicTypeId.split(":")[1]}`;
+            }
+            if ($scope.activeMusic == "playlist") {
+                musicTypeId = `playlist:${musicTypeId}`;
+            }
             promises.push(FirebaseFactory.storeMusic(musicTypeId, $scope.selectedMusic));
             Promise.all(promises)
                 .then(response => {
