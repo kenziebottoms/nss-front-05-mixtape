@@ -61,6 +61,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
+    // stores data in Firebase under typeId
     const storeMedia = (typeId, data) => {
         return $q((resolve, reject) => {
             data.type = typeId.split(":")[0];
@@ -73,6 +74,20 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
+    // updates Firebase data if it's more than 24h old
+    const cacheMedia = (typeId, data) => {
+        return $q((resolve, reject) => {
+            let now = parseInt(Date.now()/1000);
+            getMediaByTypeId(typeId)
+            .then(media => {
+                    if ((media.last_cached+86400) < now) {
+                        storeMedia(typeId, data);
+                    }
+                });
+        });
+    };
+
+    // stores data in Firebase under typeId
     const storeMusic = (typeId, data) => {
         return $q((resolve, reject) => {
             if (typeId.split(":")[0] == "track") {
@@ -93,6 +108,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
+    // gets playlist by user id and playlist id
     let getPlaylistByIds = (uid, playlistId) => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/playlists/${uid}:${playlistId}.json`)
@@ -100,5 +116,5 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    return {getMediaByType, getMediaByTypeId, getTrackById, storeUserData, getUserData, getDisplayName, storeMedia, storeMusic, getPlaylistByIds};
+    return {getMediaByType, getMediaByTypeId, getTrackById, storeUserData, getUserData, getDisplayName, storeMedia, cacheMedia, storeMusic, getPlaylistByIds};
 });
