@@ -1,8 +1,31 @@
 "use strict";
 
 const angular = require("angular");
+const _ = require("lodash");
 
 angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, FirebaseFactory) {
+
+    const getRecentLinks = limit => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="added"&limitTo=${limit}`)
+                .then(({data}) => {
+                    data = Object.entries(data);
+                    let links = data.map(link => {
+                        link[1].key = link[0];
+                        return link[1];
+                    });
+                    links = _.uniqBy(links, 'media');
+                    let linkPromises = links.map(link => {
+                        return loadLink(link);
+                    });
+                    return Promise.all(linkPromises);
+                })
+                .then(loadedLinks => {
+                    resolve(loadedLinks);
+                })
+                .catch(err => reject(err));
+        });
+    };
 
     // returns loaded links by uid, newest first
     const getLinksByUid = (uid, limit) => {
@@ -175,5 +198,5 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    return { getLinksByUid, getLinksByMedia, getLinksByMusic, storeNewLink, getLinkByKey, editLink, deleteLink };
+    return { getLinksByUid, getLinksByMedia, getLinksByMusic, storeNewLink, getLinkByKey, editLink, deleteLink, getRecentLinks };
 });

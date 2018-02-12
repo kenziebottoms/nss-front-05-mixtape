@@ -1,23 +1,9 @@
 <div class="row">
     <div class="col s6 m8 l9">
-        <h3>Books</h3>
-        <div id="books">
-            <div ng-repeat="book in books" class="book media">
-                <a ng-href="#!/book/{{book.id}}" style="background-image: url({{book.image}});">
-                </a>
-            </div>
-        </div>
-        <h3>Movies</h3>
-        <div id="movies">
-            <div ng-repeat="movie in movies" class="movie media">
-                <a ng-href="#!/movie/{{movie.id}}" style="background-image: url({{movie.small_image}});">
-                </a>
-            </div>
-        </div>
-        <h3>TV shows</h3>
-        <div id="tv">
-            <div ng-repeat="show in tvShows" class="tv media">
-                <a ng-href="#!/tv/{{show.id}}" style="background-image: url({{show.small_image}});">
+        <h3>Recent Mixes</h3>
+        <div id="recent">
+            <div ng-repeat="link in links" class="media">
+                <a ng-href="#!/{{link.media.type}}/{{link.media.id}}" style="background-image: url({{link.media.small_image}});">
                 </a>
             </div>
         </div>
