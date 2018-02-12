@@ -31,10 +31,17 @@ angular.module("mixtape").controller("LinkCtrl", function ($scope, GoodreadsFact
                                 .then(media => {
                                     $scope.selectedMedia = media;
                                 });
-                            FirebaseFactory.getTrackById(link.music.split(":")[1])
-                                .then(music => {
-                                    $scope.selectedMusic = music;
-                                });
+                            if ($scope.activeMusic == "link") {
+                                FirebaseFactory.getTrackById(link.music.split(":")[1])
+                                    .then(music => {
+                                        $scope.selectedMusic = music;
+                                    });
+                            } else {
+                                FirebaseFactory.getPlaylistByIds(link.music.split(":")[1], link.music.split(":")[2])
+                                    .then(music => {
+                                        $scope.selectedMusic = music;
+                                    });
+                            }
                         }
                     });
                 // if adding a new page

@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("MovieCtrl", function($scope, TmdbFactory, $routeParams, TMDB, LinkFactory, FirebaseFactory) {
+angular.module("mixtape").controller("MovieCtrl", function($scope, TmdbFactory, $routeParams, TMDB, LinkFactory, FirebaseFactory, SpotifyAuthFactory) {
     let fetchInfo = typeId => {
         $scope.media = null;
         TmdbFactory.getMovieById($scope.id)
@@ -23,6 +23,9 @@ angular.module("mixtape").controller("MovieCtrl", function($scope, TmdbFactory, 
             });
     };
 
+    SpotifyAuthFactory.getActiveUserData().then(data => {
+        $scope.user = data;
+    });
     $scope.id = $routeParams.id;
     let typeId = `movie:${$scope.id}`;
     fetchInfo(typeId);

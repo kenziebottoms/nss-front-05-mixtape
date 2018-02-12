@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("BookCtrl", function($scope, GoodreadsFactory, $routeParams, GOODREADS, LinkFactory, FirebaseFactory) {
+angular.module("mixtape").controller("BookCtrl", function($scope, GoodreadsFactory, $routeParams, GOODREADS, LinkFactory, FirebaseFactory, SpotifyAuthFactory) {
 
     // get book details
     let fetchInfo = (typeId) => {
@@ -26,6 +26,9 @@ angular.module("mixtape").controller("BookCtrl", function($scope, GoodreadsFacto
             });
     };
 
+    SpotifyAuthFactory.getActiveUserData().then(data => {
+        $scope.user = data;
+    });
     $scope.id = $routeParams.id;
     let typeId = `book:${$scope.id}`;
     fetchInfo(typeId);

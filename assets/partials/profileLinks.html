@@ -10,7 +10,7 @@
             <a ng-href="#!/user/{{link.uid}}" ng-show="context!='profile'" class="author tag">{{link.name}}</a>
         </div>
     </div>
-    <div class="ops">
+    <div class="ops" ng-show="user.id == link.uid">
         <a ng-href="#!/link/{{link.key}}">
             <i class="material-icons">edit</i>
         </a>
