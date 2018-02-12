@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("LinkCtrl", function($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifyTrackFactory, FirebaseFactory, $q, LinkFactory, $window, $routeParams) {
+angular.module("mixtape").controller("LinkCtrl", function($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifyTrackFactory, FirebaseFactory, LinkFactory, $window, $routeParams, SpotifyPlaylistFactory, $http, $q) {
     // get active user
     SpotifyAuthFactory.getActiveUserData()
         .then(data => {
@@ -70,8 +70,22 @@ angular.module("mixtape").controller("LinkCtrl", function($scope, GoodreadsFacto
                     .then(results => {
                         $scope.musicResults = results.slice(0,5);
                     });
+            } else {
+                SpotifyPlaylistFactory.searchUserPlaylists($scope.user.id, $scope.musicSearchTerm, 50, 0)
+                    .then(results => {
+                        $scope.musicResults = results;
+                        $scope.offset = 50;
+                    });
             }
         }
+    };
+
+    $scope.searchMorePlaylists = () => {
+        SpotifyPlaylistFactory.searchUserPlaylists($scope.user.id, $scope.musicSearchTerm, 50, $scope.offset)
+            .then(results => {
+                $scope.offset += 50;
+                $scope.musicResults = $scope.musicResults.concat(Object.values(results));
+            });
     };
 
     $scope.selectMedia = (id) => {
@@ -97,7 +111,13 @@ angular.module("mixtape").controller("LinkCtrl", function($scope, GoodreadsFacto
         if ($scope.activeMusic == "track") {
             SpotifyTrackFactory.getTrackById(id)
                 .then(track => {
-                    $scope.selectedMusic = SpotifyTrackFactory.parseApiInfo("track", track);
+                    $scope.selectedMusic = SpotifyTrackFactory.parseApiInfo(track);
+                });
+        } else if ($scope.activeMusic == "playlist") {
+            SpotifyPlaylistFactory.getPlaylistByIds($scope.user.id, id)
+                .then(info => {
+                    info.uid = $scope.user.id;
+                    $scope.selectedMusic = SpotifyPlaylistFactory.parseApiInfo(info);
                 });
         }
     };
@@ -108,6 +128,12 @@ angular.module("mixtape").controller("LinkCtrl", function($scope, GoodreadsFacto
             let musicTypeId = `${$scope.activeMusic}:${$scope.selectedMusic.id}`;
             let promises = [];
             promises.push(FirebaseFactory.storeMedia(mediaTypeId, $scope.selectedMedia));
+            if (musicTypeId.split(":")[0] == "playlist") {
+                musicTypeId = `${$scope.user.id}:${musicTypeId.split(":")[1]}`;
+            }
+            if ($scope.activeMusic == "playlist") {
+                musicTypeId = `playlist:${musicTypeId}`;
+            }
             promises.push(FirebaseFactory.storeMusic(musicTypeId, $scope.selectedMusic));
             Promise.all(promises)
                 .then(response => {

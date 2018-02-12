@@ -1,0 +1,19 @@
+<div class="row container">
+    <div class="col s12 m4 l4" id="sidebar">
+        <img ng-src="{{music.image}}">
+        <h1>{{music.title}}</h1>
+        <h2>by <a ng-href="#!/user/{{user.id}}">{{user.display_name}}</a></h2>
+    </div>
+    <div class="col s12 m8 l8" id="tracklist">
+        <h3>Tracks</h3>
+        <table class="table">
+            <tr ng-repeat="(index, track) in tracks">
+                <td>{{index+1}}</td>
+                <td>{{track.track.name}}</td>
+                <td>{{track.track.artists[0].name}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col s12 m8 offset-m2" id="profile-links" ng-include="'assets/partials/trackLinks.html'">
+    </div>
+</div>

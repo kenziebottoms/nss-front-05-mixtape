@@ -1,7 +1,6 @@
 "use strict";
 
 const angular = require("angular");
-const _ = require("lodash");
 
 angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, FirebaseFactory) {
 
@@ -89,12 +88,18 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                 .then(media => {
                     link.media = media;
                     if (musicTypeId.split(":")[0] == "track") {
-                        FirebaseFactory.getTrackByTypeId(musicTypeId)
+                        FirebaseFactory.getTrackById(musicTypeId.split(":")[1])
                             .then(music => {
                                 link.music = music;
+                                link.music.type = "track";
                             });
                     } else {
-                        // TODO: deal with playlist links
+                        FirebaseFactory.getPlaylistByIds(musicTypeId.split(":")[1], musicTypeId.split(":")[2])
+                            .then(music => {
+                                link.music = music;
+                                link.music.type = "playlist";
+                                link.music.prefix = `user/${musicTypeId.split(":")[1]}/`;
+                            });
                     }
                 })
                 .then(music => {

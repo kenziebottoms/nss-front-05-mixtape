@@ -9,7 +9,7 @@ angular.module("mixtape").controller("TrackCtrl", function($scope, SpotifyTrackF
             let typeId = `track:${$scope.id}`;
 
             // update cached info in Firebase
-            track = SpotifyTrackFactory.parseApiInfo("track", track);
+            track = SpotifyTrackFactory.parseApiInfo(track);
             FirebaseFactory.storeMusic(typeId, track);
 
             // pass data to dom

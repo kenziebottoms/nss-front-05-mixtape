@@ -25,9 +25,8 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
     };
 
     // returns details of track with given id
-    let getTrackByTypeId = typeId => {
+    let getTrackById = id => {
         return $q((resolve, reject) => {
-            let id = typeId.split(":")[1];
             $http.get(`${FIREBASE.dbUrl}/tracks/${id}.json`)
                 .then(({data}) => {
                     data.id = id;
@@ -83,9 +82,23 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
                         resolve(response);
                     })
                     .catch(err => reject(err));
+            } else if (typeId.split(":")[0] == "playlist") {
+                data.last_cached = parseInt(Date.now()/1000);
+                $http.put(`${FIREBASE.dbUrl}/playlists/${data.uid}:${typeId.split(":")[2]}.json`, data)
+                    .then(response => {
+                        resolve(response);
+                    })
+                    .catch(err => reject(err));
             }
         });
     };
 
-    return {getMediaByType, getMediaByTypeId, getTrackByTypeId, storeUserData, getUserData, getDisplayName, storeMedia, storeMusic};
+    let getPlaylistByIds = (uid, playlistId) => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE.dbUrl}/playlists/${uid}:${playlistId}.json`)
+                .then(({data}) => resolve(data));
+        });
+    };
+
+    return {getMediaByType, getMediaByTypeId, getTrackById, storeUserData, getUserData, getDisplayName, storeMedia, storeMusic, getPlaylistByIds};
 });
