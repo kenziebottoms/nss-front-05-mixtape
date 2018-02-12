@@ -91,11 +91,13 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                         FirebaseFactory.getTrackById(musicTypeId.split(":")[1])
                             .then(music => {
                                 link.music = music;
+                                link.music.type = "track";
                             });
                     } else {
                         FirebaseFactory.getPlaylistByIds(musicTypeId.split(":")[1], musicTypeId.split(":")[2])
                             .then(music => {
                                 link.music = music;
+                                link.music.type = "playlist";
                             });
                     }
                 })

@@ -2,7 +2,7 @@
 <div id="{{link.music.id}}" ng-repeat="link in links" class="link">
     <div class="img" style="background-image:url({{link.music.small_image}});"></div>
     <div class="body">
-        <h5><a ng-href="#!/track/{{link.music.id}}">{{link.music.title}}</a></h5>
+        <h5><a ng-href="#!/{{link.music.type}}/{{link.music.id}}">{{link.music.title}}</a></h5>
         <h6>{{link.music.subtitle}}</h6>
         <div class="tags">
             <span class="tag" ng-repeat="tag in link.tags">{{tag}}</span>
