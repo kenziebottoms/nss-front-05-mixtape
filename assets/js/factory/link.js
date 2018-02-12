@@ -21,6 +21,8 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                     return Promise.all(linkPromises);
                 })
                 .then(loadedLinks => {
+                    loadedLinks = _.sortBy(loadedLinks, "added");
+                    loadedLinks.reverse();
                     resolve(loadedLinks);
                 })
                 .catch(err => reject(err));
