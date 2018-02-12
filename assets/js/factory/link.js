@@ -5,6 +5,7 @@ const _ = require("lodash");
 
 angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, FirebaseFactory) {
 
+    // gets $limit recent links, unique by media, sorts them newest first
     const getRecentLinks = limit => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="added"&limitTo=${limit}`)
@@ -99,6 +100,36 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
+    const loadMusic = link => {
+        return $q((resolve, reject) => {
+            let typeId = link.music;
+            let type = typeId.split(":")[0];
+            if (type == "track") {
+                let type = typeId.split(":")[0];
+                let id = typeId.split(":")[1];
+                FirebaseFactory.getTrackById(id)
+                    .then(track => {
+                        link.music = track;
+                        link.music.type = type;
+                        resolve(link);
+                    })
+                    .catch(err => reject(err));
+            } else if (type == "playlist") {
+                let uid = typeId.split(":")[1];
+                let id = typeId.split(":")[2];
+                FirebaseFactory.getPlaylistByIds(uid, id)
+                    .then(playlist => {
+                        link.music = playlist;
+                        link.music.type = type;
+                        resolve(link);
+                    })
+                    .catch(err => reject(err));
+            } else {
+                reject("not a valid music type");
+            }
+        });
+    };
+
     // takes an object with music/media references and replaces the references with objects
     // username = true/false, whether or not to fetch user's display_name
     const loadLink = (link, username) => {
@@ -112,23 +143,9 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
             FirebaseFactory.getMediaByTypeId(mediaTypeId)
                 .then(media => {
                     link.media = media;
-                    if (musicTypeId.split(":")[0] == "track") {
-                        FirebaseFactory.getTrackById(musicTypeId.split(":")[1])
-                            .then(music => {
-                                link.music = music;
-                                link.music.type = "track";
-                            });
-                    } else {
-                        FirebaseFactory.getPlaylistByIds(musicTypeId.split(":")[1], musicTypeId.split(":")[2])
-                            .then(music => {
-                                link.music = music;
-                                link.music.type = "playlist";
-                                link.music.prefix = `user/${musicTypeId.split(":")[1]}/`;
-                            });
-                    }
+                    return loadMusic(link);
                 })
-                .then(music => {
-                    link.music = music;
+                .then(link => {
                     if (username) {
                         FirebaseFactory.getDisplayName(link.uid)
                             .then(name => {
