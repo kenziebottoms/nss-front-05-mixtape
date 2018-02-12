@@ -32,6 +32,7 @@ angular.module("mixtape").controller("TvCtrl", function($scope, TmdbFactory, $ro
     $scope.deleteLink = key => {
         LinkFactory.deleteLink(key)
             .then(result => {
+                getLinks(typeId);
             })
             .catch(err => {
                 Materialize.toast(err, 3000);

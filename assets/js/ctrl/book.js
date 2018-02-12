@@ -10,10 +10,10 @@ angular.module("mixtape").controller("BookCtrl", function($scope, GoodreadsFacto
             .then(book => {
                 // update cached info in Firebase
                 book = GoodreadsFactory.parseApiInfo(book);
-                FirebaseFactory.storeMedia(typeId, book);
-
                 // pass book to dom            
                 $scope.media = book;
+                
+                FirebaseFactory.cacheMedia(typeId, book);
             });
     };
 
@@ -34,6 +34,7 @@ angular.module("mixtape").controller("BookCtrl", function($scope, GoodreadsFacto
     $scope.deleteLink = key => {
         LinkFactory.deleteLink(key)
             .then(result => {
+                getLinks(typeId);
             })
             .catch(err => {
                 Materialize.toast(err, 3000);
