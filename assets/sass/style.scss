@@ -308,8 +308,12 @@ nav {
         a {
             display: block;
             width: 10rem;
-            margin: 1rem auto;
+            margin: 1rem;
             text-align: center;
+            &.muted {
+                background: $g4;
+                color: $w2;
+            }
         }
     }
 }
@@ -330,5 +334,13 @@ nav {
                 border-radius: 0;
             }
         }
+    }
+}
+.button-row {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    a {
+        flex-grow: 0;
     }
 }

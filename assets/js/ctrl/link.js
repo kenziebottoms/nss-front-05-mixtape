@@ -44,7 +44,7 @@ angular.module("mixtape").controller("LinkCtrl", function ($scope, GoodreadsFact
                             }
                         }
                     });
-                // if adding a new page
+            // if adding a new page
             } else {
                 $scope.context = "new";
             }
@@ -180,5 +180,9 @@ angular.module("mixtape").controller("LinkCtrl", function ($scope, GoodreadsFact
                     Materialize.toast(err, 3000, "pink accent-2");
                 });
         }
+    };
+
+    $scope.cancel = () => {
+        $window.history.back();
     };
 });
