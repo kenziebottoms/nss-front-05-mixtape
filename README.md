@@ -4,15 +4,15 @@ Mixify is a platform on which to share playlists inspired by works of fiction an
 
 ## Goals
 
-- User can add tracks (songs) and existing Spotify playlists to pieces of media (books, movies, TV shows) and tag them.
-- User can up- or downvote other people’s media-music links.
+- [x] User can add tracks (songs) and existing Spotify playlists to pieces of media (books, movies, TV shows) and tag them.
+- [ ] User can up- or downvote other people’s media-music links.
 - [x] User can select a track and view pieces of media commonly linked to it.
 - [x] User can select a movie, TV show, or book and view pieces of music commonly linked to it.
 
 ### Stretch Goals
-- User can subscribe to media and other users, causing relevant activity to populate their activity feed.
-- User receives notifications when others vote on their mixes or follow them.
-- User can view song lyrics for individual tracks.
+- [ ] User can subscribe to media and other users, causing relevant activity to populate their activity feed.
+- [ ] User receives notifications when others vote on their mixes or follow them.
+- [ ] User can view song lyrics for individual tracks.
 
 ## Resources
 
