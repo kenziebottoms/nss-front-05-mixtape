@@ -98,6 +98,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                             .then(music => {
                                 link.music = music;
                                 link.music.type = "playlist";
+                                link.music.prefix = `user/${musicTypeId.split(":")[1]}/`;
                             });
                     }
                 })

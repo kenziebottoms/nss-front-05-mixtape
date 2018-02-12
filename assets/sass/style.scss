@@ -288,3 +288,22 @@ nav {
         }
     }
 }
+#tracklist {
+    .table {
+        td {
+            padding: 1rem;
+            color: $w4;
+            &:nth-child(2) {
+                font-weight: 300;
+                font-size: 1.3rem;
+                color: $w1;
+            }
+        }
+        tr:nth-child(even) {
+            td {
+                background: $g2;
+                border-radius: 0;
+            }
+        }
+    }
+}
