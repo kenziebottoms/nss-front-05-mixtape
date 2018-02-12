@@ -66,6 +66,22 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
         localStorage.removeItem("spotifyUserInfo");
     };
 
+    const getUserData = username => {
+        return $q((resolve, reject) => {
+            let token = getActiveToken();
+            $http({
+                method: "GET",
+                url: `${SPOTIFY.url}/users/${username}`,
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+                .then(({data}) => {
+                    resolve(data);
+                });
+        });
+    };
+
     const cacheUserData = data => {
         data.username = data.uri.split(":")[2];
         localStorage.setItem("spotifyUserInfo", JSON.stringify(data));
@@ -85,6 +101,6 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
         });
     };
 
-    return { login, logout, getActiveToken, getActiveUserData };
+    return { login, logout, getActiveToken, getActiveUserData, getUserData };
 
 });

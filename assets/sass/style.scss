@@ -96,6 +96,9 @@ nav {
     h2 {
         font-size: 1.5rem;
         color: $w4;
+        a {
+            color: $green;
+        }
     }
 }
 .user-card {
@@ -156,18 +159,22 @@ nav {
 }
 .tags {
     margin-top: .5em;
-    .tag {
-        font-size: .9rem;
-        background: $g4;
-        padding: .25em .5em;
-        margin: .75em .75em 0 0;
-        display: inline-block;
-        &.author {
-            background: $green;
-        }
-    }
     a {
         color: inherit;
+    }
+}
+.tag {
+    font-size: .9rem;
+    &.big {
+        font-size: 1.2rem;
+    }
+    background: $g4;
+    padding: .25em .5em;
+    margin: .75em .75em 0 0;
+    display: inline-block;
+    color: inherit;
+    &.author {
+        background: $green;
     }
 }
 

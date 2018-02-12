@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("PlaylistCtrl", function($scope, $routeParams, FirebaseFactory, SpotifyPlaylistFactory, LinkFactory) {
+angular.module("mixtape").controller("PlaylistCtrl", function($scope, $routeParams, FirebaseFactory, SpotifyPlaylistFactory, LinkFactory, SpotifyAuthFactory) {
     $scope.playlistId = $routeParams.id;
     $scope.uid = $routeParams.uid;
     SpotifyPlaylistFactory.getPlaylistByIds($scope.uid, $scope.playlistId)
@@ -13,5 +13,9 @@ angular.module("mixtape").controller("PlaylistCtrl", function($scope, $routePara
         })
         .then(loadedLinks => {
             $scope.links = loadedLinks;
+        });
+    SpotifyAuthFactory.getUserData($scope.uid)
+        .then(user => {
+            $scope.user = user;
         });
 });
