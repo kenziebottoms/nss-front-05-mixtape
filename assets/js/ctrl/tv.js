@@ -2,10 +2,10 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("TvCtrl", function($scope, TmdbFactory, $routeParams, TMDB, LinkFactory, FirebaseFactory) {
-    $scope.id = $routeParams.id;
-    let typeId = `tv:${$scope.id}`;
-    TmdbFactory.getTvShowById($scope.id)
+angular.module("mixtape").controller("TvCtrl", function($scope, TmdbFactory, $routeParams, TMDB, LinkFactory, FirebaseFactory, $location) {
+
+    let fetchInfo = (typeId) => {
+        TmdbFactory.getTvShowById($scope.id)
         .then(show => {
             // update cached info in firebase
             show = TmdbFactory.parseApiInfo("tv", show);
@@ -13,9 +13,28 @@ angular.module("mixtape").controller("TvCtrl", function($scope, TmdbFactory, $ro
             $scope.media = show;
             FirebaseFactory.cacheMedia(typeId, show);
         });
-    LinkFactory.getLinksByMedia(typeId)
-        .then(loadedLinks => {
-            $scope.links = loadedLinks;
-            $scope.context = "media";
-        });
+    };
+
+    let getLinks = (typeId) => {
+        LinkFactory.getLinksByMedia(typeId)
+            .then(loadedLinks => {
+                $scope.links = loadedLinks;
+                $scope.context = "media";
+            });
+    };
+
+    $scope.id = $routeParams.id;
+    let typeId = `tv:${$scope.id}`;
+    
+    fetchInfo(typeId);
+    getLinks(typeId);
+
+    $scope.deleteLink = key => {
+        LinkFactory.deleteLink(key)
+            .then(result => {
+            })
+            .catch(err => {
+                Materialize.toast(err, 3000);
+            });
+    };
 });
