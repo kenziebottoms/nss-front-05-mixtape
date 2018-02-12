@@ -9,5 +9,6 @@ angular.module("mixtape").controller("PlaylistCtrl", function($scope, $routePara
         .then(playlist => {
             $scope.music = SpotifyPlaylistFactory.parseApiInfo(playlist);
             console.log(playlist);
+            $scope.tracks = playlist.tracks.items;
         });
 });

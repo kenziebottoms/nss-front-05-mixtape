@@ -4,6 +4,15 @@
         <h1>{{music.title}}</h1>
         <h2>{{music.subtitle}}</h2>
     </div>
+    <div class="col s12 m8 l6 offset-l1" id="tracklist">
+        <h3>Tracks</h3>
+        <ol>
+            <li ng-repeat="track in tracks">
+                <h5>{{track.track.name}}</h5>
+                <h6>{{track.track.artists[0].name}}</h6>
+            </li>
+        </ol>
+    </div>
     <div class="col s12 m8 l6 offset-l1" id="profile-links" ng-include="'assets/partials/trackLinks.html'">
     </div>
 </div>
