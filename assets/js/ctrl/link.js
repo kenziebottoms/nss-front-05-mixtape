@@ -22,7 +22,11 @@ angular.module("mixtape").controller("LinkCtrl", function ($scope, GoodreadsFact
                             // populate page with existing link's contents
                             $scope.activeMedia = link.media.split(":")[0];
                             $scope.activeMusic = link.music.split(":")[0];
-                            $scope.tags = link.tags.join(", ");
+                            if (link.tags) {
+                                $scope.tags = link.tags.join(", ");
+                            } else {
+                                $scope.tags = "";
+                            }
                             FirebaseFactory.getMediaByTypeId(link.media)
                                 .then(media => {
                                     $scope.selectedMedia = media;
