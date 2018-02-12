@@ -43,6 +43,9 @@ angular.module("mixtape").factory("GoodreadsFactory", function($q, $http, GOODRE
         if (!data.title._cdata) {
             data.title._cdata = data.title._text;
         }
+        if (data.authors.author.length > 1) {
+            data.authors.author = data.authors.author[0];
+        }
         let book = {
             subtitle: data.authors.author.name._text,
             small_image: data.image_url._text,

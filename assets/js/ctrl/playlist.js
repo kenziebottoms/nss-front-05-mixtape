@@ -8,7 +8,6 @@ angular.module("mixtape").controller("PlaylistCtrl", function($scope, $routePara
     SpotifyPlaylistFactory.getPlaylistByIds($scope.uid, $scope.playlistId)
         .then(playlist => {
             $scope.music = SpotifyPlaylistFactory.parseApiInfo(playlist);
-            console.log(playlist);
             $scope.tracks = playlist.tracks.items;
             return LinkFactory.getLinksByMusic(`playlist:${$scope.uid}:${$scope.playlistId}`);
         })
