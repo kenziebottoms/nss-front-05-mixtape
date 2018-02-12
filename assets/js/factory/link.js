@@ -143,6 +143,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
 
     const editLink = (key, mediaTypeId, musicTypeId, tags, uid) => {
         return $q((resolve, reject) => {
+            if (tags == "") { tags = []; }
             let link = {
                 added: parseInt(Date.now() / 1000),
                 media: mediaTypeId,
