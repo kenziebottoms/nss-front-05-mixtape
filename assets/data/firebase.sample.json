@@ -181,6 +181,18 @@
                 "Melanie"
             ],
             "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L5EooDbFpwJUu1_97H3": {
+            "added": 1518536428,
+            "media": "tv:8592",
+            "music": "track:5PQOIflzV81tWs1vU398cl",
+            "uid": "12136603542"
+        },
+        "-L5EpS2itJRQnB057Ij0": {
+            "added": 1518536609,
+            "media": "tv:1395",
+            "music": "playlist:12136603542:73vpIvjoslrOFDpHLh05Hq",
+            "uid": "12136603542"
         }
     },
     "media": {
@@ -310,6 +322,15 @@
             "title": "Pacific Rim",
             "type": "movie"
         },
+        "tv:1395": {
+            "id": 1395,
+            "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/2lDiCu0SLo0XfCL9DRQN7JRPNAv.jpg",
+            "last_cached": 1518536609,
+            "small_image": "http://image.tmdb.org/t/p/w185/2lDiCu0SLo0XfCL9DRQN7JRPNAv.jpg",
+            "subtitle": "2007",
+            "title": "Gossip Girl",
+            "type": "tv"
+        },
         "tv:246": {
             "id": 246,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/sB8V0pQtJZ17v8FLXMOcYz6045c.jpg",
@@ -345,9 +366,27 @@
             "subtitle": "2016",
             "title": "Stranger Things",
             "type": "tv"
+        },
+        "tv:8592": {
+            "id": 8592,
+            "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/9kWSJ9c8NlBY2WgfvOZZ71kafSx.jpg",
+            "last_cached": 1518536428,
+            "small_image": "http://image.tmdb.org/t/p/w185/9kWSJ9c8NlBY2WgfvOZZ71kafSx.jpg",
+            "subtitle": "2009",
+            "title": "Parks and Recreation",
+            "type": "tv"
         }
     },
     "playlists": {
+        "12136603542:73vpIvjoslrOFDpHLh05Hq": {
+            "id": "73vpIvjoslrOFDpHLh05Hq",
+            "image": "https://mosaic.scdn.co/640/661e1a935e2eacdd45c05ef618565535e7bed2ad4560525b0513307695ba9d95b129fe4e8528b3754b3a58a1547e9bea423e8c6850970f7ca684e47e368c87cec42546e198e1f0b1315955109ef9d789",
+            "last_cached": 1518536609,
+            "small_image": "https://mosaic.scdn.co/640/661e1a935e2eacdd45c05ef618565535e7bed2ad4560525b0513307695ba9d95b129fe4e8528b3754b3a58a1547e9bea423e8c6850970f7ca684e47e368c87cec42546e198e1f0b1315955109ef9d789",
+            "subtitle": "15 tracks",
+            "title": "LOVE. FEAT. ZACARI.",
+            "uid": "12136603542"
+        },
         "argfktkjctj5wyte1c3wsqt70:24cMfu8KaqWjQBsFw6Cn9p": {
             "id": "24cMfu8KaqWjQBsFw6Cn9p",
             "image": "https://mosaic.scdn.co/640/b3f5bcab8eed97a8a47a50546aa6706144b4d0aa443609cd35e43c7bdb272b3d1d9e80290e128bc51fffb3d855b9d8dbe92f94d8181ad86a12c1450383ba7ffaf2e24a45f17226b9d8e338601b776245",
@@ -414,7 +453,7 @@
         "0NEBjIdTbeIdEmbrqFqIZR": {
             "id": "0NEBjIdTbeIdEmbrqFqIZR",
             "image": "https://i.scdn.co/image/d04b59c30836e2e5505be049d407cb29d25e9762",
-            "last_cached": 1518472179,
+            "last_cached": 1518492675,
             "small_image": "https://i.scdn.co/image/cbea23cd11b407104d090c95d4ef159997b10f42",
             "subtitle": "Regina Spektor",
             "title": "Human Of The Year"
@@ -515,6 +554,14 @@
             "subtitle": "Imagine Dragons",
             "title": "Radioactive"
         },
+        "5PQOIflzV81tWs1vU398cl": {
+            "id": "5PQOIflzV81tWs1vU398cl",
+            "image": "https://i.scdn.co/image/a4246dbcd6956461bce65d138be401e4152f2d5d",
+            "last_cached": 1518536428,
+            "small_image": "https://i.scdn.co/image/3ca0e7e74accf464a1dd6af71176b43783b43ae0",
+            "subtitle": "Dolly Parton",
+            "title": "Working Girl"
+        },
         "5QTxFnGygVM4jFQiBovmRo": {
             "id": "5QTxFnGygVM4jFQiBovmRo",
             "image": "https://i.scdn.co/image/6bd4450a8fbf30702a92f1c825377f1933ded249",
@@ -573,6 +620,25 @@
         }
     },
     "users": {
+        "12136603542": {
+            "display_name": "Courtney White",
+            "external_urls": {
+                "spotify": "https://open.spotify.com/user/12136603542"
+            },
+            "followers": {
+                "total": 10
+            },
+            "href": "https://api.spotify.com/v1/users/12136603542",
+            "id": "12136603542",
+            "images": [
+                {
+                    "url": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/12799239_10205285660335648_8262500380063406732_n.jpg?oh=f03242d61f31c51616ba43d031ab875e&oe=5AE09470"
+                }
+            ],
+            "type": "user",
+            "uri": "spotify:user:12136603542",
+            "username": "12136603542"
+        },
         "argfktkjctj5wyte1c3wsqt70": {
             "display_name": "Kenzie",
             "external_urls": {

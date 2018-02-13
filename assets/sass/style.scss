@@ -1,7 +1,7 @@
 $g1: #333;
-$g2: #444;
+$g2: #494949;
 $g3: #666;
-$g4: #999;
+$g4: #898989;
 
 $w1: #fff;
 $w2: #eee;
@@ -208,7 +208,7 @@ nav {
                 margin-bottom: -.5em;
             }
         }
-        .ops {
+        .ops, .votes {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -223,6 +223,16 @@ nav {
                 cursor: pointer;
                 &:hover {
                     background: $green-hl;
+                }
+            }
+        }
+        .votes {
+            background: $g2;
+            a {
+                color: $g4;
+                &:hover, &.active {
+                    color: $green;
+                    background: transparent;
                 }
             }
         }
