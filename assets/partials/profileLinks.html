@@ -18,4 +18,12 @@
             <i class="material-icons">clear</i>
         </a>
     </div>
+    <div class="votes" ng-show="user.id != link.uid">
+        <a ng-click="upvote(link.id)">
+            <i class="material-icons">thumb_up</i>
+        </a>
+        <a ng-click="downvote(link.id)">
+            <i class="material-icons">thumb_down</i>
+        </a>
+    </div>
 </div>
