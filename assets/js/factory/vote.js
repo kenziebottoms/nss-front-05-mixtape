@@ -3,8 +3,7 @@
 const angular = require("angular");
 
 angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE, SpotifyAuthFactory) {
-    let upvote = (linkId, uid) => {
-        // TODO: check if user has already upvoted it
+    let vote = (linkId, uid, value) => {
         return $q((resolve, reject) => {
             let vote = {
                 added: parseInt(Date.now()/1000),
@@ -17,5 +16,23 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE, S
                 .catch(err => reject(err));
         });
     };
-    return { upvote };
+
+    let getVote = (linkId, uid) => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE.dbUrl}/votes/${uid}:${linkId}/value.json`)
+                .then(({data}) => resolve(data))
+                .catch(err => reject(err)); 
+        });
+    };
+
+    let upvote = (linkId, uid) => {
+        return vote(linkId, uid, 1);
+    };
+    let downvote = (linkId, uid) => {
+        return vote(linkId, uid, -1);
+    };
+    let unvote = (linkId, uid) => {
+        return vote(linkId, uid, 0);
+    };
+    return { upvote, downvote, unvote, getVote };
 });
