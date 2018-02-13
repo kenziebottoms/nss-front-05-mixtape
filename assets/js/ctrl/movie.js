@@ -4,7 +4,7 @@ const angular = require("angular");
 
 angular.module("mixtape").controller("MovieCtrl", function($scope, $controller, $routeParams, TmdbFactory, TMDB, FirebaseFactory) {
 
-    $controller("MediaCtrl", {$scope: $scope});    
+    $controller("MediaCtrl", {$scope: $scope});
 
     $scope.fetchInfo = () => {
         $scope.media = null;
