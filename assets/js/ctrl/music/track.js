@@ -2,21 +2,53 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("TrackCtrl", function($scope, SpotifyTrackFactory, $routeParams, LinkFactory, FirebaseFactory) {
+angular.module("mixtape").controller("TrackCtrl", function($scope, $q, SpotifyTrackFactory, $routeParams, LinkFactory, VoteFactory, FirebaseFactory, SpotifyAuthFactory) {
     $scope.id = $routeParams.id;
-    SpotifyTrackFactory.getTrackById($scope.id)
-        .then(track => {
-            let typeId = `track:${$scope.id}`;
+    let typeId = `track:${$scope.id}`;
 
-            // update cached info in Firebase
-            track = SpotifyTrackFactory.parseApiInfo(track);
-            FirebaseFactory.storeMusic(typeId, track);
+    let getTrack = () => {
+        return $q((resolve, reject) => {
+            SpotifyTrackFactory.getTrackById($scope.id)
+                .then(track => {
+                    // update cached info in Firebase
+                    track = SpotifyTrackFactory.parseApiInfo(track);
+                    FirebaseFactory.storeMusic(typeId, track);
+                    resolve();
+                    // pass data to dom
+                    $scope.music = track;
+                });
+        });
+    };
+    let getLinks = () => {
+        return $q((resolve, reject) => {
+            LinkFactory.getLinksByMusic(typeId)
+                .then(loadedLinks => {
+                    $scope.links = loadedLinks;
+                    resolve();
+                });
+        });
+    };
+    let getVotes = () => {
+        let linkVotePromises = $scope.links.filter(link => {
+            return link.uid != $scope.user.id;
+        }).map(link => {
+            return VoteFactory.loadVote(link, $scope.user.id);
+        });
+    };
+    let getUserData = () => {
+        return $q((resolve, reject) => {
+            SpotifyAuthFactory.getActiveUserData()
+                .then(data => {
+                    $scope.user = data;
+                    resolve();
+                });
+        });
+    };
 
-            // pass data to dom
-            $scope.music = track;
-            return LinkFactory.getLinksByMusic(typeId);
-        })
-        .then(loadedLinks => {
-            $scope.links = loadedLinks;
+    let promises = [];
+    promises.push(getLinks(), getTrack(), getUserData());
+    Promise.all(promises)
+        .then(response => {
+            getVotes();
         });
 });
