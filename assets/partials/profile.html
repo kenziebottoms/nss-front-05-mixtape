@@ -1,9 +1,9 @@
 <div class="row container">
     <div class="col s12 m4 l3 offset-l1" id="sidebar">
-        <img src="{{user.images[0].url}}">
+        <img src="{{profileUser.images[0].url}}">
         <h1>
-            {{user.display_name ? user.display_name : user.id}}
-            <span class="kb-badge">{{user.followers.total}}</span>
+            {{profileUser.display_name ? profileUser.display_name : profileUser.id}}
+            <span class="kb-badge">{{profileUser.followers.total}}</span>
         </h1>
     </div>
     <div class="col s12 m8 l6 offset-l1" id="profile-links" ng-include="'assets/partials/profileLinks.html'">

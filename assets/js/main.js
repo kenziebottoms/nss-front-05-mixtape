@@ -17,6 +17,7 @@ require("./ctrl/media/media");
 require("./ctrl/media/movie");
 require("./ctrl/media/tv");
 require("./ctrl/media/book");
+require("./ctrl/music/music");
 require("./ctrl/music/track");
 require("./ctrl/music/playlist");
 require("./ctrl/link");
