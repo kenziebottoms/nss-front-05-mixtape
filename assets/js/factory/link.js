@@ -123,6 +123,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                     .then(playlist => {
                         link.music = playlist;
                         link.music.type = type;
+                        link.music.prefix = `user/${uid}/`;
                         resolve(link);
                     })
                     .catch(err => reject(err));
