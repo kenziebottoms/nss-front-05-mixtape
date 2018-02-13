@@ -2,24 +2,45 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("ProfileCtrl", function($scope, FirebaseFactory, LinkFactory, $routeParams, SpotifyAuthFactory, VoteFactory) {
+angular.module("mixtape").controller("ProfileCtrl", function($scope, $q, FirebaseFactory, LinkFactory, $routeParams, SpotifyAuthFactory, VoteFactory) {
     $scope.profileUser = {id: $routeParams.id };
     
-    FirebaseFactory.getUserData($scope.profileUser.id)
-        .then(userData => {
-            $scope.profileUser = userData;
+    let getOwnerData = () => {
+        return $q((resolve, reject) => {
+            FirebaseFactory.getUserData($scope.profileUser.id)
+                .then(userData => {
+                    $scope.profileUser = userData;
+                    resolve();
+                });
         });
+    };
+    let getUserData = () => {
+        return $q((resolve, reject) => {
+            SpotifyAuthFactory.getActiveUserData()
+                .then(userData => {
+                    $scope.user = userData;
+                    resolve();
+                });
+        });
+        
+    };
 
+    let getLinks = () => {
+        return $q((resolve, reject) => {
+            LinkFactory.getLinksByUid($scope.profileUser.id, 5)
+                .then(data => {
+                    $scope.links = data;
+                    $scope.context = "profile";
+                    resolve();
+                });
+        });
+        
+    };
+
+    getOwnerData();
     Promise.all([
-        LinkFactory.getLinksByUid($scope.profileUser.id, 5)
-            .then(data => {
-                $scope.links = data;
-                $scope.context = "profile";
-            }),
-        SpotifyAuthFactory.getActiveUserData()
-            .then(userData => {
-                $scope.user = userData;
-            })
+        getLinks(),
+        getUserData()
     ])
         .then(response => {
             $scope.links.filter(link => {
@@ -29,6 +50,15 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, FirebaseFac
             });
         });
 
+    $scope.deleteLink = key => {
+        LinkFactory.deleteLink(key)
+            .then(result => {
+                getLinks();
+            })
+            .catch(err => {
+                Materialize.toast(err, 3000);
+            });
+    };
     $scope.upvote = linkId => {
         let link = $scope.links.find(link => link.key == linkId);
         if (link.vote == 1) {
