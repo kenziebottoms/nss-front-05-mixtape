@@ -2,10 +2,12 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("BookCtrl", function($scope, GoodreadsFactory, $routeParams, GOODREADS, LinkFactory, FirebaseFactory, SpotifyAuthFactory) {
+angular.module("mixtape").controller("BookCtrl", function($scope, $controller, GoodreadsFactory, GOODREADS, FirebaseFactory) {
+
+    $controller("MediaCtrl", {$scope: $scope});
 
     // get book details
-    let fetchInfo = (typeId) => {
+    $scope.fetchInfo = () => {
         GoodreadsFactory.getBookById($scope.id)
             .then(book => {
                 // update cached info in Firebase
@@ -13,34 +15,11 @@ angular.module("mixtape").controller("BookCtrl", function($scope, GoodreadsFacto
                 // pass book to dom            
                 $scope.media = book;
                 
-                FirebaseFactory.cacheMedia(typeId, book);
+                FirebaseFactory.cacheMedia($scope.typeId, book);
             });
     };
 
-    let getLinks = typeId => {
-        LinkFactory.getLinksByMedia(typeId)
-            .then(loadedLinks => {
-                // pass links to dom
-                $scope.links = loadedLinks;
-                $scope.context = "media";
-            });
-    };
-
-    SpotifyAuthFactory.getActiveUserData().then(data => {
-        $scope.user = data;
-    });
-    $scope.id = $routeParams.id;
-    let typeId = `book:${$scope.id}`;
-    fetchInfo(typeId);
-    getLinks(typeId);
-
-    $scope.deleteLink = key => {
-        LinkFactory.deleteLink(key)
-            .then(result => {
-                getLinks(typeId);
-            })
-            .catch(err => {
-                Materialize.toast(err, 3000);
-            });
-    };
+    $scope.typeId = `book:${$scope.id}`;
+    $scope.fetchInfo($scope.typeId);
+    $scope.getLinks($scope.typeId);
 });

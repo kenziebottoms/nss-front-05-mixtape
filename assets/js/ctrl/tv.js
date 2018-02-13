@@ -2,9 +2,11 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("TvCtrl", function($scope, TmdbFactory, $routeParams, TMDB, LinkFactory, FirebaseFactory, $location, SpotifyAuthFactory) {
+angular.module("mixtape").controller("TvCtrl", function($scope, $controller, TmdbFactory, TMDB, FirebaseFactory) {
 
-    let fetchInfo = (typeId) => {
+    $controller("MediaCtrl", {$scope: $scope});    
+
+    $scope.fetchInfo = (typeId) => {
         TmdbFactory.getTvShowById($scope.id)
         .then(show => {
             // update cached info in firebase
@@ -15,30 +17,8 @@ angular.module("mixtape").controller("TvCtrl", function($scope, TmdbFactory, $ro
         });
     };
 
-    let getLinks = (typeId) => {
-        LinkFactory.getLinksByMedia(typeId)
-            .then(loadedLinks => {
-                $scope.links = loadedLinks;
-                $scope.context = "media";
-            });
-    };
-
-    SpotifyAuthFactory.getActiveUserData().then(data => {
-        $scope.user = data;
-    });
-    $scope.id = $routeParams.id;
-    let typeId = `tv:${$scope.id}`;
+    $scope.typeId = `tv:${$scope.id}`;
     
-    fetchInfo(typeId);
-    getLinks(typeId);
-
-    $scope.deleteLink = key => {
-        LinkFactory.deleteLink(key)
-            .then(result => {
-                getLinks(typeId);
-            })
-            .catch(err => {
-                Materialize.toast(err, 3000);
-            });
-    };
+    $scope.fetchInfo($scope.typeId);
+    $scope.getLinks($scope.typeId);
 });
