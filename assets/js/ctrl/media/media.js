@@ -55,12 +55,20 @@ angular.module("mixtape").controller("MediaCtrl", function($scope, $routeParams,
     };
 
     $scope.upvote = linkId => {
-        // TODO: remove downvote, if any
-        VoteFactory.upvote(linkId, $scope.user.id);
+        let link = $scope.links.find(link => link.key == linkId);
+        if (link.vote == 1) {
+            VoteFactory.unvote(linkId, $scope.user.id);
+        } else {
+            VoteFactory.upvote(linkId, $scope.user.id);
+        }
     };
 
     $scope.downvote = linkId => {
-        // TODO: remove downvote, if any
-        VoteFactory.downvote(linkId, $scope.user.id);
+        let link = $scope.links.find(link => link.key == linkId);
+        if (link.vote == -1) {
+            VoteFactory.unvote(linkId, $scope.user.id);
+        } else {
+            VoteFactory.downvote(linkId, $scope.user.id);
+        }
     };
 });

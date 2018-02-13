@@ -7,9 +7,9 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE, S
         return $q((resolve, reject) => {
             let vote = {
                 added: parseInt(Date.now()/1000),
-                uid: uid,
-                linkId: linkId,
-                value: 1
+                uid,
+                linkId,
+                value
             };
             $http.put(`${FIREBASE.dbUrl}/votes/${uid}:${linkId}.json`, JSON.stringify(vote))
                 .then(response => resolve(response))
@@ -32,7 +32,11 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE, S
         return vote(linkId, uid, -1);
     };
     let unvote = (linkId, uid) => {
-        return vote(linkId, uid, 0);
+        return $q((resolve, reject) => {
+            $http.delete(`${FIREBASE.dbUrl}/votes/${uid}:${linkId}/value.json`)
+                .then(({data}) => resolve(data))
+                .catch(err => reject(err)); 
+        });
     };
     return { upvote, downvote, unvote, getVote };
 });
