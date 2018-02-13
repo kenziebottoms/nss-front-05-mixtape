@@ -33,7 +33,7 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE, S
     };
     let unvote = (linkId, uid) => {
         return $q((resolve, reject) => {
-            $http.delete(`${FIREBASE.dbUrl}/votes/${uid}:${linkId}/value.json`)
+            $http.delete(`${FIREBASE.dbUrl}/votes/${uid}:${linkId}.json`)
                 .then(({data}) => resolve(data))
                 .catch(err => reject(err)); 
         });
