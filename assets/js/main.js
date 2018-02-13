@@ -13,6 +13,7 @@ require("./ctrl/user");
 require("./ctrl/home");
 require("./ctrl/search");
 require("./ctrl/profile");
+require("./ctrl/media");
 require("./ctrl/movie");
 require("./ctrl/tv");
 require("./ctrl/book");

@@ -2,8 +2,11 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("MovieCtrl", function($scope, TmdbFactory, $routeParams, TMDB, LinkFactory, FirebaseFactory, SpotifyAuthFactory) {
-    let fetchInfo = typeId => {
+angular.module("mixtape").controller("MovieCtrl", function($scope, $controller, $routeParams, TmdbFactory, TMDB, FirebaseFactory) {
+
+    $controller("MediaCtrl", {$scope: $scope});
+
+    $scope.fetchInfo = () => {
         $scope.media = null;
         TmdbFactory.getMovieById($scope.id)
             .then(movie => {
@@ -12,32 +15,10 @@ angular.module("mixtape").controller("MovieCtrl", function($scope, TmdbFactory, 
                 // pass data to dom
                 $scope.media = movie;
                 
-                FirebaseFactory.cacheMedia(typeId, movie);
+                FirebaseFactory.cacheMedia($scope.typeId, movie);
             });
     };
-    let getLinks = (typeId) => {
-        LinkFactory.getLinksByMedia(typeId)        
-            .then(loadedLinks => {
-                $scope.links = loadedLinks;
-                $scope.context = "media";
-            });
-    };
-
-    SpotifyAuthFactory.getActiveUserData().then(data => {
-        $scope.user = data;
-    });
-    $scope.id = $routeParams.id;
-    let typeId = `movie:${$scope.id}`;
-    fetchInfo(typeId);
-    getLinks(typeId);
-
-    $scope.deleteLink = key => {
-        LinkFactory.deleteLink(key)
-            .then(result => {
-                getLinks(typeId);
-            })
-            .catch(err => {
-                Materialize.toast(err, 3000);
-            });
-    };
+    $scope.typeId = `movie:${$scope.id}`;
+    $scope.fetchInfo($scope.typeId);
+    $scope.getLinks($scope.typeId);
 });
