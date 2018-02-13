@@ -2,27 +2,31 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("MenuCtrl", function($scope, SPOTIFY, SpotifyAuthFactory) {
-
-    $scope.menu = [];
-    SpotifyAuthFactory.getActiveUserData()
-        .then(userData => {
-            $scope.user = userData;
-            $scope.menu.push({
-                url: "#!/new",
-                label: "New Mix",
-                show: "authenticated"
+angular.module("mixtape").controller("MenuCtrl", function($scope, $rootScope, SPOTIFY, SpotifyAuthFactory) {
+    $scope.key = SPOTIFY.key;
+    
+    let getUserData = () => {
+        $scope.menu = [];
+        SpotifyAuthFactory.getActiveUserData()
+            .then(userData => {
+                $scope.user = userData;
+                $scope.menu.push({
+                    url: "#!/new",
+                    label: "New Mix",
+                    show: "user"
+                });
             });
-            $scope.authenticated = true;
-        })
-        .catch(err => {
-            $scope.key = SPOTIFY.key;
-            $scope.authenticated = false;
-        });
+    };
+
+    getUserData();
+    
+    $scope.$on('userChange', (event, user) => {
+        $scope.user = user;
+    });
 
     $scope.logout = () => {
         $scope.user = null;
         SpotifyAuthFactory.logout();
-        $scope.authenticated = false;
+        $rootScope.$broadcast('userChange', null);
     };
 });
