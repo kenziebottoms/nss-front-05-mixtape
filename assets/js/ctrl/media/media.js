@@ -28,17 +28,8 @@ angular.module("mixtape").controller("MediaCtrl", function($scope, $routeParams,
     $scope.getVotes = () => {
         let linkVotePromises = $scope.links.filter(link => {
             return link.uid != $scope.user.id;
-        });
-        linkVotePromises = linkVotePromises.map(link => {
-            VoteFactory.getVote(link.key, $scope.user.id)
-                .then(vote => {
-                    $scope.links = $scope.links.map(link => {
-                        if (link.uid != $scope.user.id) {
-                            link.vote = vote;
-                        }
-                        return link;
-                    });
-                });
+        }).map(link => {
+            return VoteFactory.loadVote(link, $scope.user.id);
         });
     };
 

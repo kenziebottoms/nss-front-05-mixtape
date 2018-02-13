@@ -9,4 +9,20 @@
             <a ng-href="#!/user/{{link.uid}}" ng-show="context!='profile'" class="author tag">{{link.name}}</a>
         </div>
     </div>
+    <div class="ops" ng-show="user.id == link.uid">
+        <a ng-href="#!/link/{{link.key}}">
+            <i class="material-icons">edit</i>
+        </a>
+        <a ng-click="deleteLink(link.key)">
+            <i class="material-icons">clear</i>
+        </a>
+    </div>
+    <div class="votes" ng-show="user.id != link.uid && user">
+        <a ng-click="upvote(link.key)" ng-class="{'active': link.vote == 1}">
+            <i class="material-icons">thumb_up</i>
+        </a>
+        <a ng-click="downvote(link.key)" ng-class="{'active': link.vote == -1}">
+            <i class="material-icons">thumb_down</i>
+        </a>
+    </div>
 </div>

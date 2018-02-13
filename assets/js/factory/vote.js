@@ -38,5 +38,20 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE, S
                 .catch(err => reject(err)); 
         });
     };
-    return { upvote, downvote, unvote, getVote };
+
+    let loadVote = (link, uid) => {
+        return $q((resolve, reject) => {
+            if (link.uid != uid) {
+                getVote(link.key, uid)
+                    .then(vote => {
+                        link.vote = vote;
+                        resolve(link);
+                    });
+            } else {
+                resolve(link);
+            }
+        });
+    };
+
+    return { upvote, downvote, unvote, getVote, loadVote };
 });
