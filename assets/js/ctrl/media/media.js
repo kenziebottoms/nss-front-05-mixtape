@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("MediaCtrl", function($scope, TmdbFactory, $routeParams, TMDB, LinkFactory, FirebaseFactory, SpotifyAuthFactory) {
+angular.module("mixtape").controller("MediaCtrl", function($scope, $routeParams, LinkFactory, SpotifyAuthFactory, VoteFactory) {
     
     $scope.getLinks = (typeId) => {
         LinkFactory.getLinksByMedia(typeId)        
@@ -25,5 +25,10 @@ angular.module("mixtape").controller("MediaCtrl", function($scope, TmdbFactory, 
             .catch(err => {
                 Materialize.toast(err, 3000);
             });
+    };
+
+    $scope.upvote = linkId => {
+        console.log($scope.user.id);
+        VoteFactory.upvote(linkId, $scope.user.id);
     };
 });

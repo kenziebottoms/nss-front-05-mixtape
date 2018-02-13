@@ -26,6 +26,7 @@ grunt
 ## Resources
 
 - [MindMeister mind map](https://mm.tt/994144307?t=3TqRJrEdLy)
+- [Angular $controller inheritance](https://stackoverflow.com/questions/18461263/can-an-angularjs-controller-inherit-from-another-controller-in-the-same-module)
 
 ### APIs
 
