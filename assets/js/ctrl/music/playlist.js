@@ -6,8 +6,9 @@ angular.module("mixtape").controller("PlaylistCtrl", function($scope, $q, $route
     let getPlaylist = () => {
         SpotifyPlaylistFactory.getPlaylistByIds($scope.uid, $scope.playlistId)
             .then(playlist => {
-                $scope.music = SpotifyPlaylistFactory.parseApiInfo(playlist);
                 $scope.tracks = playlist.tracks.items;
+                $scope.music = SpotifyPlaylistFactory.parseApiInfo(playlist);
+                FirebaseFactory.storeMusic(`playlist:${$scope.uid}:${$scope.playlistId}`, $scope.music);
             });
     };
     let getLinks = () => {

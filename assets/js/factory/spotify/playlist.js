@@ -53,7 +53,7 @@ angular.module("mixtape").factory("SpotifyPlaylistFactory", function($q, $http, 
             id: data.id,
             image: data.images[0].url,
             small_image: data.images[0].url,
-            uid: data.uid
+            uid: data.owner.id
         };
         return obj;
     };
