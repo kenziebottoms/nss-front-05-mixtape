@@ -9,9 +9,10 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE, S
             let vote = {
                 added: parseInt(Date.now()/1000),
                 uid: uid,
-                linkId: linkId
+                linkId: linkId,
+                value: 1
             };
-            $http.post(`${FIREBASE.dbUrl}/votes.json`, JSON.stringify(vote))
+            $http.put(`${FIREBASE.dbUrl}/votes/${uid}:${linkId}.json`, JSON.stringify(vote))
                 .then(response => resolve(response))
                 .catch(err => reject(err));
         });

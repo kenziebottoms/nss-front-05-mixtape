@@ -28,7 +28,7 @@ angular.module("mixtape").controller("MediaCtrl", function($scope, $routeParams,
     };
 
     $scope.upvote = linkId => {
-        console.log($scope.user.id);
+        // TODO: remove downvote, if any
         VoteFactory.upvote(linkId, $scope.user.id);
     };
 });
