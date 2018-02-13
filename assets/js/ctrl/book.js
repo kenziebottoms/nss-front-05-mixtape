@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("BookCtrl", function($scope, GoodreadsFactory, $routeParams, GOODREADS, LinkFactory, FirebaseFactory, $controller) {
+angular.module("mixtape").controller("BookCtrl", function($scope, $controller, GoodreadsFactory, GOODREADS, FirebaseFactory) {
 
     $controller("MediaCtrl", {$scope: $scope});
 
