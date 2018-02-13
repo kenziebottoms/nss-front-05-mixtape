@@ -2,6 +2,15 @@
 
 Mixify is a platform on which to share playlists inspired by works of fiction and the individual tracks thereof.
 
+## Run locally
+
+```bash
+git clone git@github.com:kenziebottoms/nss-front-capstone-mixify.git
+cd nss-front-capstone-mixify
+npm install
+grunt
+```
+
 ## Goals
 
 - [x] User can add tracks (songs) and existing Spotify playlists to pieces of media (books, movies, TV shows) and tag them.
