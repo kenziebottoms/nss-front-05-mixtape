@@ -30,7 +30,15 @@ angular.module("mixtape").controller("MusicCtrl", function($scope, $q, VoteFacto
         });
     };
 
-
+    $scope.deleteLink = key => {
+        LinkFactory.deleteLink(key)
+            .then(result => {
+                $scope.getLinks();
+            })
+            .catch(err => {
+                Materialize.toast(err, 3000);
+            });
+    };
     $scope.upvote = linkId => {
         let link = $scope.links.find(link => link.key == linkId);
         if (link.vote == 1) {
