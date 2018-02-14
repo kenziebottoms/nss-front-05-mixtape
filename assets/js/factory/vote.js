@@ -13,7 +13,7 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE) {
                 linkId,
                 value
             };
-            $http.put(`${FIREBASE.dbUrl}/votes/${uid}:${linkId}.json`, JSON.stringify(vote))
+            $http.put(`${FIREBASE.url}/votes/${uid}:${linkId}.json`, JSON.stringify(vote))
                 .then(response => resolve(response))
                 .catch(err => reject(err));
         });
@@ -22,7 +22,7 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE) {
     // promises the value of the given user's vote on the given link
     let getVote = (linkId, uid) => {
         return $q((resolve, reject) => {
-            $http.get(`${FIREBASE.dbUrl}/votes/${uid}:${linkId}/value.json`)
+            $http.get(`${FIREBASE.url}/votes/${uid}:${linkId}/value.json`)
                 .then(({data}) => resolve(data))
                 .catch(err => reject(err)); 
         });
@@ -39,7 +39,7 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE) {
     // remove user's vote on link
     let unvote = (linkId, uid) => {
         return $q((resolve, reject) => {
-            $http.delete(`${FIREBASE.dbUrl}/votes/${uid}:${linkId}.json`)
+            $http.delete(`${FIREBASE.url}/votes/${uid}:${linkId}.json`)
                 .then(({data}) => resolve(data))
                 .catch(err => reject(err)); 
         });

@@ -5,7 +5,7 @@ const angular = require("angular");
 angular.module("mixtape")
     .constant("FIREBASE", {
         key: "AIzaSyD4H78lA3VJNn_5GBpGHsr3rhxye3V_fSs",
-        dbUrl: "https://fanmix-app.firebaseio.com"
+        url: "https://fanmix-app.firebaseio.com"
     })
     .constant("GOODREADS", {
         url: "http://goodreads-proxy.herokuapp.com/api",
