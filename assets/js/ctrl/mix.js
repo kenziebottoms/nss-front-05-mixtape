@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("LinkCtrl", function ($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifyTrackFactory, FirebaseFactory, LinkFactory, $window, $routeParams, SpotifyPlaylistFactory) {
+angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifyTrackFactory, FirebaseFactory, LinkFactory, $window, $routeParams, SpotifyPlaylistFactory) {
 
     // get active user
     SpotifyAuthFactory.getActiveUserData()
