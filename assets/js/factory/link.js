@@ -5,16 +5,19 @@ const _ = require("lodash");
 
 angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, FirebaseFactory) {
 
-    // gets $limit recent links, unique by media, sorts them newest first
+    // promises recent links, unique by media, sorts them newest first
     let getRecentLinks = limit => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="added"&limitTo=${limit}`)
                 .then(({ data }) => {
                     data = Object.entries(data);
+                    // collapses [key, value] into value: { key: ... }
                     let links = data.map(link => {
                         link[1].key = link[0];
                         return link[1];
                     });
+                    // removes duplicate media
+                    // TODO: remove oldest duplicate media
                     links = _.uniqBy(links, 'media');
                     let linkPromises = links.map(link => {
                         return loadLink(link);
@@ -22,7 +25,9 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                     return Promise.all(linkPromises);
                 })
                 .then(loadedLinks => {
+                    // sort by date added
                     loadedLinks = _.sortBy(loadedLinks, "added");
+                    // sort by newest first
                     loadedLinks.reverse();
                     resolve(loadedLinks);
                 })
@@ -30,7 +35,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    // returns loaded links by uid, newest first
+    // promises loaded links by a given user, newest first
     let getLinksByUid = (uid, limit) => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="uid"&equalTo="${uid}"`)
@@ -58,18 +63,19 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    // promises list of all loaded links connected to media item
+    // promises list of all loaded links connected to a given media item
     let getLinksByMedia = typeId => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="media"&equalTo="${typeId}"`)
                 .then(({ data }) => {
                     let links = Object.entries(data);
+                    // loads links
                     let linkPromises = links.map(link => {
                         return loadLink(link, true);
                     });
                     Promise.all(linkPromises)
                         .then(loadedLinks => {
-                            // shows newest first
+                            // sorts newest first
                             loadedLinks.sort((a, b) => {
                                 return +b.added - a.added;
                             });
@@ -79,12 +85,13 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    // promises list of all loaded links connected to music item
+    // promises list of all loaded links connected to given music item
     let getLinksByMusic = typeId => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="music"&equalTo="${typeId}"`)
                 .then(({ data }) => {
                     let links = Object.entries(data);
+                    // loads all links
                     let linkPromises = links.map(link => {
                         return loadLink(link, true);
                     });
@@ -175,6 +182,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
+    // checks for existing duplicate links, then posts new link
     let storeNewLink = (mediaTypeId, musicTypeId, tags, uid) => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="uid"&equalTo="${uid}"`)
@@ -199,6 +207,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
+    // patches existing link with data
     let editLink = (key, mediaTypeId, musicTypeId, tags, uid) => {
         return $q((resolve, reject) => {
             if (tags == "") { tags = []; }
@@ -214,7 +223,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    // gets link by key
+    // promises link object by key
     let getLinkByKey = key => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links/${key}.json`)
@@ -224,7 +233,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    // removes link by key
+    // deletes link by key
     let deleteLink = key => {
         return $q((resolve, reject) => {
             $http.delete(`${FIREBASE.dbUrl}/links/${key}.json`)
