@@ -2,7 +2,9 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE, SpotifyAuthFactory) {
+angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE) {
+
+    // set the given user's vote on the given link to value
     let vote = (linkId, uid, value) => {
         return $q((resolve, reject) => {
             let vote = {
@@ -17,6 +19,7 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE, S
         });
     };
 
+    // promises the value of the given user's vote on the given link
     let getVote = (linkId, uid) => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/votes/${uid}:${linkId}/value.json`)
@@ -25,12 +28,15 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE, S
         });
     };
 
+    // set user's vote on link to 1
     let upvote = (linkId, uid) => {
         return vote(linkId, uid, 1);
     };
+    // set user's vote on link to -1
     let downvote = (linkId, uid) => {
         return vote(linkId, uid, -1);
     };
+    // remove user's vote on link
     let unvote = (linkId, uid) => {
         return $q((resolve, reject) => {
             $http.delete(`${FIREBASE.dbUrl}/votes/${uid}:${linkId}.json`)
@@ -39,6 +45,7 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE, S
         });
     };
 
+    // integrate the vote into a link object
     let loadVote = (link, uid) => {
         return $q((resolve, reject) => {
             if (link.uid != uid) {
