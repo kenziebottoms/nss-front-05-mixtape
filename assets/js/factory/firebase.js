@@ -36,7 +36,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
     };
 
     // stores data about the current active user in Firebase
-    const storeUserData = (username, data) => {
+    let storeUserData = (username, data) => {
         return $q((resolve, reject) => {
             $http.put(`${FIREBASE.dbUrl}/users/${username}.json`, data)
                 .then(response => resolve(response));
@@ -44,7 +44,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
     };
 
     // gets data about the given user
-    const getUserData = username => {
+    let getUserData = username => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/users/${username}.json`)
                 .then(({data}) => {
@@ -54,7 +54,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
     };
 
     // gets the display_name of the given user
-    const getDisplayName = username => {
+    let getDisplayName = username => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/users/${username}/display_name.json`)
                 .then(({data}) => resolve(data));
@@ -62,7 +62,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
     };
 
     // stores data in Firebase under typeId
-    const storeMedia = (typeId, data) => {
+    let storeMedia = (typeId, data) => {
         return $q((resolve, reject) => {
             data.type = typeId.split(":")[0];
             data.last_cached = parseInt(Date.now()/1000);
@@ -75,7 +75,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
     };
 
     // updates Firebase data if it's more than 24h old
-    const cacheMedia = (typeId, data) => {
+    let cacheMedia = (typeId, data) => {
         return $q((resolve, reject) => {
             let now = parseInt(Date.now()/1000);
             getMediaByTypeId(typeId)
@@ -88,7 +88,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
     };
 
     // stores data in Firebase under typeId
-    const storeMusic = (typeId, data) => {
+    let storeMusic = (typeId, data) => {
         return $q((resolve, reject) => {
             if (typeId.split(":")[0] == "track") {
                 data.last_cached = parseInt(Date.now()/1000);

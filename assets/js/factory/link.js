@@ -6,7 +6,7 @@ const _ = require("lodash");
 angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, FirebaseFactory) {
 
     // gets $limit recent links, unique by media, sorts them newest first
-    const getRecentLinks = limit => {
+    let getRecentLinks = limit => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="added"&limitTo=${limit}`)
                 .then(({ data }) => {
@@ -31,7 +31,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     };
 
     // returns loaded links by uid, newest first
-    const getLinksByUid = (uid, limit) => {
+    let getLinksByUid = (uid, limit) => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="uid"&equalTo="${uid}"`)
                 .then(({ data }) => {
@@ -59,7 +59,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     };
 
     // promises list of all loaded links connected to media item
-    const getLinksByMedia = typeId => {
+    let getLinksByMedia = typeId => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="media"&equalTo="${typeId}"`)
                 .then(({ data }) => {
@@ -80,7 +80,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     };
 
     // promises list of all loaded links connected to music item
-    const getLinksByMusic = typeId => {
+    let getLinksByMusic = typeId => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="music"&equalTo="${typeId}"`)
                 .then(({ data }) => {
@@ -102,7 +102,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
 
     // takes a link object with a reference to music
     // promises a link object with a music object as a property
-    const loadMusic = link => {
+    let loadMusic = link => {
         return $q((resolve, reject) => {
             let typeId = link.music;
             let type = typeId.split(":")[0];
@@ -136,7 +136,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
 
     // takes a link object with a reference to media
     // promises a link object with a media object as a property
-    const loadMedia = link => {
+    let loadMedia = link => {
         return $q((resolve, reject) => {
             let typeId = link.media;
             FirebaseFactory.getMediaByTypeId(typeId)
@@ -151,7 +151,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     // takes a link object with music & media references
     // promises a link object with a music & media objects as properties
     // NOTE: username = true/false, whether or not to fetch user's display_name
-    const loadLink = (link, username) => {
+    let loadLink = (link, username) => {
         return $q((resolve, reject) => {
             if (link[1]) {
                 link[1].key = link[0];
@@ -175,7 +175,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    const storeNewLink = (mediaTypeId, musicTypeId, tags, uid) => {
+    let storeNewLink = (mediaTypeId, musicTypeId, tags, uid) => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="uid"&equalTo="${uid}"`)
                 .then(({ data }) => {
@@ -199,7 +199,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    const editLink = (key, mediaTypeId, musicTypeId, tags, uid) => {
+    let editLink = (key, mediaTypeId, musicTypeId, tags, uid) => {
         return $q((resolve, reject) => {
             if (tags == "") { tags = []; }
             let link = {

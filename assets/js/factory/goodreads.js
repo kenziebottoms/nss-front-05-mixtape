@@ -6,7 +6,7 @@ const angular = require("angular");
 angular.module("mixtape").factory("GoodreadsFactory", function($q, $http, GOODREADS) {
 
     // returns book details about given book
-    const getBookById = id => {
+    let getBookById = id => {
         return $q((resolve, reject) => {
             $http.get(`${GOODREADS.url}/book/show/${id}?key=${GOODREADS.key}`)
                 .then(({data}) => {
@@ -20,7 +20,7 @@ angular.module("mixtape").factory("GoodreadsFactory", function($q, $http, GOODRE
     };
 
     // returns results for a search by title
-    const searchByTitle = term => {
+    let searchByTitle = term => {
         return $q((resolve, reject) => {
             $http.get(`${GOODREADS.url}/search/index.xml?key=${GOODREADS.key}&q=${term}`)
                 .then(({data}) => {
@@ -32,14 +32,14 @@ angular.module("mixtape").factory("GoodreadsFactory", function($q, $http, GOODRE
     };
 
     // hacks the goodreads images paths to get a large image instead of a medium image
-    const getLargeImage = mediumImgUrl => {
+    let getLargeImage = mediumImgUrl => {
         let mediumPath = mediumImgUrl.split("/")[4];
         let largePath = mediumPath.replace("m", "l");
         return mediumImgUrl.replace(mediumPath, largePath);
     };
 
     // takes raw data from an API call and returns Firebase-formatted data
-    const parseApiInfo = data => {
+    let parseApiInfo = data => {
         if (!data.title._cdata) {
             data.title._cdata = data.title._text;
         }

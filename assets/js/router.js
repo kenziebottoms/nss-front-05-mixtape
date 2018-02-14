@@ -1,9 +1,8 @@
 "use strict";
 
 const angular = require("angular");
-const myApp = angular.module("mixtape");
 
-myApp.config($routeProvider => {
+angular.module("mixtape").config($routeProvider => {
     $routeProvider
         .when("/", {
             templateUrl: "assets/partials/home.html",
