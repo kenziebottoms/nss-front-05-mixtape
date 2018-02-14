@@ -1,7 +1,5 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape").controller("TrackCtrl", function($scope, $q, $routeParams, $controller, SpotifyTrackFactory, FirebaseFactory) {
     $controller("MusicCtrl", {$scope: $scope});
     

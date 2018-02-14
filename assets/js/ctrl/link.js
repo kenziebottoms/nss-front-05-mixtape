@@ -1,7 +1,5 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape").controller("LinkCtrl", function ($scope, GoodreadsFactory, TmdbFactory, SpotifyAuthFactory, $location, TMDB, SpotifyTrackFactory, FirebaseFactory, LinkFactory, $window, $routeParams, SpotifyPlaylistFactory) {
 
     // get active user

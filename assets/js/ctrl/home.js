@@ -1,6 +1,8 @@
 "use strict";
 
-const angular = require("angular");
-
-angular.module("mixtape").controller("HomeCtrl", function() {
+angular.module("mixtape").controller("HomeCtrl", function($scope, LinkFactory) {
+    LinkFactory.getRecentLinks(20)
+        .then(links => {
+            $scope.links = links;
+        });
 });

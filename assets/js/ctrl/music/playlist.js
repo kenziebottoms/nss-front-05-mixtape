@@ -1,8 +1,7 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape").controller("PlaylistCtrl", function($scope, $q, $controller, $routeParams, SpotifyPlaylistFactory, SpotifyAuthFactory, FirebaseFactory) {
+    
     $controller("MusicCtrl", {$scope: $scope});
     
     $scope.playlistId = $routeParams.id;

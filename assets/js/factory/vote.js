@@ -1,7 +1,5 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE, SpotifyAuthFactory) {
     let vote = (linkId, uid, value) => {
         return $q((resolve, reject) => {

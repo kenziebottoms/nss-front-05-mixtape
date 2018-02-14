@@ -1,7 +1,5 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape").controller("MusicCtrl", function($scope, $q, VoteFactory, SpotifyAuthFactory, LinkFactory) {
     
     $scope.getLinks = (typeId) => {

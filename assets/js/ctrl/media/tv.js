@@ -1,7 +1,5 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape").controller("TvCtrl", function($scope, $q, $controller, TmdbFactory, TMDB, FirebaseFactory) {
 
     $controller("MediaCtrl", {$scope: $scope});    

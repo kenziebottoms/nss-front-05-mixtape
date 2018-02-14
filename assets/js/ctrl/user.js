@@ -1,7 +1,5 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape").controller("UserCtrl", function($scope, $rootScope, $q, SpotifyAuthFactory, $location, $window) {
     let getUserData = () => {
         SpotifyAuthFactory.getActiveUserData()

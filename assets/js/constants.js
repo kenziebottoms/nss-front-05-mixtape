@@ -1,7 +1,5 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape")
     .constant("FIREBASE", {
         key: "AIzaSyD4H78lA3VJNn_5GBpGHsr3rhxye3V_fSs",

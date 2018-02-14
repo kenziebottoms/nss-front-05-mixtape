@@ -1,7 +1,5 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape").controller("MenuCtrl", function($scope, $rootScope, SPOTIFY, SpotifyAuthFactory) {
     $scope.key = SPOTIFY.key;
     

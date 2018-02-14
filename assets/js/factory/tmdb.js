@@ -1,7 +1,5 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape").factory("TmdbFactory", function($q, $http, TMDB) {
     const searchMoviesByTitle = title => {
         return $q((resolve, reject) => {

@@ -1,7 +1,5 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape").factory("SpotifyTrackFactory", function($q, $http, SpotifyAuthFactory, SPOTIFY) {
 
     let searchTracksByTitle = (title, limit) => {

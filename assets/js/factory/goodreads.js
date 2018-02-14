@@ -1,7 +1,6 @@
 "use strict";
 
 const convert = require('xml-js');
-const angular = require("angular");
 
 angular.module("mixtape").factory("GoodreadsFactory", function($q, $http, GOODREADS) {
 

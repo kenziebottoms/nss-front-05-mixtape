@@ -1,7 +1,5 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape").controller("BookCtrl", function($scope, $q, $controller, GoodreadsFactory, GOODREADS, FirebaseFactory) {
 
     $controller("MediaCtrl", {$scope: $scope});

@@ -1,7 +1,5 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape").factory("SpotifyPlaylistFactory", function($q, $http, SPOTIFY, SpotifyAuthFactory) {
     let getPlaylistsByUid = (uid, limit, offset) => {
         return $q((resolve, reject) => {

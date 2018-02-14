@@ -1,7 +1,5 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBASE) {
     
     // returns a list of $limit media items of given type

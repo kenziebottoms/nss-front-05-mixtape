@@ -1,19 +1,18 @@
 "use strict";
 
-const angular = require("angular");
-
 angular.module("mixtape").config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
-        .state('home', {
-            url: '/',
-            templateUrl: 'assets/partials/search.html'
+        .state("home", {
+            url: "/",
+            templateUrl: "assets/partials/home.html"
+        })
+        .state("userProfile", {
+            url: "/user/:id",
+            templateUrl: "assets/partials/profile.html",
+            controller: "ProfileCtrl"
         });
     $urlRouterProvider.otherwise("/");
     // $routeProvider
-    //     .when("/search/:term", {
-    //         templateUrl: "assets/partials/search.html",
-    //         controller: "SearchCtrl"
-    //     })
     //     .when("/", {
     //         templateUrl: "assets/partials/home.html",
     //         controller: "HomeCtrl"
