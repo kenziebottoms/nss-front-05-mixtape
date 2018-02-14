@@ -34,15 +34,15 @@ myApp.config($routeProvider => {
             controller: "BookCtrl"
         })
         .when("/new", {
-            templateUrl: "assets/partials/link.html",
-            controller: "LinkCtrl"
+            templateUrl: "assets/partials/mix.html",
+            controller: "MixCtrl"
         })
         .when("/track/:id", {
             templateUrl: "assets/partials/track.html",
             controller: "TrackCtrl"
         })
         .when("/link/:id", {
-            templateUrl: "assets/partials/link.html",
-            controller: "LinkCtrl"
+            templateUrl: "assets/partials/mix.html",
+            controller: "MixCtrl"
         });
 });
