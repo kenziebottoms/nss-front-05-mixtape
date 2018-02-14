@@ -3,9 +3,8 @@
 const angular = require("angular");
 
 angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOTIFY, FirebaseFactory) {
-    // asks spotify for user info using the current token
-    // receives:    token
-    // returns:     promise of userData
+
+    // promises active user info from Spotify through current token
     const fetchUserInfo = token => {
         return $q((resolve, reject) => {
             $http({
@@ -16,6 +15,7 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
                 }
             })
                 .then(({data}) => {
+                    // stores data in localStorage so we don't have to do this again
                     cacheUserData(data);
                     resolve(data);
                 })
@@ -24,8 +24,6 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
     };
 
     // retrieves active token and checks that it's still valid
-    // receieves:   nothing
-    // returns:     token | false
     const getActiveToken = () => {
         let token = localStorage.getItem("spotifyUserToken");
         let expiration = localStorage.getItem("spotifyTokenExpiration");
@@ -38,18 +36,13 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
     };
 
     // stores user token and its expiration date in localStorage
-    // receives:    user token, maximum age thereof in seconds
-    // returns:     nothing
     const setActiveToken = (token, expires_in) => {
         localStorage.setItem("spotifyUserToken", token);
-        // Date.now() returns epoch in milliseconds, we want seconds
         let timeStamp = parseInt(Date.now()/1000);
         localStorage.setItem("spotifyTokenExpiration", (+timeStamp) + (+expires_in));
     };
 
-    // parses spotify callback hash and logs user in
-    // receives:    spotify callback hash
-    // returns:     nothing
+    // parses spotify callback hash and stores token
     const login = hash => {
         let hashes = hash.split(/[?&]/);
         let token = hashes[0].split(/=/)[1];
@@ -57,15 +50,15 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
         setActiveToken(token, expires_in);
         return getActiveUserData();
     };
-    // removes all localStorage variables related to the user
-    // recieves:    nothing
-    // returns:     nothing
+
+    // clears localStorage
     const logout = () => {
         localStorage.removeItem("spotifyUserToken");
         localStorage.removeItem("spotifyTokenExpiration");
         localStorage.removeItem("spotifyUserInfo");
     };
 
+    // promises user data for given user
     const getUserData = username => {
         return $q((resolve, reject) => {
             let token = getActiveToken();
@@ -82,11 +75,14 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
         });
     };
 
+    // stores user data in localStorage and Firebase
     const cacheUserData = data => {
         data.username = data.uri.split(":")[2];
         localStorage.setItem("spotifyUserInfo", JSON.stringify(data));
         FirebaseFactory.storeUserData(data.username, data);
     };
+
+    // promises active user data, checked for in localStorage before fetched from Spotify
     const getActiveUserData = () => {
         return $q((resolve, reject) => {
             let userData = localStorage.getItem("spotifyUserInfo");
@@ -102,5 +98,4 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
     };
 
     return { login, logout, getActiveToken, getActiveUserData, getUserData };
-
 });
