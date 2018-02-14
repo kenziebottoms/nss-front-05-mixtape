@@ -5,26 +5,19 @@ const angular = require("angular");
 angular.module("mixtape").controller("MenuCtrl", function($scope, $rootScope, SPOTIFY, SpotifyAuthFactory) {
     $scope.key = SPOTIFY.key;
     
-    let getUserData = () => {
-        $scope.menu = [];
-        SpotifyAuthFactory.getActiveUserData()
-            .then(userData => {
-                $scope.user = userData;
-                $scope.menu.push({
-                    url: "#!/new",
-                    label: "New Mix",
-                    show: "user"
-                });
-            })
-            .catch(err => $scope.user = null);
-    };
+    // fetches active user data from Spotify or localStorage
+    SpotifyAuthFactory.getActiveUserData()
+        .then(userData => {
+            $scope.user = userData;
+        })
+        .catch(err => $scope.user = null);
 
-    getUserData();
-    
+    // watches for userChange which happens in UserCtrl
     $scope.$on('userChange', (event, user) => {
         $scope.user = user;
     });
 
+    // removes localStorage info and broadcasts userChange to UserCtrl
     $scope.logout = () => {
         $scope.user = null;
         SpotifyAuthFactory.logout();
