@@ -4,6 +4,7 @@ const angular = require("angular");
 
 angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $location, LinkFactory, VoteFactory, SpotifyAuthFactory, SpotifyPlaybackFactory) {
 
+    // asynchronously updates $scope.user
     $scope.getUserData = () => {
         return $q((resolve, reject) => {
             SpotifyAuthFactory.getActiveUserData()
@@ -15,6 +16,8 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
         });
     };
 
+    // loads links with votes
+    // ASSUMPTION: $scope.links has been initialized and set
     $scope.getVotes = () => {
         $scope.links.filter(link => {
             return link.uid != $scope.user.id;
@@ -23,6 +26,7 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
         });
     };
 
+    // deletes the given link and refreshes the list of links on the page
     $scope.deleteLink = key => {
         LinkFactory.deleteLink(key)
             .then(result => {
@@ -32,6 +36,8 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
                 Materialize.toast(err, 3000);
             });
     };
+    
+    // upvotes the current link if not already upvoted
     $scope.upvote = linkId => {
         let link = $scope.links.find(link => link.key == linkId);
         if (link.vote == 1) {
@@ -43,6 +49,7 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
         }
     };
 
+    // downvotes the current link if not already downvoted
     $scope.downvote = linkId => {
         let link = $scope.links.find(link => link.key == linkId);
         if (link.vote == -1) {
@@ -53,7 +60,8 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
                 .then(response => link.vote = -1);
         }
     };
-
+    
+    // plays the given track or playlist
     $scope.play = (uid, music) => {
         if (music.type == 'playlist') {
             $scope.playPlaylist(uid, music.id);
@@ -61,12 +69,16 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
             $scope.playTrack(music.id);
         }
     };
+    
+    // turns shuffle off and plays the given playlist
     $scope.playPlaylist = (uid, id) => {
         SpotifyPlaybackFactory.turnOffShuffle()
             .then( response => {
                 SpotifyPlaybackFactory.playPlaylist(uid, id);
             });
     };
+
+    // turns shuffle off and plays the given track
     $scope.playTrack = id => {
         SpotifyPlaybackFactory.turnOffShuffle()
             .then(response => {
