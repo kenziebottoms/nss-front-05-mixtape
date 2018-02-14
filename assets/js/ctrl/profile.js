@@ -28,7 +28,7 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller
         });
     };
 
-    let getLinks = () => {
+    $scope.getLinks = () => {
         return $q((resolve, reject) => {
             LinkFactory.getLinksByUid($scope.profileUser.id, 5)
                 .then(data => {
@@ -42,7 +42,7 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller
 
     getOwnerData();
     Promise.all([
-        getLinks(),
+        $scope.getLinks(),
         getUserData()
     ])
         .then(response => {
