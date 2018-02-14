@@ -26,6 +26,7 @@ require("./ctrl/linkCard");
 require("./factory/spotify/auth");
 require("./factory/spotify/track");
 require("./factory/spotify/playlist");
+require("./factory/spotify/playback");
 require("./factory/vote");
 require("./factory/firebase");
 require("./factory/link");

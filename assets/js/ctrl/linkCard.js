@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $location, LinkFactory, VoteFactory, SpotifyAuthFactory) {
+angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $location, LinkFactory, VoteFactory, SpotifyAuthFactory, SpotifyPlaybackFactory) {
 
     $scope.getUserData = () => {
         return $q((resolve, reject) => {
@@ -52,5 +52,25 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
             VoteFactory.downvote(linkId, $scope.user.id)
                 .then(response => link.vote = -1);
         }
+    };
+
+    $scope.play = (uid, music) => {
+        if (music.type == 'playlist') {
+            $scope.playPlaylist(uid, music.id);
+        } else if (music.type == 'track') {
+            $scope.playTrack(music.id);
+        }
+    };
+    $scope.playPlaylist = (uid, id) => {
+        SpotifyPlaybackFactory.turnOffShuffle()
+            .then( response => {
+                SpotifyPlaybackFactory.playPlaylist(uid, id);
+            });
+    };
+    $scope.playTrack = id => {
+        SpotifyPlaybackFactory.turnOffShuffle()
+            .then(response => {
+                SpotifyPlaybackFactory.playTrack(id);
+            });
     };
 });

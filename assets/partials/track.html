@@ -1,7 +1,10 @@
 <div class="row container">
     <div class="col s12 m4 l5" id="sidebar">
         <img ng-src="{{music.image}}">
-        <h1>{{music.title}}</h1>
+        <h1>
+            <a ng-click="playTrack(music.id)" class="btn-floating btn waves-effect waves-light play"><i class="material-icons">play_arrow</i></a>
+            {{music.title}}
+        </h1>
         <h2>{{music.subtitle}}</h2>
     </div>
     <div class="col s12 m8 l6 offset-l1" id="profile-links" ng-include="'assets/partials/trackLinks.html'">
