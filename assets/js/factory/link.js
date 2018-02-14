@@ -58,7 +58,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    // returns loaded links by media typeId, newest first
+    // promises list of all loaded links connected to media item
     const getLinksByMedia = typeId => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="media"&equalTo="${typeId}"`)
@@ -79,7 +79,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    // returns loaded links by music typeId, newest first
+    // promises list of all loaded links connected to music item
     const getLinksByMusic = typeId => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/links.json?orderBy="music"&equalTo="${typeId}"`)
@@ -90,7 +90,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                     });
                     Promise.all(linkPromises)
                         .then(loadedLinks => {
-                            // shows newest first
+                            // sorts newest first
                             loadedLinks.sort((a, b) => {
                                 return +b.added - a.added;
                             });
@@ -101,7 +101,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     };
 
     // takes a link object with a reference to music
-    // returns a link object with a music object as a property
+    // promises a link object with a music object as a property
     const loadMusic = link => {
         return $q((resolve, reject) => {
             let typeId = link.music;
@@ -135,7 +135,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     };
 
     // takes a link object with a reference to media
-    // returns a link object with a media object as a property
+    // promises a link object with a media object as a property
     const loadMedia = link => {
         return $q((resolve, reject) => {
             let typeId = link.media;
@@ -149,7 +149,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     };
 
     // takes a link object with music & media references
-    // returns a link object with a music & media objects as properties
+    // promises a link object with a music & media objects as properties
     // NOTE: username = true/false, whether or not to fetch user's display_name
     const loadLink = (link, username) => {
         return $q((resolve, reject) => {
