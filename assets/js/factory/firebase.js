@@ -4,7 +4,7 @@ const angular = require("angular");
 
 angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBASE) {
     
-    // returns a list of $limit media items of given type
+    // promises a list of media items of given type sorted who knows how
     let getMediaByType = (type, limit) => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/media.json?orderBy="type"&equalTo="${type}"&limitToFirst=${limit}`)
@@ -14,7 +14,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    // returns a piece of media by the given type and id
+    // promises cached info on the given piece of media
     let getMediaByTypeId = typeId => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/media/${typeId}.json`)
@@ -24,7 +24,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    // returns details of track with given id
+    // promises cached info on the given track
     let getTrackById = id => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/tracks/${id}.json`)
@@ -35,7 +35,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    // stores data about the current active user in Firebase
+    // caches data about the given active user in Firebase
     let storeUserData = (username, data) => {
         return $q((resolve, reject) => {
             $http.put(`${FIREBASE.dbUrl}/users/${username}.json`, data)
@@ -43,7 +43,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    // gets data about the given user
+    // promises cached data about the given user
     let getUserData = username => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/users/${username}.json`)
@@ -53,7 +53,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    // gets the display_name of the given user
+    // promises the display_name of the given user
     let getDisplayName = username => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/users/${username}/display_name.json`)
@@ -61,7 +61,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    // stores data in Firebase under typeId
+    // caches data in Firebase for given media item
     let storeMedia = (typeId, data) => {
         return $q((resolve, reject) => {
             data.type = typeId.split(":")[0];
@@ -74,7 +74,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    // updates Firebase data if it's more than 24h old
+    // updates Firebase cached info if it's more than 24h old
     let cacheMedia = (typeId, data) => {
         return $q((resolve, reject) => {
             let now = parseInt(Date.now()/1000);
@@ -87,7 +87,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    // stores data in Firebase under typeId
+    // caches info in Firebase for given music item
     let storeMusic = (typeId, data) => {
         return $q((resolve, reject) => {
             if (typeId.split(":")[0] == "track") {
@@ -108,7 +108,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         });
     };
 
-    // gets playlist by user id and playlist id
+    // promises cached playlist info by ownerId and playlistId
     let getPlaylistByIds = (uid, playlistId) => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.dbUrl}/playlists/${uid}:${playlistId}.json`)
