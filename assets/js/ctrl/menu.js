@@ -15,7 +15,8 @@ angular.module("mixtape").controller("MenuCtrl", function($scope, $rootScope, SP
                     label: "New Mix",
                     show: "user"
                 });
-            });
+            })
+            .catch(err => $scope.user = null);
     };
 
     getUserData();

@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("MediaCtrl", function($scope, $routeParams, $q, LinkFactory, SpotifyAuthFactory, VoteFactory) {
+angular.module("mixtape").controller("MediaCtrl", function($scope, $routeParams, $q, $location, LinkFactory, SpotifyAuthFactory, VoteFactory) {
     
     $scope.getLinks = (typeId) => {
         return $q((resolve, reject) => {
@@ -21,7 +21,8 @@ angular.module("mixtape").controller("MediaCtrl", function($scope, $routeParams,
                 .then(data => {
                     $scope.user = data;
                     resolve();
-                });
+                })
+                .catch(err => $location.path("/"));
         });
     };
 

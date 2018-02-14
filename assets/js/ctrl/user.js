@@ -10,7 +10,8 @@ angular.module("mixtape").controller("UserCtrl", function($scope, $rootScope, $q
                 if (!data.username) {
                     $scope.user.username = data.uri.split(":")[2];
                 }
-        });    
+            })
+            .catch(err => $scope.user = null);
     };
     let hash = $location.hash();
     if (hash) {

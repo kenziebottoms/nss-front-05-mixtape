@@ -20,7 +20,8 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, $q, Firebas
                 .then(userData => {
                     $scope.user = userData;
                     resolve();
-                });
+                })
+                .catch(resolve(null));
         });
         
     };
