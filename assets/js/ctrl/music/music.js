@@ -15,19 +15,5 @@ angular.module("mixtape").controller("MusicCtrl", function($scope, $q, $controll
                 });
         });
     };
-    $scope.getUserData = () => {
-        return $q((resolve, reject) => {
-            SpotifyAuthFactory.getActiveUserData()
-                .then(data => {
-                    $scope.user = data;
-                    resolve();
-                })
-                .catch(err => $location.path("/"));
-        });
-    };
-
-    $scope.afterDelete = () => {
-        $scope.getLinks();
-    };
 
 });

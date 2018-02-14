@@ -48,8 +48,4 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller
         .then(response => {
             $scope.getVotes();
         });
-
-    $scope.afterDelete = () => {
-        getLinks();
-    };
 });

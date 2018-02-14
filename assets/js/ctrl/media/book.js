@@ -24,12 +24,10 @@ angular.module("mixtape").controller("BookCtrl", function($scope, $q, $controlle
     $scope.typeId = `book:${$scope.id}`;
     $scope.fetchInfo($scope.typeId);
     
-    let promises = [
+    Promise.all([
         $scope.getLinks($scope.typeId),
         $scope.getUserData()
-    ];
-
-    Promise.all(promises)
+    ])
         .then(results => {
             $scope.getVotes();
         });

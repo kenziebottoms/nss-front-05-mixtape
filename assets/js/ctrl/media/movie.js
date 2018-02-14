@@ -5,7 +5,6 @@ const angular = require("angular");
 angular.module("mixtape").controller("MovieCtrl", function($scope, $q, $controller, $routeParams, TmdbFactory, TMDB, FirebaseFactory) {
     
     $controller("MediaCtrl", {$scope: $scope});
-    $scope.typeId = `movie:${$scope.id}`;
     
     $scope.fetchInfo = () => {
         return $q((resolve, reject) => {
@@ -17,18 +16,17 @@ angular.module("mixtape").controller("MovieCtrl", function($scope, $q, $controll
                     resolve();
                     FirebaseFactory.cacheMedia($scope.typeId, $scope.media);
                 });
-        });
-    };
-
-    $scope.fetchInfo($scope.typeId);
-    
-    let promises = [
-        $scope.getLinks($scope.typeId),
-        $scope.getUserData()
-    ];
-
-    Promise.all(promises)
+            });
+        };
+        
+        $scope.fetchInfo($scope.typeId);
+        $scope.typeId = `movie:${$scope.id}`;
+        
+        Promise.all([
+            $scope.getLinks($scope.typeId),
+            $scope.getUserData()
+        ])
         .then(results => {
             $scope.getVotes();
         });
-});
+    });

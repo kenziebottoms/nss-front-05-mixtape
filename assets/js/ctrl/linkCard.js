@@ -2,7 +2,18 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("LinkCardCtrl", function($scope, LinkFactory, VoteFactory) {
+angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $location, LinkFactory, VoteFactory, SpotifyAuthFactory) {
+
+    $scope.getUserData = () => {
+        return $q((resolve, reject) => {
+            SpotifyAuthFactory.getActiveUserData()
+                .then(data => {
+                    $scope.user = data;
+                    resolve();
+                })
+                .catch(err => $location.path("/"));
+        });
+    };
 
     $scope.getVotes = () => {
         $scope.links.filter(link => {
@@ -15,7 +26,7 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, LinkFactor
     $scope.deleteLink = key => {
         LinkFactory.deleteLink(key)
             .then(result => {
-                $scope.afterDelete();
+                $scope.getLinks();
             })
             .catch(err => {
                 Materialize.toast(err, 3000);
