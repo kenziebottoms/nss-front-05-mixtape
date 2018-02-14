@@ -1,5 +1,6 @@
 <h3>Activity</h3>
 <div id="{{link.music.id}}" ng-repeat="link in links" class="link">
+    <a ng-click="play(link.music.ownerId, link.music)" class="btn-floating btn waves-effect waves-light play"><i class="material-icons">play_arrow</i></a>
     <div class="img" style="background-image:url({{link.music.small_image}});"></div>
     <div class="body">
         <h5><a ng-href="#!/{{link.music.prefix}}{{link.music.type}}/{{link.music.id}}">{{link.music.title}}</a></h5>
