@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@uirouter/angularjs": "^1.0.15",
     "angular": "^1.6.8",
-    "angular-route": "^1.6.8",
     "grunt": "^1.0.1",
     "grunt-browserify": "^5.2.0",
     "grunt-contrib-jshint": "^1.1.0",
