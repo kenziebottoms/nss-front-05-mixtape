@@ -3,6 +3,8 @@
 const angular = require("angular");
 
 angular.module("mixtape").factory("SpotifyPlaybackFactory", function ($q, $http, SpotifyAuthFactory, SPOTIFY) {
+
+    // tell Spotify to play given track for active user
     let playTrack = id => {
         return $q((resolve, reject) => {
             let token = SpotifyAuthFactory.getActiveToken();
@@ -19,6 +21,7 @@ angular.module("mixtape").factory("SpotifyPlaybackFactory", function ($q, $http,
                 }
             })
                 .then(response => {
+                    // 204 means "it worked, spotify is playing that"
                     if (response.status == 204) {
                         resolve(response);
                     } else {
@@ -28,6 +31,8 @@ angular.module("mixtape").factory("SpotifyPlaybackFactory", function ($q, $http,
                 .catch(err => reject(err));
         });
     };
+
+    // tell Spotify to play given playlist for active user
     let playPlaylist = (uid, id) => {
         return $q((resolve, reject) => {
             let token = SpotifyAuthFactory.getActiveToken();
@@ -41,6 +46,7 @@ angular.module("mixtape").factory("SpotifyPlaybackFactory", function ($q, $http,
                     "context_uri": `spotify:user:${uid}:playlist:${id}`
                 }
             }).then(response => {
+                    // 204 means "it worked, spotify is playing that"
                     if (response.status == 204) {
                         resolve(response);
                     } else {
@@ -51,26 +57,28 @@ angular.module("mixtape").factory("SpotifyPlaybackFactory", function ($q, $http,
         });
     };
 
-let turnOffShuffle = () => {
-    return $q((resolve, reject) => {
-        let token = SpotifyAuthFactory.getActiveToken();
-        $http({
-            method: "PUT",
-            url: `${SPOTIFY.url}/me/player/shuffle?state=false`,
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-            .then(response => {
-                if (response.status == 204) {
-                    resolve(response);
-                } else {
-                    reject(response);
+    // tells Spotify to turn off shuffle for active user
+    let turnOffShuffle = () => {
+        return $q((resolve, reject) => {
+            let token = SpotifyAuthFactory.getActiveToken();
+            $http({
+                method: "PUT",
+                url: `${SPOTIFY.url}/me/player/shuffle?state=false`,
+                headers: {
+                    'Authorization': `Bearer ${token}`
                 }
             })
-            .catch(err => reject(err));
-    });
-};
+            .then(response => {
+                    // 204 means "it worked, spotify turned off shuffle"
+                    if (response.status == 204) {
+                        resolve(response);
+                    } else {
+                        reject(response);
+                    }
+                })
+                .catch(err => reject(err));
+        });
+    };
 
-return { playTrack, playPlaylist, turnOffShuffle };
+    return { playTrack, playPlaylist, turnOffShuffle };
 });

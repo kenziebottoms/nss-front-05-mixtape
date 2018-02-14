@@ -3,6 +3,8 @@
 const angular = require("angular");
 
 angular.module("mixtape").factory("SpotifyPlaylistFactory", function($q, $http, SPOTIFY, SpotifyAuthFactory) {
+
+    // promises the first 50 playlists belonging to active user
     let getPlaylistsByUid = (uid, limit, offset) => {
         return $q((resolve, reject) => {
             let token = SpotifyAuthFactory.getActiveToken();
@@ -18,6 +20,8 @@ angular.module("mixtape").factory("SpotifyPlaylistFactory", function($q, $http, 
                 });
         });
     };
+
+    // fetches the next 50 playlists belonging to active user and searches their names by regex
     let searchUserPlaylists = (uid, term, limit, offset) => {
         return $q((resolve, reject) => {
             getPlaylistsByUid(uid, limit, offset)
@@ -30,6 +34,8 @@ angular.module("mixtape").factory("SpotifyPlaylistFactory", function($q, $http, 
                 });
         });
     };
+
+    // returns Spotify info on playlist with given ownerId and id
     let getPlaylistByIds = (uid, playlistId) => {
         return $q((resolve, reject) => {
             let token = SpotifyAuthFactory.getActiveToken();
@@ -46,6 +52,7 @@ angular.module("mixtape").factory("SpotifyPlaylistFactory", function($q, $http, 
         });
     };
 
+    // formats raw Spotify playlist data into what we put into Firebase
     let parseApiInfo = data => {
         let obj = {
             title: data.name,
