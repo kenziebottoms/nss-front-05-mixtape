@@ -61,4 +61,7 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
             SpotifyPlaybackFactory.playTrack(music.id);
         }
     };
+    $scope.playPlaylist = (uid, id) => {
+        SpotifyPlaybackFactory.playPlaylist(uid, id);        
+    };
 });

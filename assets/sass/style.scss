@@ -100,6 +100,13 @@ nav {
             color: $green;
         }
     }
+
+    .play.btn {
+        transition: .25s;
+        opacity: 1;
+        background: $green;
+        margin: .25 1rem;
+    }
 }
 .user-card {
     background: $g3;
@@ -178,7 +185,7 @@ nav {
     }
 }
 
-#profile-links, #track-links, #mediaSearchResults, #musicSearchResults {
+#profile-links, #mediaSearchResults, #musicSearchResults {
     .play.btn {
         transition: .25s;
         opacity: 0;
