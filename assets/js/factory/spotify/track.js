@@ -4,9 +4,10 @@ const angular = require("angular");
 
 angular.module("mixtape").factory("SpotifyTrackFactory", function($q, $http, SpotifyAuthFactory, SPOTIFY) {
 
+    // returns Spotify search query on title
     let searchTracksByTitle = (title, limit) => {
-        let token = SpotifyAuthFactory.getActiveToken();
         return $q((resolve, reject) => {
+            let token = SpotifyAuthFactory.getActiveToken();
             $http({
                 method: "GET",
                 url: `${SPOTIFY.url}/search?q=title:${encodeURI(title)}&type=track&limit=${limit ? limit : "20"}`,
@@ -19,9 +20,10 @@ angular.module("mixtape").factory("SpotifyTrackFactory", function($q, $http, Spo
         });
     };
 
+    // returns Spotify info on given track;
     let getTrackById = id => {
-        let token = SpotifyAuthFactory.getActiveToken();
         return $q((resolve, reject) => {
+            let token = SpotifyAuthFactory.getActiveToken();
             $http({
                 method: "GET",
                 url: `${SPOTIFY.url}/tracks/${id}`,
@@ -34,6 +36,7 @@ angular.module("mixtape").factory("SpotifyTrackFactory", function($q, $http, Spo
         });
     };
 
+    // formats Spotify track data into what we put into Firebase
     let parseApiInfo = data => {
         let obj = {
             title: data.name,

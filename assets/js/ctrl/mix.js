@@ -8,18 +8,20 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
     SpotifyAuthFactory.getActiveUserData()
         .then(data => {
             $scope.user = data;
+            // gets the link/mix id/key
             $scope.key = $routeParams.id;
             // if it's an edit page
             if ($scope.key) {
                 $scope.context = "edit";
-                // grab the link
+                // fetch the link
                 LinkFactory.getLinkByKey($scope.key)
                     .then(link => {
                         // if user didn't create the link
                         if ($scope.user.id != link.uid) {
+                            // kick em out
                             $location.path("/");
                         } else {
-                            // populate page with existing link's contents
+                            // populate page with link's contents
                             $scope.activeMedia = link.media.split(":")[0];
                             $scope.activeMusic = link.music.split(":")[0];
                             if (link.tags) {
@@ -27,10 +29,14 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
                             } else {
                                 $scope.tags = "";
                             }
+
+                            // populate media
                             FirebaseFactory.getMediaByTypeId(link.media)
                                 .then(media => {
                                     $scope.selectedMedia = media;
                                 });
+
+                            // populate music
                             if ($scope.activeMusic == "track") {
                                 FirebaseFactory.getTrackById(link.music.split(":")[1])
                                     .then(music => {
@@ -54,8 +60,9 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
             $location.path("/");
         });
 
-    // takes the search term and the search medium and displays 5 results
+    // displays 5 results for the search term in the selected medium
     $scope.searchMedia = () => {
+        // only searches if the term isn't empty and a medium is selected
         if ($scope.mediaSearchTerm != "" && $scope.activeMedia) {
             $scope.results = {};
             if ($scope.activeMedia == "book") {
@@ -79,8 +86,9 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
         }
     };
 
-    // takes the search term and the search medium and displays 5 results
+    // displays 5 results for the search term in the selected music format
     $scope.searchMusic = () => {
+        // only searches if term isn't empty and a music format is selected
         if ($scope.searchMusicTerm != "" && $scope.activeMusic) {
             if ($scope.activeMusic == "track") {
                 SpotifyTrackFactory.searchTracksByTitle($scope.musicSearchTerm)
@@ -97,11 +105,12 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
         }
     };
 
-    // searches the next batch of 50 playlists for the search term
+    // searches the next 50-count page playlists for the search term
     $scope.searchMorePlaylists = () => {
         SpotifyPlaylistFactory.searchUserPlaylists($scope.user.id, $scope.musicSearchTerm, 50, $scope.offset)
             .then(results => {
                 $scope.offset += 50;
+                // tags results onto the end of the existing results
                 $scope.musicResults = $scope.musicResults.concat(Object.values(results));
             });
     };
@@ -142,36 +151,39 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
         }
     };
 
-    // submit mix
+    // save or submit mix
     $scope.submit = () => {
-        // if you've picked music and media
+        // only if you've selected both music and media
         if ($scope.selectedMedia && $scope.selectedMusic) {
             let mediaTypeId = `${$scope.activeMedia}:${$scope.selectedMedia.id}`;
-            let musicTypeId = `${$scope.activeMusic}:${$scope.selectedMusic.id}`;
-            let promises = [];
-            // store the media by itself
-            promises.push(FirebaseFactory.storeMedia(mediaTypeId, $scope.selectedMedia));
-            if (musicTypeId.split(":")[0] == "playlist") {
-                musicTypeId = `${$scope.user.id}:${musicTypeId.split(":")[1]}`;
-            }
-            if ($scope.activeMusic == "playlist") {
-                musicTypeId = `playlist:${musicTypeId}`;
-            }
-            // store music by itself
-            promises.push(FirebaseFactory.storeMusic(musicTypeId, $scope.selectedMusic));
+            let musicTypeId;
 
-            // after music and media have been stored
-            Promise.all(promises)
+            // prepare musicTypeId
+            if ($scope.activeMusic == "playlist") {
+                musicTypeId = `playlist:${$scope.user.id}:${$scope.selectedMusic.id}`;
+            } else {
+                musicTypeId = `${$scope.activeMusic}:${$scope.selectedMusic.id}`;
+            }
+            if ($scope.tags == "" || $scope.tags == undefined) {
+                $scope.tags = null;
+            } else {
+                $scope.tags = $scope.tags.split(",").map(string => string.trim());
+            }
+
+            // after music and media have both been stored
+            Promise.all([
+                FirebaseFactory.storeMusic(musicTypeId, $scope.selectedMusic),
+                FirebaseFactory.storeMedia(mediaTypeId, $scope.selectedMedia)
+            ])
+                // create new link or patch link
                 .then(response => {
                     if ($scope.context == "new") {
-                        // create new link
-                        return LinkFactory.storeNewLink(mediaTypeId, musicTypeId, $scope.tags.trim().split(","), $scope.user.id);
-                        // patch existing link
+                        return LinkFactory.storeNewLink(mediaTypeId, musicTypeId, $scope.tags, $scope.user.id);
                     } else {
-                        return LinkFactory.editLink($scope.key, mediaTypeId, musicTypeId, $scope.tags.trim().split(","), $scope.user.id);
+                        return LinkFactory.editLink($scope.key, mediaTypeId, musicTypeId, $scope.tags, $scope.user.id);
                     }
                 })
-                // success => redirect ot media page
+                // success => redirect to media page
                 .then(response => {
                     $window.location.href = `#!/${$scope.activeMedia}/${mediaTypeId.split(":")[1]}`;
                 })
@@ -182,6 +194,7 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
         }
     };
 
+    // jk
     $scope.cancel = () => {
         $window.history.back();
     };

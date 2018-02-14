@@ -11,7 +11,6 @@ require("./constants.js");
 require("./ctrl/menu");
 require("./ctrl/user");
 require("./ctrl/home");
-require("./ctrl/search");
 require("./ctrl/profile");
 require("./ctrl/media/media");
 require("./ctrl/media/movie");

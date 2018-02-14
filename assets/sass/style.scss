@@ -143,6 +143,12 @@ nav {
 .page-footer {
     padding-top: 0;
     text-align: center;
+    * {
+        color: $g4;
+    }
+    a {
+        color: $green;
+    }
 }
 
 #recent {
