@@ -20,7 +20,8 @@ require("./ctrl/media/book");
 require("./ctrl/music/music");
 require("./ctrl/music/track");
 require("./ctrl/music/playlist");
-require("./ctrl/link");
+require("./ctrl/mix");
+require("./ctrl/linkCard");
 
 require("./factory/spotify/auth");
 require("./factory/spotify/track");

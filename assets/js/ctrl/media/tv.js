@@ -23,11 +23,10 @@ angular.module("mixtape").controller("TvCtrl", function($scope, $q, $controller,
     $scope.typeId = `tv:${$scope.id}`;
     $scope.fetchInfo($scope.typeId);
 
-    let promises = [
+    Promise.all([
         $scope.getLinks($scope.typeId),
         $scope.getUserData()
-    ];
-    Promise.all(promises)
+    ])
         .then(results => {
             $scope.getVotes();
         });

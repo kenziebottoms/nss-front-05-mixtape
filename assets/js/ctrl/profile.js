@@ -2,7 +2,9 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("ProfileCtrl", function($scope, $q, FirebaseFactory, LinkFactory, $routeParams, SpotifyAuthFactory, VoteFactory) {
+angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller, $q, FirebaseFactory, LinkFactory, $routeParams, SpotifyAuthFactory, VoteFactory) {
+
+    $controller("LinkCardCtrl", {$scope: $scope});
     $scope.profileUser = {id: $routeParams.id };
     
     let getOwnerData = () => {
@@ -14,6 +16,7 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, $q, Firebas
                 });
         });
     };
+
     let getUserData = () => {
         return $q((resolve, reject) => {
             SpotifyAuthFactory.getActiveUserData()
@@ -23,10 +26,9 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, $q, Firebas
                 })
                 .catch(resolve(null));
         });
-        
     };
 
-    let getLinks = () => {
+    $scope.getLinks = () => {
         return $q((resolve, reject) => {
             LinkFactory.getLinksByUid($scope.profileUser.id, 5)
                 .then(data => {
@@ -40,45 +42,10 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, $q, Firebas
 
     getOwnerData();
     Promise.all([
-        getLinks(),
+        $scope.getLinks(),
         getUserData()
     ])
         .then(response => {
-            $scope.links.filter(link => {
-                return link.uid != $scope.user.id;
-            }).map(link => {
-                return VoteFactory.loadVote(link, $scope.user.id);
-            });
+            $scope.getVotes();
         });
-
-    $scope.deleteLink = key => {
-        LinkFactory.deleteLink(key)
-            .then(result => {
-                getLinks();
-            })
-            .catch(err => {
-                Materialize.toast(err, 3000);
-            });
-    };
-    $scope.upvote = linkId => {
-        let link = $scope.links.find(link => link.key == linkId);
-        if (link.vote == 1) {
-            VoteFactory.unvote(linkId, $scope.user.id)
-                .then(response => link.vote = 0);
-        } else {
-            VoteFactory.upvote(linkId, $scope.user.id)
-                .then(response => link.vote = 1);
-        }
-    };
-
-    $scope.downvote = linkId => {
-        let link = $scope.links.find(link => link.key == linkId);
-        if (link.vote == -1) {
-            VoteFactory.unvote(linkId, $scope.user.id)
-                .then(response => link.vote = 0);
-        } else {
-            VoteFactory.downvote(linkId, $scope.user.id)
-                .then(response => link.vote = -1);
-        }
-    };
 });
