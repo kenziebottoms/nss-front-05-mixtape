@@ -2,11 +2,12 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller, $q, FirebaseFactory, LinkFactory, $routeParams, SpotifyAuthFactory, VoteFactory) {
+angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller, $q, FirebaseFactory, LinkFactory, $routeParams, SpotifyAuthFactory) {
 
+    // gets voting, deletion, playback methods from LinkCardCtrl
     $controller("LinkCardCtrl", {$scope: $scope});
-    $scope.profileUser = {id: $routeParams.id };
     
+    // promises user data on profile owner
     let getOwnerData = () => {
         return $q((resolve, reject) => {
             FirebaseFactory.getUserData($scope.profileUser.id)
@@ -17,17 +18,7 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller
         });
     };
 
-    let getUserData = () => {
-        return $q((resolve, reject) => {
-            SpotifyAuthFactory.getActiveUserData()
-                .then(userData => {
-                    $scope.user = userData;
-                    resolve();
-                })
-                .catch(resolve(null));
-        });
-    };
-
+    // promises list of 5 most recent loaded links by this user
     $scope.getLinks = () => {
         return $q((resolve, reject) => {
             LinkFactory.getLinksByUid($scope.profileUser.id, 5)
@@ -40,10 +31,13 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller
         
     };
 
+    $scope.profileUser = {id: $routeParams.id };
     getOwnerData();
+
+    // after links and user data have been fetched, get votes
     Promise.all([
         $scope.getLinks(),
-        getUserData()
+        $scope.getUserData()
     ])
         .then(response => {
             $scope.getVotes();
