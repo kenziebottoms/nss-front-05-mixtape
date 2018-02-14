@@ -72,5 +72,5 @@ let turnOffShuffle = () => {
     });
 };
 
-return { playTrack, playPlaylist };
+return { playTrack, playPlaylist, turnOffShuffle };
 });
