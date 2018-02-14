@@ -6,9 +6,9 @@ angular.module("mixtape").controller("MusicCtrl", function($scope, $q, $controll
     
     $controller("LinkCardCtrl", {$scope: $scope});
 
-    $scope.getLinks = (typeId) => {
+    $scope.getLinks = () => {
         return $q((resolve, reject) => {
-            LinkFactory.getLinksByMusic(typeId)
+            LinkFactory.getLinksByMusic($scope.typeId)
                 .then(loadedLinks => {
                     $scope.links = loadedLinks;
                     resolve();

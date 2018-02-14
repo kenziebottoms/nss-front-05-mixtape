@@ -8,11 +8,11 @@ angular.module("mixtape").controller("MediaCtrl", function($scope, $controller, 
 
     $scope.id = $routeParams.id;
     
-    $scope.getLinks = (typeId) => {
+    $scope.getLinks = () => {
         return $q((resolve, reject) => {
-            LinkFactory.getLinksByMedia(typeId)
-                .then(loadedLinks => {
-                    $scope.links = loadedLinks;
+            LinkFactory.getLinksByMedia($scope.typeId)
+                .then(links => {
+                    $scope.links = links;
                     $scope.context = "media";
                     resolve();
                 });
