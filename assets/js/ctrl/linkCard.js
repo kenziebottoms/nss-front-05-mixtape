@@ -3,8 +3,8 @@
 const angular = require("angular");
 
 angular.module("mixtape").controller("LinkCardCtrl", function($scope, LinkFactory, VoteFactory) {
-    
-    $scope.loadLinkVotes = () => {
+
+    $scope.getVotes = () => {
         $scope.links.filter(link => {
             return link.uid != $scope.user.id;
         }).map(link => {

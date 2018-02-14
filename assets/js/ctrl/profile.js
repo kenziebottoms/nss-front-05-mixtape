@@ -3,6 +3,7 @@
 const angular = require("angular");
 
 angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller, $q, FirebaseFactory, LinkFactory, $routeParams, SpotifyAuthFactory, VoteFactory) {
+
     $controller("LinkCardCtrl", {$scope: $scope});
     $scope.profileUser = {id: $routeParams.id };
     
@@ -45,7 +46,7 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller
         getUserData()
     ])
         .then(response => {
-            $scope.loadLinkVotes();
+            $scope.getVotes();
         });
 
     $scope.afterDelete = () => {
