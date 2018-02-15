@@ -1,0 +1,303 @@
+body {
+  background: #333;
+  color: #eee;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column; }
+
+img {
+  max-width: 100%; }
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 300;
+  color: #eee; }
+
+h3 {
+  text-transform: uppercase;
+  color: #666;
+  font-weight: bold;
+  font-size: 1.5rem; }
+  h3 i {
+    font-size: inherit;
+    vertical-align: top;
+    cursor: pointer; }
+
+main {
+  padding: 2rem;
+  flex: 1 0 auto; }
+  main > .row {
+    height: 100%; }
+
+pre {
+  white-space: pre-wrap;
+  color: #ccc;
+  font-family: "Roboto Slab";
+  background: #494949;
+  padding: 1rem;
+  font-size: 1.2rem;
+  cursor: pointer; }
+
+.big {
+  font-size: 1.2em; }
+
+a.button {
+  display: inline-block;
+  background: #00a849;
+  color: #eee;
+  padding: .25em .75em;
+  cursor: pointer; }
+  a.button[disabled=true], a.button.disabled {
+    background: #666;
+    color: #aaa; }
+
+.kb-badge {
+  background: #00a849;
+  width: 2.3em;
+  text-align: center;
+  height: 2.3em;
+  line-height: 1.4em;
+  display: inline-block;
+  font-size: .65em;
+  padding: .5em;
+  font-weight: 400;
+  margin-bottom: .25em;
+  box-sizing: border-box;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-left: .5em; }
+
+i.material-icons.md-36 {
+  font-size: 36px !important; }
+i.material-icons.md-48 {
+  font-size: 48px !important; }
+
+nav .brand-logo {
+  padding: 0 2.5rem;
+  font-weight: 100; }
+
+#sidebar h1 {
+  font-size: 2rem;
+  color: #eee;
+  margin-bottom: 0; }
+#sidebar h2 {
+  font-size: 1.5rem;
+  color: #aaa; }
+  #sidebar h2 a {
+    color: #00a849; }
+#sidebar .play.btn {
+  transition: .25s;
+  opacity: 1;
+  background: #00a849;
+  margin: .25 1rem; }
+
+.user-card {
+  background: #666;
+  display: grid;
+  margin: 1rem 0;
+  grid-template-columns: 7rem 1fr; }
+  .user-card img {
+    width: 100%;
+    margin: 0;
+    padding: 0; }
+  .user-card .body {
+    padding: .25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; }
+    .user-card .body h5 {
+      margin-top: .25em;
+      font-weight: 300;
+      color: #fff; }
+      .user-card .body h5 a {
+        color: inherit; }
+    .user-card .body a.button {
+      display: inline-block;
+      background: #898989;
+      color: #eee;
+      padding: .25em .75em; }
+
+.page-footer {
+  padding-top: 0;
+  text-align: center; }
+  .page-footer * {
+    color: #898989; }
+  .page-footer a {
+    color: #00a849; }
+
+#recent {
+  display: grid;
+  grid-gap: 1rem; }
+  @media screen and (min-width: 601px) {
+    #recent {
+      grid-template-columns: repeat(3, 1fr); } }
+  @media screen and (min-width: 993px) {
+    #recent {
+      grid-template-columns: repeat(4, 1fr); } }
+  @media screen and (min-width: 1200px) {
+    #recent {
+      grid-template-columns: repeat(5, 1fr); } }
+  #recent a {
+    display: block;
+    padding: 80% 0;
+    background-position: center;
+    background-size: cover; }
+
+.tags {
+  margin-top: .5em; }
+  .tags a {
+    color: inherit; }
+
+.tag {
+  font-size: .9rem;
+  background: #898989;
+  padding: .25em .5em;
+  margin: .75em .75em 0 0;
+  display: inline-block;
+  color: inherit; }
+  .tag.big {
+    font-size: 1.2rem; }
+  .tag.author {
+    background: #00a849; }
+
+#profile-links .play.btn, #mediaSearchResults .play.btn, #musicSearchResults .play.btn {
+  transition: .25s;
+  opacity: 0;
+  background: #00a849;
+  margin-left: -1.4rem;
+  align-self: center; }
+#profile-links .link, #profile-links .search-result, #mediaSearchResults .link, #mediaSearchResults .search-result, #musicSearchResults .link, #musicSearchResults .search-result {
+  display: grid;
+  margin-bottom: 1em;
+  grid-template-columns: 0px 5rem 1fr 3rem;
+  background: #666; }
+  #profile-links .link:hover .play.btn, #profile-links .search-result:hover .play.btn, #mediaSearchResults .link:hover .play.btn, #mediaSearchResults .search-result:hover .play.btn, #musicSearchResults .link:hover .play.btn, #musicSearchResults .search-result:hover .play.btn {
+    opacity: 1; }
+  #profile-links .link .img, #profile-links .search-result .img, #mediaSearchResults .link .img, #mediaSearchResults .search-result .img, #musicSearchResults .link .img, #musicSearchResults .search-result .img {
+    padding: 50%;
+    background-position: center;
+    background-size: cover; }
+  #profile-links .link .body, #profile-links .search-result .body, #mediaSearchResults .link .body, #mediaSearchResults .search-result .body, #musicSearchResults .link .body, #musicSearchResults .search-result .body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: .75rem 1rem; }
+    #profile-links .link .body h5, #profile-links .search-result .body h5, #mediaSearchResults .link .body h5, #mediaSearchResults .search-result .body h5, #musicSearchResults .link .body h5, #musicSearchResults .search-result .body h5 {
+      margin: 0;
+      font-weight: 300;
+      font-size: 1.3rem; }
+      #profile-links .link .body h5 a, #profile-links .search-result .body h5 a, #mediaSearchResults .link .body h5 a, #mediaSearchResults .search-result .body h5 a, #musicSearchResults .link .body h5 a, #musicSearchResults .search-result .body h5 a {
+        color: inherit; }
+    #profile-links .link .body h6, #profile-links .search-result .body h6, #mediaSearchResults .link .body h6, #mediaSearchResults .search-result .body h6, #musicSearchResults .link .body h6, #musicSearchResults .search-result .body h6 {
+      color: #ccc;
+      margin-bottom: -.5em; }
+  #profile-links .link .ops, #profile-links .link .votes, #profile-links .search-result .ops, #profile-links .search-result .votes, #mediaSearchResults .link .ops, #mediaSearchResults .link .votes, #mediaSearchResults .search-result .ops, #mediaSearchResults .search-result .votes, #musicSearchResults .link .ops, #musicSearchResults .link .votes, #musicSearchResults .search-result .ops, #musicSearchResults .search-result .votes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    background: #00a849;
+    color: #fff; }
+    #profile-links .link .ops a, #profile-links .link .votes a, #profile-links .search-result .ops a, #profile-links .search-result .votes a, #mediaSearchResults .link .ops a, #mediaSearchResults .link .votes a, #mediaSearchResults .search-result .ops a, #mediaSearchResults .search-result .votes a, #musicSearchResults .link .ops a, #musicSearchResults .link .votes a, #musicSearchResults .search-result .ops a, #musicSearchResults .search-result .votes a {
+      text-align: center;
+      padding: .25rem;
+      display: block;
+      color: #666;
+      cursor: pointer; }
+      #profile-links .link .ops a:hover, #profile-links .link .votes a:hover, #profile-links .search-result .ops a:hover, #profile-links .search-result .votes a:hover, #mediaSearchResults .link .ops a:hover, #mediaSearchResults .link .votes a:hover, #mediaSearchResults .search-result .ops a:hover, #mediaSearchResults .search-result .votes a:hover, #musicSearchResults .link .ops a:hover, #musicSearchResults .link .votes a:hover, #musicSearchResults .search-result .ops a:hover, #musicSearchResults .search-result .votes a:hover {
+        background: #16d064; }
+  #profile-links .link .votes, #profile-links .search-result .votes, #mediaSearchResults .link .votes, #mediaSearchResults .search-result .votes, #musicSearchResults .link .votes, #musicSearchResults .search-result .votes {
+    background: #494949; }
+    #profile-links .link .votes a, #profile-links .search-result .votes a, #mediaSearchResults .link .votes a, #mediaSearchResults .search-result .votes a, #musicSearchResults .link .votes a, #musicSearchResults .search-result .votes a {
+      color: #898989; }
+      #profile-links .link .votes a:hover, #profile-links .link .votes a.active, #profile-links .search-result .votes a:hover, #profile-links .search-result .votes a.active, #mediaSearchResults .link .votes a:hover, #mediaSearchResults .link .votes a.active, #mediaSearchResults .search-result .votes a:hover, #mediaSearchResults .search-result .votes a.active, #musicSearchResults .link .votes a:hover, #musicSearchResults .link .votes a.active, #musicSearchResults .search-result .votes a:hover, #musicSearchResults .search-result .votes a.active {
+        color: #00a849;
+        background: transparent; }
+
+#mediaSearchResults .search-result, #mediaSearchResults .links {
+  grid-template-columns: 4rem 1fr 3rem; }
+#mediaSearchResults .link .img {
+  padding: 70% 0; }
+
+#musicSearchResults .search-result, #musicSearchResults .link {
+  grid-template-columns: 5rem 1fr 3rem; }
+
+#profile-links .link {
+  grid-template-columns: 0px 9rem 1fr 3rem; }
+  #profile-links .link.track {
+    grid-template-columns: 6rem 1fr 3rem; }
+    #profile-links .link.track .img {
+      padding: 80% 0; }
+  #profile-links .link .img {
+    padding: 50% 0; }
+
+#media-choices, #music-choices {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  #media-choices a, #music-choices a {
+    margin: 0 1rem; }
+    #media-choices a .material-icons, #music-choices a .material-icons {
+      color: #666;
+      cursor: pointer;
+      font-size: 2.5rem; }
+    #media-choices a.active .material-icons, #music-choices a.active .material-icons {
+      color: #00a849; }
+
+#mediaSearchResults, #musicSearchResults {
+  padding-top: 1rem; }
+  #mediaSearchResults .search-result > a, #musicSearchResults .search-result > a {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    background: #00a849;
+    align-self: stretch;
+    color: #fff;
+    cursor: pointer; }
+
+#selectedMedia, #selectedMusic {
+  padding-top: 2rem; }
+  #selectedMedia img, #selectedMusic img {
+    max-height: 13rem;
+    margin: auto;
+    display: block; }
+  #selectedMedia h1, #selectedMusic h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem; }
+  #selectedMedia h2, #selectedMusic h2 {
+    color: #ccc;
+    font-size: 1.5rem;
+    margin-top: 0; }
+
+#newMix #submit a {
+  display: block;
+  width: 10rem;
+  margin: 1rem;
+  text-align: center; }
+  #newMix #submit a.muted {
+    background: #898989;
+    color: #eee; }
+
+#tracklist .table td {
+  padding: 1rem;
+  color: #aaa; }
+  #tracklist .table td:nth-child(2) {
+    font-weight: 300;
+    font-size: 1.3rem;
+    color: #fff; }
+#tracklist .table tr:nth-child(even) td {
+  background: #494949;
+  border-radius: 0; }
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  align-content: center; }
+  .button-row a {
+    flex-grow: 0; }
+
+/*# sourceMappingURL=style.css.map */
