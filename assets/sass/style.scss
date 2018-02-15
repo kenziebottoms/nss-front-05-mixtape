@@ -45,9 +45,10 @@ main {
 pre {
     white-space: pre-wrap;
     color: $w3;
-    font-family: "Source Code Pro";
-    font-size: 1.1rem;
-    letter-spacing: -.5px;
+    font-family: "Roboto Slab";
+    background: $g2;
+    padding: 1rem;
+    font-size: 1.2rem;
 }
 .big {
     font-size: 1.2em;
