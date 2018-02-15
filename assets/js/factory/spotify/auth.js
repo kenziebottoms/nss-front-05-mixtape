@@ -77,7 +77,7 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
 
     // stores user data in localStorage and Firebase
     let cacheUserData = data => {
-        data.username = data.uri.split(":")[2];
+        data.username = data.uri.split(":")[2].replace(".",",");
         localStorage.setItem("spotifyUserInfo", JSON.stringify(data));
         FirebaseFactory.storeUserData(data.username, data);
     };

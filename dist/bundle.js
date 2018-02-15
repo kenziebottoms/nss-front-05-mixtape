@@ -762,20 +762,18 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
     // promises cached data about the given user
     let getUserData = username => {
         return $q((resolve, reject) => {
-            $http.get(`${FIREBASE.url}/users/${username}.json`)
-                .then(({data}) => {
-                    resolve(data);
-                })
-                .catch(resolve(username));
+            $http.get(`${FIREBASE.url}/users/${username.replace(".",",")}.json`)
+                .then(({data}) => resolve(data))
+                .catch(err => console.log(err));
         });
     };
 
     // promises the display_name of the given user
     let getDisplayName = username => {
         return $q((resolve, reject) => {
-            $http.get(`${FIREBASE.url}/users/${username}/display_name.json`)
+            $http.get(`${FIREBASE.url}/users/${username.replace(".",",")}/display_name.json`)
                 .then(({data}) => resolve(data))
-                .catch(err => resolve(username));
+                .catch(err => console.log(err));
         });
     };
 
@@ -1268,7 +1266,7 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
 
     // stores user data in localStorage and Firebase
     let cacheUserData = data => {
-        data.username = data.uri.split(":")[2];
+        data.username = data.uri.split(":")[2].replace(".",",");
         localStorage.setItem("spotifyUserInfo", JSON.stringify(data));
         FirebaseFactory.storeUserData(data.username, data);
     };
