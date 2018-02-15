@@ -244,12 +244,6 @@
             ],
             "uid": "12171797897"
         },
-        "-L5QG34r5nb5gYfNxHlZ": {
-            "added": 1518728397,
-            "media": "tv:66732",
-            "music": "track:5rQKjP9forn7JVuiZBj6eZ",
-            "uid": "calvin.bottoms"
-        },
         "-L5QG9QuBNDWx_GCyT0R": {
             "added": 1518728550,
             "media": "movie:10634",
@@ -310,15 +304,6 @@
             "small_image": "https://images.gr-assets.com/books/1398026028m/22584.jpg",
             "subtitle": "Philip K. Dick",
             "title": "Flow My Tears, the Policeman Said",
-            "type": "book"
-        },
-        "book:350": {
-            "id": "350",
-            "image": "https://images.gr-assets.com/books/1156897088l/350.jpg",
-            "last_cached": 1518624649,
-            "small_image": "https://images.gr-assets.com/books/1156897088m/350.jpg",
-            "subtitle": "Robert A. Heinlein",
-            "title": "Stranger in a Strange Land",
             "type": "book"
         },
         "book:375802": {
@@ -560,9 +545,9 @@
         "12136603542:73vpIvjoslrOFDpHLh05Hq": {
             "id": "73vpIvjoslrOFDpHLh05Hq",
             "image": "https://mosaic.scdn.co/640/661e1a935e2eacdd45c05ef618565535e7bed2ad4560525b0513307695ba9d95b129fe4e8528b3754b3a58a1547e9bea423e8c6850970f7ca684e47e368c87cec42546e198e1f0b1315955109ef9d789",
-            "last_cached": 1518557568,
+            "last_cached": 1518731232,
             "small_image": "https://mosaic.scdn.co/640/661e1a935e2eacdd45c05ef618565535e7bed2ad4560525b0513307695ba9d95b129fe4e8528b3754b3a58a1547e9bea423e8c6850970f7ca684e47e368c87cec42546e198e1f0b1315955109ef9d789",
-            "subtitle": "15 tracks",
+            "subtitle": "18 tracks",
             "title": "LOVE. FEAT. ZACARI.",
             "uid": "12136603542"
         },
@@ -587,7 +572,7 @@
         "argfktkjctj5wyte1c3wsqt70:2hGdbH12AbgXFRnJgLttZM": {
             "id": "2hGdbH12AbgXFRnJgLttZM",
             "image": "https://mosaic.scdn.co/640/b89bd6dbfa1772b398c2f30c82103475c9aecd0f4f3a6e2aebbbba0540fbe556e03a2a023c67a7cc52fc1b3b08807194b87cd7e4fd68f5118d991e44251328c9534c55c5cdebacd5120e78297cdc6006",
-            "last_cached": 1518728045,
+            "last_cached": 1518732054,
             "small_image": "https://mosaic.scdn.co/640/b89bd6dbfa1772b398c2f30c82103475c9aecd0f4f3a6e2aebbbba0540fbe556e03a2a023c67a7cc52fc1b3b08807194b87cd7e4fd68f5118d991e44251328c9534c55c5cdebacd5120e78297cdc6006",
             "subtitle": "15 tracks",
             "title": "Emo Ren",
@@ -672,7 +657,7 @@
         "1dWvuCErtHSFAuDVzjbLeb": {
             "id": "1dWvuCErtHSFAuDVzjbLeb",
             "image": "https://i.scdn.co/image/21e7e6a42520eb2b940fd925641a79968c1003ff",
-            "last_cached": 1518728972,
+            "last_cached": 1518731213,
             "small_image": "https://i.scdn.co/image/8bdd73ca56ebc317aaeaa02ed4456f02bc354a50",
             "subtitle": "Kenny Rogers & The First Edition",
             "title": "Just Dropped In (To See What Condition My Condition Is In)"
@@ -808,7 +793,7 @@
         "5rR1PAUMgAq4Kpo4CQ1hFT": {
             "id": "5rR1PAUMgAq4Kpo4CQ1hFT",
             "image": "https://i.scdn.co/image/a17f8552fec50bc6fc1244361be40926d21d1520",
-            "last_cached": 1518725916,
+            "last_cached": 1518732043,
             "small_image": "https://i.scdn.co/image/bde4418bcaa20f7f6ab891ca4e0da260df75c73d",
             "subtitle": "Relient K",
             "title": "In Love With the 80's (Pink Tux to the Prom)"
@@ -1053,6 +1038,12 @@
         "argfktkjctj5wyte1c3wsqt70:-L5QG34r5nb5gYfNxHlZ": {
             "added": 1518729742,
             "linkId": "-L5QG34r5nb5gYfNxHlZ",
+            "uid": "argfktkjctj5wyte1c3wsqt70",
+            "value": 1
+        },
+        "argfktkjctj5wyte1c3wsqt70:-L5QKwSFQ48u4xTxFF3p": {
+            "added": 1518732073,
+            "linkId": "-L5QKwSFQ48u4xTxFF3p",
             "uid": "argfktkjctj5wyte1c3wsqt70",
             "value": 1
         },
