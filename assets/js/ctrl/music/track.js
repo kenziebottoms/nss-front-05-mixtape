@@ -23,15 +23,24 @@ angular.module("mixtape").controller("TrackCtrl", function($scope, $q, $routePar
 
     // retrieves song lyrics
     let getLyrics = () => {
-        MusixmatchFactory.searchTracks($scope.music.title, $scope.music.subtitle)
-            .then(data => console.log(data));
+        return $q((resolve, reject) => {
+            MusixmatchFactory.getLyrics($scope.music.title, $scope.music.subtitle)
+                .then(data => resolve(data));
+        });
     };
     
     $scope.id = $routeParams.id;
     $scope.typeId = `track:${$scope.id}`;
     $scope.fetchInfo()
         .then(response => {
-            getLyrics();
+            getLyrics()
+                .then(lyrics => {
+                    if (lyrics.lyrics_body != "") {
+                        let lyricText = lyrics.lyrics_body;
+                        lyricText = lyricText.slice(0, lyricText.indexOf("*"));
+                        $scope.lyrics = lyricText.trim();
+                    }
+                });
         });
 
     // after user data and links are fetched and parsed, get the votes
