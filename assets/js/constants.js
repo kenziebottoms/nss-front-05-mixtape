@@ -8,7 +8,7 @@ angular.module("mixtape")
         url: "https://fanmix-app.firebaseio.com"
     })
     .constant("GOODREADS", {
-        url: "http://goodreads-proxy.herokuapp.com/api",
+        url: "http://mixify-proxy.herokuapp.com/gr",
         key: "tFNCKRwqZ35i7OyfOa7QA"
     })
     .constant("SPOTIFY", {
@@ -21,4 +21,8 @@ angular.module("mixtape")
         small_image_prefix: "http://image.tmdb.org/t/p/w185",
         url: "https://api.themoviedb.org/3",
         key: "d7208980a35f7aef364e81fcb05147a4"
+    })
+    .constant("MUSIXMATCH", {
+        url: "http://mixify-proxy.herokuapp.com/mm",
+        key: "5c7575fabfc4c38a7527bdb8298a1915"
     });

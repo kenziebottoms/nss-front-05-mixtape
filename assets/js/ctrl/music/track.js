@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("TrackCtrl", function($scope, $q, $routeParams, $controller, SpotifyTrackFactory, FirebaseFactory) {
+angular.module("mixtape").controller("TrackCtrl", function($scope, $q, $routeParams, $controller, SpotifyTrackFactory, FirebaseFactory, MusixmatchFactory) {
 
     // gets link loading methods from MusicCtrl
     $controller("MusicCtrl", {$scope: $scope});
@@ -20,10 +20,19 @@ angular.module("mixtape").controller("TrackCtrl", function($scope, $q, $routePar
                 });
         });
     };
+
+    // retrieves song lyrics
+    let getLyrics = () => {
+        MusixmatchFactory.searchTracks($scope.music.title, $scope.music.subtitle)
+            .then(data => console.log(data));
+    };
     
     $scope.id = $routeParams.id;
     $scope.typeId = `track:${$scope.id}`;
-    $scope.fetchInfo();
+    $scope.fetchInfo()
+        .then(response => {
+            getLyrics();
+        });
 
     // after user data and links are fetched and parsed, get the votes
     Promise.all([
