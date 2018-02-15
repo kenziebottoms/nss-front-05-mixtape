@@ -39,6 +39,7 @@ angular.module("mixtape").controller("TrackCtrl", function($scope, $q, $routePar
                         let lyricText = lyrics.lyrics_body;
                         lyricText = lyricText.slice(0, lyricText.indexOf("*"));
                         $scope.lyrics = lyricText.trim();
+                        $scope.excerpt = lyricText.slice(0, lyricText.indexOf("\n\n")) + "\n...";
                     }
                 });
         });

@@ -7,9 +7,10 @@
         </h1>
         <h2>{{music.subtitle}}</h2>
     </div>
-    <div class="col s12 m8 l6 offset-l1">
-        <h3 ng-show="lyrics">Lyrics</h3>
-        <pre>{{lyrics}}</pre>
+    <div class="col s12 m8 l6 offset-l1" ng-init="showExcerpt=true">
+        <h3 ng-click="showExcerpt = !showExcerpt" ng-show="lyrics">Lyrics</h3>
+        <pre ng-show="showExcerpt">{{excerpt}}</pre>
+        <pre ng-show="!showExcerpt">{{lyrics}}</pre>
         <div id="profile-links" ng-include="'assets/partials/trackLinks.html'">
         </div>
     </div>
