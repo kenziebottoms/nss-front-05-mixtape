@@ -19,8 +19,8 @@ grunt
 - [x] User can select a movie, TV show, or book and view pieces of music commonly linked to it.
 
 ### Stretch Goals
-- [ ] User can play song or playlist from the web app.
-- [ ] User can view song lyrics for individual tracks.
+- [x] User can play song or playlist from the web app.
+- [x] User can view song lyrics for individual tracks.
 - [ ] User receives notifications when others vote on their mixes or follow them.
 - [ ] User can subscribe to media and other users, causing relevant activity to populate their activity feed.
 
@@ -28,6 +28,7 @@ grunt
 
 - [MindMeister mind map](https://mm.tt/994144307?t=3TqRJrEdLy)
 - [Angular $controller inheritance](https://stackoverflow.com/questions/18461263/can-an-angularjs-controller-inherit-from-another-controller-in-the-same-module)
+- [Mixify proxy server](https://github.com/kenziebottoms/mixify-proxy-server) forked from [Node proxy server](https://github.com/BlaiseRoberts/proxy-server)
 
 ### APIs
 
