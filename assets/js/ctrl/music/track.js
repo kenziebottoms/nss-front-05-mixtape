@@ -33,17 +33,17 @@ angular.module("mixtape").controller("TrackCtrl", function($scope, $q, $routePar
     $scope.typeId = `track:${$scope.id}`;
     $scope.fetchInfo()
         .then(response => {
-            getLyrics()
-                .then(lyrics => {
-                    if (lyrics.lyrics_body != "") {
-                        let lyricText = lyrics.lyrics_body;
-                        // clip off the copyright signature
-                        lyricText = lyricText.slice(0, lyricText.indexOf("*"));
-                        $scope.lyrics = lyricText.trim();
-                        // get the first stanza as the excerpt
-                        $scope.excerpt = lyricText.slice(0, lyricText.indexOf("\n\n")) + " ...";
-                    }
-                });
+            return getLyrics();
+        })
+        .then(lyrics => {
+            if (lyrics.lyrics_body != "") {
+                let lyricText = lyrics.lyrics_body;
+                // clip off the copyright signature
+                lyricText = lyricText.slice(0, lyricText.indexOf("*"));
+                $scope.lyrics = lyricText.trim();
+                // get the first stanza as the excerpt
+                $scope.excerpt = lyricText.slice(0, lyricText.indexOf("\n\n")) + " ...";
+            }
         });
 
     // after user data and links are fetched and parsed, get the votes
