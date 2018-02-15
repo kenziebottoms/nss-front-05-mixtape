@@ -31,10 +31,10 @@ angular.module("mixtape").factory("MusixmatchFactory", function($q, $http, MUSIX
         return $q((resolve, reject) => {
             getTrackId(title, artist)
                 .then(id => {
-                    getLyricsById(id)
-                        .then(lyrics => {
-                            resolve(lyrics);
-                        });
+                    return getLyricsById(id);
+                })
+                .then(lyrics => {
+                    resolve(lyrics);
                 });
         });
     };
