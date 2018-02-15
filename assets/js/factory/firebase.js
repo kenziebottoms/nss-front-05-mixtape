@@ -49,7 +49,8 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
             $http.get(`${FIREBASE.url}/users/${username}.json`)
                 .then(({data}) => {
                     resolve(data);
-                });
+                })
+                .catch(resolve(username));
         });
     };
 
@@ -57,7 +58,8 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
     let getDisplayName = username => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.url}/users/${username}/display_name.json`)
-                .then(({data}) => resolve(data));
+                .then(({data}) => resolve(data))
+                .catch(err => resolve(username));
         });
     };
 
