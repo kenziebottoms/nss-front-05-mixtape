@@ -33,6 +33,11 @@ h3 {
     color: $g3;
     font-weight: bold;
     font-size: 1.5rem;
+    i {
+        font-size: inherit;
+        vertical-align: top;
+        cursor: pointer;
+    }
 }
 
 main {
@@ -49,6 +54,7 @@ pre {
     background: $g2;
     padding: 1rem;
     font-size: 1.2rem;
+    cursor: pointer;
 }
 .big {
     font-size: 1.2em;
