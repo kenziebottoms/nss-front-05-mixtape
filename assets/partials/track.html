@@ -7,6 +7,17 @@
         </h1>
         <h2>{{music.subtitle}}</h2>
     </div>
-    <div class="col s12 m8 l6 offset-l1" id="profile-links" ng-include="'assets/partials/trackLinks.html'">
+    <div class="col s12 m8 l6 offset-l1" ng-init="showExcerpt=true">
+        <div class="lyrics" ng-show="lyrics">
+            <h3 ng-click="showExcerpt = !showExcerpt">
+                Lyrics
+                <i ng-show="showExcerpt" class="material-icons">keyboard_arrow_down</i>
+                <i ng-show="!showExcerpt" class="material-icons">keyboard_arrow_up</i>
+            </h3>
+            <pre ng-click="showExcerpt = !showExcerpt" ng-show="showExcerpt">{{excerpt}}</pre>
+            <pre ng-click="showExcerpt = !showExcerpt" ng-show="!showExcerpt">{{lyrics}}</pre>
+        </div>
+        <div id="profile-links" ng-include="'assets/partials/trackLinks.html'">
+        </div>
     </div>
 </div>

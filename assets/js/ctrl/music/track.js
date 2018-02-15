@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("TrackCtrl", function($scope, $q, $routeParams, $controller, SpotifyTrackFactory, FirebaseFactory) {
+angular.module("mixtape").controller("TrackCtrl", function($scope, $q, $routeParams, $controller, SpotifyTrackFactory, FirebaseFactory, MusixmatchFactory) {
 
     // gets link loading methods from MusicCtrl
     $controller("MusicCtrl", {$scope: $scope});
@@ -20,10 +20,31 @@ angular.module("mixtape").controller("TrackCtrl", function($scope, $q, $routePar
                 });
         });
     };
+
+    // retrieves song lyrics
+    let getLyrics = () => {
+        return $q((resolve, reject) => {
+            MusixmatchFactory.getLyrics($scope.music.title, $scope.music.subtitle)
+                .then(data => resolve(data));
+        });
+    };
     
     $scope.id = $routeParams.id;
     $scope.typeId = `track:${$scope.id}`;
-    $scope.fetchInfo();
+    $scope.fetchInfo()
+        .then(response => {
+            return getLyrics();
+        })
+        .then(lyrics => {
+            if (lyrics.lyrics_body != "") {
+                let lyricText = lyrics.lyrics_body;
+                // clip off the copyright signature
+                lyricText = lyricText.slice(0, lyricText.indexOf("*"));
+                $scope.lyrics = lyricText.trim();
+                // get the first stanza as the excerpt
+                $scope.excerpt = lyricText.slice(0, lyricText.indexOf("\n\n")) + " ...";
+            }
+        });
 
     // after user data and links are fetched and parsed, get the votes
     Promise.all([
