@@ -114,13 +114,25 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
             if ($scope.activeMusic == "track") {
                 SpotifyTrackFactory.searchTracksByTitle($scope.musicSearchTerm)
                     .then(results => {
-                        $scope.musicResults = results.slice(0, 5);
+                        if (results.length > 0) {
+                            $scope.musicResults = results.slice(0, 5);
+                        } else {
+                            $scope.musicResults = false;
+                        }
+                    })
+                    .catch(err => {
+                        $scope.musicResults = false;
                     });
             } else {
                 SpotifyPlaylistFactory.searchUserPlaylists($scope.user.id, $scope.musicSearchTerm, 50, 0)
                     .then(results => {
-                        $scope.musicResults = results;
+                        $scope.musicLoading = false;
                         $scope.offset = 50;
+                        $scope.musicResults = results;
+                    })
+                    .catch(err => {
+                        $scope.musicResults = false;
+                        $scope.musicLoading = false;
                     });
             }
         }

@@ -77,9 +77,12 @@
         </div>
         <img class="ldg" src="assets/img/ldg.svg" ng-class="{'active': musicLoading && !musicResults.length>0 && musicResults!==false}">
         <div id="musicSearchResults" ng-show="!selectedMusic">
-            <div ng-show="musicResults===false">
+            <div ng-show="musicResults===false && activeMusic!='playlist'">
                 No results. Try broadening your search.
             </div>
+            <p ng-show="musicResults.length < 1 && musicResults!==false && activeMusic=='playlist' && !musicLoading">
+                No results. Try loading more.
+            </p>
             <div id="{{result.id}}" ng-show="activeMusic=='playlist'" class="search-result tracks" ng-repeat="result in musicResults">
                 <div class="img" style="background-image:url({{result.images[0].url}});"></div>
                 <div class="body">
@@ -90,7 +93,7 @@
                     <i class="material-icons">add_circle_outline</i>
                 </a>
             </div>
-            <a id="loadMore" class="button" ng-show="musicResults && activeMusic=='playlist'" ng-click="searchMorePlaylists()">Load More</a>
+            <a id="loadMore" class="button" ng-show="musicResults !==false && activeMusic=='playlist'" ng-click="searchMorePlaylists()">Load More</a>
             <div id="{{result.id}}" ng-show="activeMusic=='track'" class="search-result tracks" ng-repeat="result in musicResults">
                 <div class="img" style="background-image:url({{result.album.images[2].url}});"></div>
                 <div class="body">
