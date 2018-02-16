@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col s6 m8 l9">
         <h3>Recent Mixes</h3>
+        <img class="ldg" src="assets/img/ldg.svg" ng-class="{'active': !links}">
         <div id="recent">
             <div ng-repeat="link in links" class="media">
                 <a ng-href="#!/{{link.media.type}}/{{link.media.id}}" style="background-image: url({{link.media.image}});">

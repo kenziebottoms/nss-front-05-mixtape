@@ -1,0 +1,409 @@
+$g1: #333;
+$g2: #494949;
+$g3: #666;
+$g4: #898989;
+
+$w1: #fff;
+$w2: #eee;
+$w3: #ccc;
+$w4: #aaa;
+
+$green: #00a849;
+$green-hl: #16d064;
+
+body {
+    background: $g1;
+    color: $w2;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+img {
+    max-width: 100%;
+}
+
+h2 {
+    font-size: 1.75rem;
+    font-weight: 300;
+    color: $w2;
+}
+h3 {
+    text-transform: uppercase;
+    color: $g3;
+    font-weight: bold;
+    font-size: 1.5rem;
+    i {
+        font-size: inherit;
+        vertical-align: top;
+        cursor: pointer;
+    }
+}
+
+main {
+    padding: 2rem;
+    flex: 1 0 auto;
+    > .row {
+        height: 100%;
+    }
+}
+pre {
+    white-space: pre-wrap;
+    color: $w3;
+    font-family: "Roboto Slab";
+    background: $g2;
+    padding: 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.big {
+    font-size: 1.2em;
+}
+a.button {
+    display: inline-block;
+    background: $green;
+    color: $w2;
+    padding: .25em .75em;
+    cursor: pointer;
+    &[disabled=true], &.disabled {
+        background: $g3;
+        color: $w4;
+    }
+}
+.kb-badge {
+    background: $green;
+    width: 2.3em;
+    text-align: center;
+    height: 2.3em;
+    line-height: 1.4em;
+    display: inline-block;
+    font-size: .65em;
+    padding: .5em;
+    font-weight: 400;
+    margin-bottom: .25em;
+    box-sizing: border-box;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-left: .5em;
+}
+img.ldg {
+    transition: .25s;
+    margin: 3rem auto;
+    display: none;
+    &.active {
+        display: block;
+    }
+}
+
+i.material-icons {
+    &.md-36 {
+        font-size: 36px !important;
+    }
+    &.md-48 {
+        font-size: 48px !important;
+    }
+}
+nav {
+    .brand-logo {
+        padding: 0 2.5rem;
+        font-weight: 100;
+    }
+}
+#sidebar {
+    h1 {
+        font-size: 2rem;
+        color: $w2;
+        margin-bottom: 0;
+    }
+    h2 {
+        font-size: 1.5rem;
+        color: $w4;
+        a {
+            color: $green;
+        }
+    }
+
+    .play.btn {
+        transition: .25s;
+        opacity: 1;
+        background: $green;
+        margin: .25 1rem;
+    }
+}
+.user-card {
+    background: $g3;
+    display: grid;
+    margin: 1rem 0;
+    grid-template-columns: 7rem 1fr;
+    img {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .body {
+        padding: .25rem 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        h5 {
+            margin-top: .25em;
+            font-weight: 300;
+            color: $w1;
+            a {
+                color: inherit;
+            }
+        }
+        a.button {
+            display: inline-block;
+            background: $g4;
+            color: $w2;
+            padding: .25em .75em;
+        }
+    }
+}
+.page-footer {
+    padding-top: 0;
+    text-align: center;
+    * {
+        color: $g4;
+    }
+    a {
+        color: $green;
+    }
+}
+
+#recent {
+    display: grid;
+    grid-gap: 1rem;
+    @media screen and (min-width: 601px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @media screen and (min-width: 993px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    @media screen and (min-width: 1200px) {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    a {
+        display: block;
+        padding: 80% 0;
+        background-position: center;
+        background-size: cover;
+    }
+}
+.tags {
+    margin-top: .5em;
+    a {
+        color: inherit;
+    }
+}
+.tag {
+    font-size: .9rem;
+    &.big {
+        font-size: 1.2rem;
+    }
+    background: $g4;
+    padding: .25em .5em;
+    margin: .75em .75em 0 0;
+    display: inline-block;
+    color: inherit;
+    &.author {
+        background: $green;
+    }
+}
+
+#profile-links, #mediaSearchResults, #musicSearchResults {
+    .play.btn {
+        transition: .25s;
+        opacity: 0;
+        background: $green;
+        margin-left: -1.4rem;
+        // position: absolute;
+        align-self: center;
+    }
+    .link, .search-result {
+        &:hover {
+            .play.btn {
+                opacity: 1;
+            }
+        }
+        display: grid;
+        margin-bottom: 1em;
+        grid-template-columns: 0px 5rem 1fr 3rem;
+        background: $g3;
+        .img {
+            padding: 50%;
+            background-position: center;
+            background-size: cover;
+        }
+        .body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: .75rem 1rem;
+            h5 {
+                margin: 0;
+                font-weight: 300;
+                font-size: 1.3rem;
+                a {
+                    color: inherit;
+                }
+            }
+            h6 {
+                color: $w3;
+                margin-bottom: -.5em;
+            }
+        }
+        .ops, .votes {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: stretch;
+            background: $green;
+            color: $w1;
+            a {
+                text-align: center;
+                padding: .25rem;
+                display: block;
+                color: $g3;
+                cursor: pointer;
+                &:hover {
+                    background: $green-hl;
+                }
+            }
+        }
+        .votes {
+            background: $g2;
+            a {
+                color: $g4;
+                &:hover, &.active {
+                    color: $green;
+                    background: transparent;
+                }
+            }
+        }
+    }
+}
+#mediaSearchResults {
+    .search-result, .links {
+        grid-template-columns: 4rem 1fr 3rem;
+    }
+    .link {
+        .img {
+            padding: 70% 0;
+        }
+    }
+}
+#musicSearchResults {
+    .search-result, .link {
+        grid-template-columns: 5rem 1fr 3rem;
+    }
+}
+#profile-links {
+    .link {
+        grid-template-columns: 0px 9rem 1fr 3rem;
+        &.track {
+            grid-template-columns: 6rem 1fr 3rem;
+            .img {
+                padding: 80% 0;
+            }
+        }
+        .img {
+            padding: 50% 0;
+        }
+    }
+}
+#media-choices, #music-choices {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+        margin: 0 1rem;
+        .material-icons {
+            color: $g3;
+            cursor: pointer;
+            font-size: 2.5rem;
+        }
+        &.active {
+            .material-icons {
+                color: $green;
+            }
+        }
+    }
+}
+#mediaSearchResults, #musicSearchResults {
+    padding-top: 1rem;
+    .search-result {
+        > a {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            background: $green;
+            align-self: stretch;
+            color: $w1;
+            cursor: pointer;
+        }
+    }
+}
+#selectedMedia, #selectedMusic {
+    padding-top: 2rem;
+    img {
+        max-height: 13rem;
+        margin: auto;
+        display: block;
+    }
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    h2 {
+        color: $w3;
+        font-size: 1.5rem;
+        margin-top: 0;
+    }
+}
+#newMix {
+    #submit {
+        a {
+            display: block;
+            width: 10rem;
+            margin: 1rem;
+            text-align: center;
+            &.muted {
+                background: $g4;
+                color: $w2;
+            }
+        }
+    }
+}
+#tracklist {
+    .table {
+        td {
+            padding: 1rem;
+            color: $w4;
+            &:nth-child(2) {
+                font-weight: 300;
+                font-size: 1.3rem;
+                color: $w1;
+            }
+        }
+        tr:nth-child(even) {
+            td {
+                background: $g2;
+                border-radius: 0;
+            }
+        }
+    }
+}
+.button-row {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    a {
+        flex-grow: 0;
+    }
+}
