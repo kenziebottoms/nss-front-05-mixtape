@@ -125,11 +125,13 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
                     });
             } else {
                 SpotifyPlaylistFactory.searchUserPlaylists($scope.user.id, $scope.musicSearchTerm, 50, 0)
+                    // if there are user playlists to search
                     .then(results => {
                         $scope.musicLoading = false;
                         $scope.offset = 50;
                         $scope.musicResults = results;
                     })
+                    // if there are no more user playlists to search
                     .catch(err => {
                         $scope.musicResults = false;
                         $scope.musicLoading = false;
