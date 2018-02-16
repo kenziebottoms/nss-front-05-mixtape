@@ -68,19 +68,40 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
             if ($scope.activeMedia == "book") {
                 GoodreadsFactory.searchByTitle($scope.mediaSearchTerm)
                     .then(results => {
-                        $scope.mediaResults = results.results.work.slice(0, 5);
+                        if (results.results.length > 0) {
+                            $scope.mediaResults = results.results.work.slice(0, 5);
+                        } else {
+                            $scope.mediaResults = false;
+                        }
+                    })
+                    .catch(err => {
+                        $scope.mediaResults = false;
                     });
             } else if ($scope.activeMedia == "tv") {
                 $scope.image_prefix = TMDB.small_image_prefix;
                 TmdbFactory.searchTvShowsByTitle($scope.mediaSearchTerm)
                     .then(results => {
-                        $scope.mediaResults = results.results.slice(0, 5);
+                        if (results.results.length > 0) {
+                            $scope.mediaResults = results.results.slice(0, 5);
+                        } else {
+                            $scope.mediaResults = false;
+                        }
+                    })
+                    .catch(err => {
+                        $scope.mediaResults = false;
                     });
             } else if ($scope.activeMedia == "movie") {
                 $scope.image_prefix = TMDB.small_image_prefix;
                 TmdbFactory.searchMoviesByTitle($scope.mediaSearchTerm)
                     .then(results => {
-                        $scope.mediaResults = results.results.slice(0, 5);
+                        if (results.results.length > 0) {
+                            $scope.mediaResults = results.results.slice(0, 5);
+                        } else {
+                            $scope.mediaResults = false;
+                        }
+                    })
+                    .catch(err => {
+                        $scope.mediaResults = false;
                     });
             }
         }

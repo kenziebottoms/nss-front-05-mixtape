@@ -20,8 +20,11 @@
             <h1>{{selectedMedia.title}}</h1>
             <h2>{{selectedMedia.subtitle}}</h2>
         </div>
-        <img class="ldg" src="assets/img/ldg.svg" ng-class="{'active': mediaLoading && !mediaResults.length>0}">
+        <img class="ldg" src="assets/img/ldg.svg" ng-class="{'active': mediaLoading && !mediaResults.length>0 && mediaResults!==false}">
         <div ng-init="mediaLoading=false" ng-show="!selectedMedia" id="mediaSearchResults">
+            <div ng-show="mediaResults===false">
+                No results. Try broadening your search.
+            </div>
             <div id="{{result.best_book.id._text}}" ng-show="activeMedia=='book'" class="search-result books" ng-repeat="result in mediaResults">
                 <img ng-src="{{result.best_book.image_url._text}}">
                 <div class="body">
@@ -72,8 +75,11 @@
             <h1>{{selectedMusic.title}}</h1>
             <h2>{{selectedMusic.subtitle}}</h2>
         </div>
-        <img class="ldg" src="assets/img/ldg.svg" ng-class="{'active': musicLoading && !musicResults.length>0}">
+        <img class="ldg" src="assets/img/ldg.svg" ng-class="{'active': musicLoading && !musicResults.length>0 && musicResults!==false}">
         <div id="musicSearchResults" ng-show="!selectedMusic">
+            <div ng-show="musicResults===false">
+                No results. Try broadening your search.
+            </div>
             <div id="{{result.id}}" ng-show="activeMusic=='playlist'" class="search-result tracks" ng-repeat="result in musicResults">
                 <div class="img" style="background-image:url({{result.images[0].url}});"></div>
                 <div class="body">
