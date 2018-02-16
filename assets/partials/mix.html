@@ -1,17 +1,17 @@
 <div class="row container" id="newMix">
-    <div class="col s12 m6">
+    <div ng-init="mediaLoading=false" class="col s12 m6">
         <div class="input-field">
             <input ng-model="mediaSearchTerm" type="text">
             <label for="mediaSearchTerm">Search media</label>
         </div>
         <div id="media-choices" ng-init="activeMedia=false" ng-click="mediaResults=[]">
-            <a ng-click="activeMedia='book'; searchMedia(); selectedMedia=false" ng-class="{'active': activeMedia=='book'}">
+            <a ng-click="activeMedia='book'; searchMedia(); selectedMedia=false; mediaLoading=true" ng-class="{'active': activeMedia=='book'}">
                 <i class="material-icons">chrome_reader_mode</i>
             </a>
-            <a ng-click="activeMedia='movie'; searchMedia(); selectedMedia=false" ng-class="{'active': activeMedia=='movie'}">
+            <a ng-click="activeMedia='movie'; searchMedia(); selectedMedia=false; mediaLoading=true" ng-class="{'active': activeMedia=='movie'}">
                 <i class="material-icons">theaters</i>
             </a>
-            <a ng-click="activeMedia='tv'; searchMedia(); selectedMedia=false" ng-class="{'active': activeMedia=='tv'}">
+            <a ng-click="activeMedia='tv'; searchMedia(); selectedMedia=false; mediaLoading=true" ng-class="{'active': activeMedia=='tv'}">
                 <i class="material-icons">tv</i>
             </a>
         </div>
@@ -20,7 +20,11 @@
             <h1>{{selectedMedia.title}}</h1>
             <h2>{{selectedMedia.subtitle}}</h2>
         </div>
-        <div ng-show="!selectedMedia" id="mediaSearchResults">
+        <img class="ldg" src="assets/img/ldg.svg" ng-class="{'active': mediaLoading && !mediaResults.length>0 && mediaResults!==false}">
+        <div ng-init="mediaLoading=false" ng-show="!selectedMedia" id="mediaSearchResults">
+            <div ng-show="mediaResults===false">
+                No results. Try broadening your search.
+            </div>
             <div id="{{result.best_book.id._text}}" ng-show="activeMedia=='book'" class="search-result books" ng-repeat="result in mediaResults">
                 <img ng-src="{{result.best_book.image_url._text}}">
                 <div class="body">
@@ -53,16 +57,16 @@
             </div>
         </div>
     </div>
-    <div class="col s12 m6">
+    <div ng-init="musicLoading=false" class="col s12 m6">
         <div class="input-field">
             <input ng-model="musicSearchTerm" type="text">
             <label for="musicSearchTerm">Search music</label>
         </div>
         <div id="music-choices" ng-init="activeMusic=false" ng-click="musicResults=[]">
-            <a ng-click="activeMusic='track'; searchMusic(); selectedMusic=false" ng-class="{'active': activeMusic=='track'}">
+            <a ng-click="activeMusic='track'; searchMusic(); selectedMusic=false; musicLoading=true" ng-class="{'active': activeMusic=='track'}">
                 <i class="material-icons">music_note</i>
             </a>
-            <a ng-click="activeMusic='playlist'; searchMusic(); selectedMusic=false" ng-class="{'active': activeMusic=='playlist'}">
+            <a ng-click="activeMusic='playlist'; searchMusic(); selectedMusic=false; musicLoading=true" ng-class="{'active': activeMusic=='playlist'}">
                 <i class="material-icons">queue_music</i>
             </a>
         </div>
@@ -71,7 +75,14 @@
             <h1>{{selectedMusic.title}}</h1>
             <h2>{{selectedMusic.subtitle}}</h2>
         </div>
+        <img class="ldg" src="assets/img/ldg.svg" ng-class="{'active': musicLoading && !musicResults.length>0 && musicResults!==false}">
         <div id="musicSearchResults" ng-show="!selectedMusic">
+            <div ng-show="musicResults===false && activeMusic!='playlist'">
+                No results. Try broadening your search.
+            </div>
+            <p ng-show="musicResults.length < 1 && musicResults!==false && activeMusic=='playlist' && !musicLoading">
+                No results. Try loading more.
+            </p>
             <div id="{{result.id}}" ng-show="activeMusic=='playlist'" class="search-result tracks" ng-repeat="result in musicResults">
                 <div class="img" style="background-image:url({{result.images[0].url}});"></div>
                 <div class="body">
@@ -82,7 +93,7 @@
                     <i class="material-icons">add_circle_outline</i>
                 </a>
             </div>
-            <a id="loadMore" class="button" ng-show="musicResults && activeMusic=='playlist'" ng-click="searchMorePlaylists()">Load More</a>
+            <a id="loadMore" class="button" ng-show="musicResults !==false && activeMusic=='playlist'" ng-click="searchMorePlaylists()">Load More</a>
             <div id="{{result.id}}" ng-show="activeMusic=='track'" class="search-result tracks" ng-repeat="result in musicResults">
                 <div class="img" style="background-image:url({{result.album.images[2].url}});"></div>
                 <div class="body">

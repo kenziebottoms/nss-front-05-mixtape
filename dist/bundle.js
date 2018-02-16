@@ -363,19 +363,40 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
             if ($scope.activeMedia == "book") {
                 GoodreadsFactory.searchByTitle($scope.mediaSearchTerm)
                     .then(results => {
-                        $scope.mediaResults = results.results.work.slice(0, 5);
+                        if (results.results.length > 0) {
+                            $scope.mediaResults = results.results.work.slice(0, 5);
+                        } else {
+                            $scope.mediaResults = false;
+                        }
+                    })
+                    .catch(err => {
+                        $scope.mediaResults = false;
                     });
             } else if ($scope.activeMedia == "tv") {
                 $scope.image_prefix = TMDB.small_image_prefix;
                 TmdbFactory.searchTvShowsByTitle($scope.mediaSearchTerm)
                     .then(results => {
-                        $scope.mediaResults = results.results.slice(0, 5);
+                        if (results.results.length > 0) {
+                            $scope.mediaResults = results.results.slice(0, 5);
+                        } else {
+                            $scope.mediaResults = false;
+                        }
+                    })
+                    .catch(err => {
+                        $scope.mediaResults = false;
                     });
             } else if ($scope.activeMedia == "movie") {
                 $scope.image_prefix = TMDB.small_image_prefix;
                 TmdbFactory.searchMoviesByTitle($scope.mediaSearchTerm)
                     .then(results => {
-                        $scope.mediaResults = results.results.slice(0, 5);
+                        if (results.results.length > 0) {
+                            $scope.mediaResults = results.results.slice(0, 5);
+                        } else {
+                            $scope.mediaResults = false;
+                        }
+                    })
+                    .catch(err => {
+                        $scope.mediaResults = false;
                     });
             }
         }
@@ -388,13 +409,27 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
             if ($scope.activeMusic == "track") {
                 SpotifyTrackFactory.searchTracksByTitle($scope.musicSearchTerm)
                     .then(results => {
-                        $scope.musicResults = results.slice(0, 5);
+                        if (results.length > 0) {
+                            $scope.musicResults = results.slice(0, 5);
+                        } else {
+                            $scope.musicResults = false;
+                        }
+                    })
+                    .catch(err => {
+                        $scope.musicResults = false;
                     });
             } else {
                 SpotifyPlaylistFactory.searchUserPlaylists($scope.user.id, $scope.musicSearchTerm, 50, 0)
+                    // if there are user playlists to search
                     .then(results => {
-                        $scope.musicResults = results;
+                        $scope.musicLoading = false;
                         $scope.offset = 50;
+                        $scope.musicResults = results;
+                    })
+                    // if there are no more user playlists to search
+                    .catch(err => {
+                        $scope.musicResults = false;
+                        $scope.musicLoading = false;
                     });
             }
         }
