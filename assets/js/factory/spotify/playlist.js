@@ -26,6 +26,9 @@ angular.module("mixtape").factory("SpotifyPlaylistFactory", function($q, $http, 
         return $q((resolve, reject) => {
             getPlaylistsByUid(uid, limit, offset)
                 .then(results => {
+                    if (results.total == 0) {
+                        reject();
+                    }
                     let searchTerm = RegExp(term,"i");
                     let searchResults = results.items.filter(item => {
                         return searchTerm.test(item.name);
