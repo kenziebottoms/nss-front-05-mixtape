@@ -68,7 +68,7 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
             if ($scope.activeMedia == "book") {
                 GoodreadsFactory.searchByTitle($scope.mediaSearchTerm)
                     .then(results => {
-                        if (results.results.length > 0) {
+                        if (results["total-results"]._text > 0) {
                             $scope.mediaResults = results.results.work.slice(0, 5);
                         } else {
                             $scope.mediaResults = false;
