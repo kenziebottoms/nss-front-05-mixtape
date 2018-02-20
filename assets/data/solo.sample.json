@@ -1,0 +1,134 @@
+{
+    "links": {
+        "-L5pIim0_lhxiRKEdGb9": {
+            "added": 1519165303,
+            "media": "tv:66732",
+            "music": "track:7mMlbJlXXo2mRtQ4R9sIzD",
+            "tags": [
+                "Eleven & Mike"
+            ],
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L5pQVJKhnO55At-wptF": {
+            "added": 1519167341,
+            "media": "tv:246",
+            "music": "track:6C7ZgThn6Yan5MTZdAEEFw",
+            "tags": [
+                "Toph Beifong"
+            ],
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L5pSPt5up3d0n0NPw_V": {
+            "added": 1519167843,
+            "media": "book:375802",
+            "music": "playlist:argfktkjctj5wyte1c3wsqt70:24cMfu8KaqWjQBsFw6Cn9p",
+            "tags": [
+                "Ender Wiggin"
+            ],
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L5pSk9tOqhVm1zJeuk6": {
+            "added": 1519167930,
+            "media": "book:888628",
+            "music": "playlist:argfktkjctj5wyte1c3wsqt70:5AhOTtbysi5vZnfJlQFsuu",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        }
+    },
+    "media": {
+        "book:375802": {
+            "id": "375802",
+            "image": "https://images.gr-assets.com/books/1408303130l/375802.jpg",
+            "last_cached": 1519167843,
+            "small_image": "https://images.gr-assets.com/books/1408303130m/375802.jpg",
+            "subtitle": "Orson Scott Card",
+            "title": "Ender's Game (Ender's Saga, #1)",
+            "type": "book"
+        },
+        "book:888628": {
+            "id": "888628",
+            "image": "https://images.gr-assets.com/books/1281419771l/888628.jpg",
+            "last_cached": 1519167930,
+            "small_image": "https://images.gr-assets.com/books/1281419771m/888628.jpg",
+            "subtitle": "William Gibson",
+            "title": "Neuromancer (Sprawl, #1)",
+            "type": "book"
+        },
+        "tv:246": {
+            "id": 246,
+            "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/sB8V0pQtJZ17v8FLXMOcYz6045c.jpg",
+            "last_cached": 1519167341,
+            "small_image": "http://image.tmdb.org/t/p/w185/sB8V0pQtJZ17v8FLXMOcYz6045c.jpg",
+            "subtitle": "2005",
+            "title": "Avatar: The Last Airbender",
+            "type": "tv"
+        },
+        "tv:66732": {
+            "id": 66732,
+            "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/lXS60geme1LlEob5Wgvj3KilClA.jpg",
+            "last_cached": 1519165303,
+            "small_image": "http://image.tmdb.org/t/p/w185/lXS60geme1LlEob5Wgvj3KilClA.jpg",
+            "subtitle": "2016",
+            "title": "Stranger Things",
+            "type": "tv"
+        }
+    },
+    "playlists": {
+        "argfktkjctj5wyte1c3wsqt70:24cMfu8KaqWjQBsFw6Cn9p": {
+            "id": "24cMfu8KaqWjQBsFw6Cn9p",
+            "image": "https://mosaic.scdn.co/640/b3f5bcab8eed97a8a47a50546aa6706144b4d0aa443609cd35e43c7bdb272b3d1d9e80290e128bc51fffb3d855b9d8dbe92f94d8181ad86a12c1450383ba7ffaf2e24a45f17226b9d8e338601b776245",
+            "last_cached": 1519167843,
+            "small_image": "https://mosaic.scdn.co/640/b3f5bcab8eed97a8a47a50546aa6706144b4d0aa443609cd35e43c7bdb272b3d1d9e80290e128bc51fffb3d855b9d8dbe92f94d8181ad86a12c1450383ba7ffaf2e24a45f17226b9d8e338601b776245",
+            "subtitle": "13 tracks",
+            "title": "Ender",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "argfktkjctj5wyte1c3wsqt70:5AhOTtbysi5vZnfJlQFsuu": {
+            "id": "5AhOTtbysi5vZnfJlQFsuu",
+            "image": "https://mosaic.scdn.co/640/7ba5754ca3d9aa92c6f1f0f18a3d4b56a3870cf141e413e282a84f77be939962ad41a7baa72cc962a3f4543fb95eef159084f7f80cd68b3a1ed1a49fb7c2abd6b885d72054911492f020bdd71f298d70",
+            "last_cached": 1519167930,
+            "small_image": "https://mosaic.scdn.co/640/7ba5754ca3d9aa92c6f1f0f18a3d4b56a3870cf141e413e282a84f77be939962ad41a7baa72cc962a3f4543fb95eef159084f7f80cd68b3a1ed1a49fb7c2abd6b885d72054911492f020bdd71f298d70",
+            "subtitle": "10 tracks",
+            "title": "Neuromancer",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        }
+    },
+    "tracks": {
+        "6C7ZgThn6Yan5MTZdAEEFw": {
+            "id": "6C7ZgThn6Yan5MTZdAEEFw",
+            "image": "https://i.scdn.co/image/43d0690cdcb496979a3516501afb823ce451a1cd",
+            "last_cached": 1519167341,
+            "small_image": "https://i.scdn.co/image/faeb5b03abf31cc1523913ce7356b66eecfbe72b",
+            "subtitle": "LL Cool J",
+            "title": "Mama Said Knock You Out"
+        },
+        "7mMlbJlXXo2mRtQ4R9sIzD": {
+            "id": "7mMlbJlXXo2mRtQ4R9sIzD",
+            "image": "https://i.scdn.co/image/a2fa45dcbbceee1493dae812d504ebc8fdca6411",
+            "last_cached": 1519165325,
+            "small_image": "https://i.scdn.co/image/aa5f4cfb2a7a78decb268d93ac38e5944c1aae81",
+            "subtitle": "Imogen Heap",
+            "title": "Hide and Seek"
+        }
+    },
+    "users": {
+        "argfktkjctj5wyte1c3wsqt70": {
+            "display_name": "Kenzie",
+            "external_urls": {
+                "spotify": "https://open.spotify.com/user/argfktkjctj5wyte1c3wsqt70"
+            },
+            "followers": {
+                "total": 31
+            },
+            "href": "https://api.spotify.com/v1/users/argfktkjctj5wyte1c3wsqt70",
+            "id": "argfktkjctj5wyte1c3wsqt70",
+            "images": [
+                {
+                    "url": "https://profile-images.scdn.co/images/userprofile/default/e4f86e02ceee0bd7c9fda9fec7effa3a71693756"
+                }
+            ],
+            "type": "user",
+            "uri": "spotify:user:argfktkjctj5wyte1c3wsqt70",
+            "username": "argfktkjctj5wyte1c3wsqt70"
+        }
+    }
+}
