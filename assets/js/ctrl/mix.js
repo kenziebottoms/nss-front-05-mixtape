@@ -62,8 +62,8 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
 
     // displays 5 results for the search term in the selected medium
     $scope.searchMedia = () => {
-        // only searches if the term isn't empty and a medium is selected
-        if ($scope.mediaSearchTerm != "" && $scope.activeMedia) {
+        // only searches if the term isn't empty; defaults to movies
+        if ($scope.mediaSearchTerm != "") {
             $scope.results = {};
             if ($scope.activeMedia == "book") {
                 GoodreadsFactory.searchByTitle($scope.mediaSearchTerm)
@@ -90,7 +90,8 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
                     .catch(err => {
                         $scope.mediaResults = false;
                     });
-            } else if ($scope.activeMedia == "movie") {
+            } else {
+                $scope.activeMedia = "movie";
                 $scope.image_prefix = TMDB.small_image_prefix;
                 TmdbFactory.searchMoviesByTitle($scope.mediaSearchTerm)
                     .then(results => {
@@ -109,7 +110,7 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
 
     // displays 5 results for the search term in the selected music format
     $scope.searchMusic = () => {
-        // only searches if term isn't empty and a music format is selected
+        // only searches if term isn't empty; defaults to tracks
         if ($scope.searchMusicTerm != "") {
             if ($scope.activeMusic == "playlist") {
                 SpotifyPlaylistFactory.searchUserPlaylists($scope.user.id, $scope.musicSearchTerm, 50, 0)

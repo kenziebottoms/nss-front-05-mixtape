@@ -1,7 +1,7 @@
 <div class="row container" id="newMix">
     <div ng-init="mediaLoading=false" class="col s12 m6">
         <div class="input-field">
-            <input ng-model="mediaSearchTerm" type="text">
+            <input ng-model="mediaSearchTerm" type="text" ng-enter="searchMedia()">
             <label for="mediaSearchTerm">Search media</label>
         </div>
         <div id="media-choices" ng-init="activeMedia=false" ng-click="mediaResults=[]">
