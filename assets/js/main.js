@@ -7,6 +7,7 @@ let myApp = angular.module("mixtape", [ngRoute]);
 
 require("./router.js");
 require("./constants.js");
+require("./directives.js");
 
 require("./ctrl/menu");
 require("./ctrl/user");

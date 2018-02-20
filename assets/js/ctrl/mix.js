@@ -110,20 +110,8 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
     // displays 5 results for the search term in the selected music format
     $scope.searchMusic = () => {
         // only searches if term isn't empty and a music format is selected
-        if ($scope.searchMusicTerm != "" && $scope.activeMusic) {
-            if ($scope.activeMusic == "track") {
-                SpotifyTrackFactory.searchTracksByTitle($scope.musicSearchTerm)
-                    .then(results => {
-                        if (results.length > 0) {
-                            $scope.musicResults = results.slice(0, 5);
-                        } else {
-                            $scope.musicResults = false;
-                        }
-                    })
-                    .catch(err => {
-                        $scope.musicResults = false;
-                    });
-            } else {
+        if ($scope.searchMusicTerm != "") {
+            if ($scope.activeMusic == "playlist") {
                 SpotifyPlaylistFactory.searchUserPlaylists($scope.user.id, $scope.musicSearchTerm, 50, 0)
                     // if there are user playlists to search
                     .then(results => {
@@ -135,6 +123,19 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
                     .catch(err => {
                         $scope.musicResults = false;
                         $scope.musicLoading = false;
+                    });
+            } else {
+                $scope.activeMusic = "track";
+                SpotifyTrackFactory.searchTracksByTitle($scope.musicSearchTerm)
+                    .then(results => {
+                        if (results.length > 0) {
+                            $scope.musicResults = results.slice(0, 5);
+                        } else {
+                            $scope.musicResults = false;
+                        }
+                    })
+                    .catch(err => {
+                        $scope.musicResults = false;
                     });
             }
         }
