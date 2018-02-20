@@ -33,7 +33,7 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
                 $scope.getLinks();
             })
             .catch(err => {
-                Materialize.toast(err, 3000);
+                Materialize.toast(err, 3000, "pink accent-2");
             });
     };
     
