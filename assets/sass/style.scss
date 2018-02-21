@@ -262,7 +262,7 @@ nav {
             justify-content: center;
             align-items: stretch;
             background: $green;
-            color: $w3;
+            color: $g3;
             text-align: center;
             a {
                 text-align: center;
@@ -276,6 +276,7 @@ nav {
             }
         }
         .votes {
+            color: $g4;
             background: $g2;
             a {
                 color: $g4;
