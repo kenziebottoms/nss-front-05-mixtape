@@ -11,6 +11,5 @@ angular.module("mixtape").controller("HomeCtrl", function($scope, $routeParams, 
         .catch(err => {
             $scope.links = {};
             Materialize.toast("No results. :(", 3000, "pink accent-2");
-            console.log(err);
         });
 });
