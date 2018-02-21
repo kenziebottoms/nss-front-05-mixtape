@@ -19,10 +19,8 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
     // loads links with votes
     // ASSUMPTION: $scope.links has been initialized and set
     $scope.getVotes = () => {
-        $scope.links.filter(link => {
-            return link.uid != $scope.user.id;
-        }).map(link => {
-            return VoteFactory.loadVote(link, $scope.user.id);
+        $scope.links.map(link => {
+            VoteFactory.loadVote(link, $scope.user.id);
         });
     };
 
