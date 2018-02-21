@@ -102,6 +102,13 @@ i.material-icons {
     &.md-48 {
         font-size: 48px !important;
     }
+    &.sub {
+        color: $green;
+        cursor: pointer;
+        &:hover {
+            color: $green-hl;
+        }
+    }
 }
 nav {
     .brand-logo {

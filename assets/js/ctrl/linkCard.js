@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $location, LinkFactory, VoteFactory, SpotifyAuthFactory, SpotifyPlaybackFactory) {
+angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $location, LinkFactory, VoteFactory, SpotifyAuthFactory, SpotifyPlaybackFactory, SubscriptionFactory) {
 
     // asynchronously updates $scope.user
     $scope.getUserData = () => {
@@ -93,6 +93,16 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
         SpotifyPlaybackFactory.turnOffShuffle()
             .then(response => {
                 SpotifyPlaybackFactory.playTrack(id);
+            });
+    };
+
+    $scope.unsubscribe = key => {
+        SubscriptionFactory.unsubscribe(key)
+            .then(response => {
+                $scope.subscription = false;
+            })
+            .catch(err => {
+                Materialize.toast(err, 3000, "pink accent-2");                
             });
     };
 });

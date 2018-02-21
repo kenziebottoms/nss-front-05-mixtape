@@ -29,6 +29,7 @@ require("./factory/spotify/playlist");
 require("./factory/spotify/playback");
 require("./factory/vote");
 require("./factory/link");
+require("./factory/subscription");
 require("./factory/firebase");
 require("./factory/tmdb");
 require("./factory/goodreads");
