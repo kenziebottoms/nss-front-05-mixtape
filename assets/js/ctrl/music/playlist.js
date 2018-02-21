@@ -41,7 +41,10 @@ angular.module("mixtape").controller("PlaylistCtrl", function($scope, $q, $contr
 
     // after user data and links are fetched and parsed, get the votes
     Promise.all([
-        $scope.getUserData(),
+        $scope.getUserData()
+            .then(response => {
+                $scope.isSubscribed();
+            }),
         $scope.getLinks($scope.typeId)
     ])
         .then(response => {

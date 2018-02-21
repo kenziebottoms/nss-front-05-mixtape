@@ -32,6 +32,7 @@ angular.module("mixtape").controller("MediaCtrl", function($scope, $controller, 
             });
     };
 
+    // updates $scope.subscription according to Firebase
     $scope.isSubscribed = () => {
         SubscriptionFactory.isSubscribedMedia($scope.typeId, $scope.user.id)
             .then(sub => {
