@@ -33,7 +33,7 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
                 $scope.getLinks();
             })
             .catch(err => {
-                Materialize.toast(err, 3000);
+                Materialize.toast(err, 3000, "pink accent-2");
             });
     };
     
@@ -42,10 +42,16 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
         let link = $scope.links.find(link => link.key == linkId);
         if (link.vote == 1) {
             VoteFactory.unvote(linkId, $scope.user.id)
-                .then(response => link.vote = 0);
+                .then(response => {
+                    link.score = link.score - link.vote;
+                    link.vote = 0;
+                });
         } else {
             VoteFactory.upvote(linkId, $scope.user.id)
-                .then(response => link.vote = 1);
+                .then(response => {
+                    link.score = link.score - link.vote + 1;
+                    link.vote = 1;
+                });
         }
     };
 
@@ -54,10 +60,16 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
         let link = $scope.links.find(link => link.key == linkId);
         if (link.vote == -1) {
             VoteFactory.unvote(linkId, $scope.user.id)
-                .then(response => link.vote = 0);
+                .then(response => {
+                    link.score = link.score - link.vote;
+                    link.vote = 0;
+                });
         } else {
             VoteFactory.downvote(linkId, $scope.user.id)
-                .then(response => link.vote = -1);
+                .then(response => {
+                    link.score = link.score - link.vote - 1;
+                    link.vote = -1;
+                });
         }
     };
     

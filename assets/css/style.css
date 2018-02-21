@@ -206,7 +206,8 @@ nav .brand-logo {
     justify-content: center;
     align-items: stretch;
     background: #00a849;
-    color: #fff; }
+    color: #ccc;
+    text-align: center; }
     #profile-links .link .ops a, #profile-links .link .votes a, #profile-links .search-result .ops a, #profile-links .search-result .votes a, #mediaSearchResults .link .ops a, #mediaSearchResults .link .votes a, #mediaSearchResults .search-result .ops a, #mediaSearchResults .search-result .votes a, #musicSearchResults .link .ops a, #musicSearchResults .link .votes a, #musicSearchResults .search-result .ops a, #musicSearchResults .search-result .votes a {
       text-align: center;
       padding: .25rem;

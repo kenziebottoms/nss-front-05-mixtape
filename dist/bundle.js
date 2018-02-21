@@ -27,7 +27,7 @@ angular.module("mixtape")
         url: "http://mixify-proxy.herokuapp.com/mm",
         key: "5c7575fabfc4c38a7527bdb8298a1915"
     });
-},{"angular":30}],2:[function(require,module,exports){
+},{"angular":31}],2:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -37,9 +37,14 @@ angular.module("mixtape").controller("HomeCtrl", function($scope, $routeParams, 
     LinkFactory.getRecentLinks(20)
         .then(links => {
             $scope.links = links;
+        })
+        .catch(err => {
+            $scope.links = {};
+            Materialize.toast("No results. :(", 3000, "pink accent-2");
+            console.log(err);
         });
 });
-},{"angular":30}],3:[function(require,module,exports){
+},{"angular":31}],3:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -75,7 +80,7 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
                 $scope.getLinks();
             })
             .catch(err => {
-                Materialize.toast(err, 3000);
+                Materialize.toast(err, 3000, "pink accent-2");
             });
     };
     
@@ -84,10 +89,16 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
         let link = $scope.links.find(link => link.key == linkId);
         if (link.vote == 1) {
             VoteFactory.unvote(linkId, $scope.user.id)
-                .then(response => link.vote = 0);
+                .then(response => {
+                    link.score = link.score - link.vote;
+                    link.vote = 0;
+                });
         } else {
             VoteFactory.upvote(linkId, $scope.user.id)
-                .then(response => link.vote = 1);
+                .then(response => {
+                    link.score = link.score - link.vote + 1;
+                    link.vote = 1;
+                });
         }
     };
 
@@ -96,10 +107,16 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
         let link = $scope.links.find(link => link.key == linkId);
         if (link.vote == -1) {
             VoteFactory.unvote(linkId, $scope.user.id)
-                .then(response => link.vote = 0);
+                .then(response => {
+                    link.score = link.score - link.vote;
+                    link.vote = 0;
+                });
         } else {
             VoteFactory.downvote(linkId, $scope.user.id)
-                .then(response => link.vote = -1);
+                .then(response => {
+                    link.score = link.score - link.vote - 1;
+                    link.vote = -1;
+                });
         }
     };
     
@@ -128,7 +145,7 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
             });
     };
 });
-},{"angular":30}],4:[function(require,module,exports){
+},{"angular":31}],4:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -166,7 +183,7 @@ angular.module("mixtape").controller("BookCtrl", function($scope, $q, $controlle
             $scope.getVotes();
         });
 });
-},{"angular":30}],5:[function(require,module,exports){
+},{"angular":31}],5:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -190,7 +207,7 @@ angular.module("mixtape").controller("MediaCtrl", function($scope, $controller, 
         });
     };
 });
-},{"angular":30}],6:[function(require,module,exports){
+},{"angular":31}],6:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -227,7 +244,7 @@ angular.module("mixtape").controller("MovieCtrl", function($scope, $q, $controll
         $scope.getVotes();
     });
 });
-},{"angular":30}],7:[function(require,module,exports){
+},{"angular":31}],7:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -265,7 +282,7 @@ angular.module("mixtape").controller("TvCtrl", function($scope, $q, $controller,
             $scope.getVotes();
         });
 });
-},{"angular":30}],8:[function(require,module,exports){
+},{"angular":31}],8:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -292,7 +309,7 @@ angular.module("mixtape").controller("MenuCtrl", function($scope, $rootScope, SP
         $rootScope.$broadcast('userChange', null);
     };
 });
-},{"angular":30}],9:[function(require,module,exports){
+},{"angular":31}],9:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -357,13 +374,13 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
 
     // displays 5 results for the search term in the selected medium
     $scope.searchMedia = () => {
-        // only searches if the term isn't empty and a medium is selected
-        if ($scope.mediaSearchTerm != "" && $scope.activeMedia) {
+        // only searches if the term isn't empty; defaults to movies
+        if ($scope.mediaSearchTerm != "") {
             $scope.results = {};
             if ($scope.activeMedia == "book") {
                 GoodreadsFactory.searchByTitle($scope.mediaSearchTerm)
                     .then(results => {
-                        if (results.results.length > 0) {
+                        if (parseInt(results["total-results"]._text) > 0) {
                             $scope.mediaResults = results.results.work.slice(0, 5);
                         } else {
                             $scope.mediaResults = false;
@@ -385,7 +402,8 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
                     .catch(err => {
                         $scope.mediaResults = false;
                     });
-            } else if ($scope.activeMedia == "movie") {
+            } else {
+                $scope.activeMedia = "movie";
                 $scope.image_prefix = TMDB.small_image_prefix;
                 TmdbFactory.searchMoviesByTitle($scope.mediaSearchTerm)
                     .then(results => {
@@ -404,21 +422,9 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
 
     // displays 5 results for the search term in the selected music format
     $scope.searchMusic = () => {
-        // only searches if term isn't empty and a music format is selected
-        if ($scope.searchMusicTerm != "" && $scope.activeMusic) {
-            if ($scope.activeMusic == "track") {
-                SpotifyTrackFactory.searchTracksByTitle($scope.musicSearchTerm)
-                    .then(results => {
-                        if (results.length > 0) {
-                            $scope.musicResults = results.slice(0, 5);
-                        } else {
-                            $scope.musicResults = false;
-                        }
-                    })
-                    .catch(err => {
-                        $scope.musicResults = false;
-                    });
-            } else {
+        // only searches if term isn't empty; defaults to tracks
+        if ($scope.searchMusicTerm != "") {
+            if ($scope.activeMusic == "playlist") {
                 SpotifyPlaylistFactory.searchUserPlaylists($scope.user.id, $scope.musicSearchTerm, 50, 0)
                     // if there are user playlists to search
                     .then(results => {
@@ -430,6 +436,19 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
                     .catch(err => {
                         $scope.musicResults = false;
                         $scope.musicLoading = false;
+                    });
+            } else {
+                $scope.activeMusic = "track";
+                SpotifyTrackFactory.searchTracksByTitle($scope.musicSearchTerm)
+                    .then(results => {
+                        if (results.length > 0) {
+                            $scope.musicResults = results.slice(0, 5);
+                        } else {
+                            $scope.musicResults = false;
+                        }
+                    })
+                    .catch(err => {
+                        $scope.musicResults = false;
                     });
             }
         }
@@ -529,7 +548,7 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
         $window.history.back();
     };
 });
-},{"angular":30}],10:[function(require,module,exports){
+},{"angular":31}],10:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -551,7 +570,7 @@ angular.module("mixtape").controller("MusicCtrl", function($scope, $q, $controll
     };
 
 });
-},{"angular":30}],11:[function(require,module,exports){
+},{"angular":31}],11:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -602,7 +621,7 @@ angular.module("mixtape").controller("PlaylistCtrl", function($scope, $q, $contr
             $scope.getVotes();
         });
 });
-},{"angular":30}],12:[function(require,module,exports){
+},{"angular":31}],12:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -660,7 +679,7 @@ angular.module("mixtape").controller("TrackCtrl", function($scope, $q, $routePar
             $scope.getVotes();
         });
 });
-},{"angular":30}],13:[function(require,module,exports){
+},{"angular":31}],13:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -706,7 +725,7 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller
             $scope.getVotes();
         });
 });
-},{"angular":30}],14:[function(require,module,exports){
+},{"angular":31}],14:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -748,7 +767,28 @@ angular.module("mixtape").controller("UserCtrl", function($scope, $rootScope, $q
         $rootScope.$broadcast('userChange', null);
     };
 });
-},{"angular":30}],15:[function(require,module,exports){
+},{"angular":31}],15:[function(require,module,exports){
+"use strict";
+
+const angular = require("angular");
+
+// reference: https://stackoverflow.com/questions/17470790/how-to-use-a-keypress-event-in-angularjs
+angular.module("mixtape").directive("ngEnter", function () {
+    return {
+        controller: "MixCtrl",
+        link: function (scope, element, attrs) {
+            element.bind("keydown keypress", function (event) {
+                if (event.which === 13) {
+                    scope.$apply(function() {
+                        scope.$eval(attrs.ngEnter);
+                    });
+                    event.preventDefault();
+                }
+            });
+        }
+    };
+});
+},{"angular":31}],16:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -869,7 +909,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
 
     return {getMediaByType, getMediaByTypeId, getTrackById, storeUserData, getUserData, getDisplayName, storeMedia, cacheMedia, storeMusic, getPlaylistByIds};
 });
-},{"angular":30}],16:[function(require,module,exports){
+},{"angular":31}],17:[function(require,module,exports){
 "use strict";
 
 const convert = require('xml-js');
@@ -930,7 +970,7 @@ angular.module("mixtape").factory("GoodreadsFactory", function($q, $http, GOODRE
 
     return { getBookById, getLargeImage, parseApiInfo, searchByTitle };
 });
-},{"angular":30,"xml-js":62}],17:[function(require,module,exports){
+},{"angular":31,"xml-js":63}],18:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1177,7 +1217,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
 
     return { getLinksByUid, getLinksByMedia, getLinksByMusic, storeNewLink, getLinkByKey, editLink, deleteLink, getRecentLinks };
 });
-},{"angular":30,"lodash":40}],18:[function(require,module,exports){
+},{"angular":31,"lodash":41}],19:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1221,7 +1261,7 @@ angular.module("mixtape").factory("MusixmatchFactory", function($q, $http, MUSIX
     
     return {getLyrics};
 });
-},{"angular":30}],19:[function(require,module,exports){
+},{"angular":31}],20:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1323,7 +1363,7 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
 
     return { login, logout, getActiveToken, getActiveUserData, getUserData };
 });
-},{"angular":30}],20:[function(require,module,exports){
+},{"angular":31}],21:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1408,7 +1448,7 @@ angular.module("mixtape").factory("SpotifyPlaybackFactory", function ($q, $http,
 
     return { playTrack, playPlaylist, turnOffShuffle };
 });
-},{"angular":30}],21:[function(require,module,exports){
+},{"angular":31}],22:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1437,6 +1477,9 @@ angular.module("mixtape").factory("SpotifyPlaylistFactory", function($q, $http, 
         return $q((resolve, reject) => {
             getPlaylistsByUid(uid, limit, offset)
                 .then(results => {
+                    if (results.total == 0) {
+                        reject();
+                    }
                     let searchTerm = RegExp(term,"i");
                     let searchResults = results.items.filter(item => {
                         return searchTerm.test(item.name);
@@ -1478,7 +1521,7 @@ angular.module("mixtape").factory("SpotifyPlaylistFactory", function($q, $http, 
     
     return { getPlaylistsByUid, searchUserPlaylists, getPlaylistByIds, parseApiInfo };
 });
-},{"angular":30}],22:[function(require,module,exports){
+},{"angular":31}],23:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1531,7 +1574,7 @@ angular.module("mixtape").factory("SpotifyTrackFactory", function($q, $http, Spo
 
     return { searchTracksByTitle, getTrackById, parseApiInfo };
 });
-},{"angular":30}],23:[function(require,module,exports){
+},{"angular":31}],24:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1599,10 +1642,11 @@ angular.module("mixtape").factory("TmdbFactory", function($q, $http, TMDB) {
 
     return {searchMoviesByTitle, searchTvShowsByTitle, getMovieById, getTvShowById, parseApiInfo};
 });
-},{"angular":30}],24:[function(require,module,exports){
+},{"angular":31}],25:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
+const _ = require("lodash");
 
 angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE) {
 
@@ -1630,6 +1674,20 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE) {
         });
     };
 
+    // promises the sum of all votes on given link
+    let getVoteTotal = linkId => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE.url}/votes.json?orderBy="linkId"&equalTo="${linkId}"`)
+                .then(({data}) => resolve(score(data)))
+                .catch(err => reject(err)); 
+        });
+    };
+
+    // returns sum of the values of the given vote objects
+    let score = votes => {
+        return _.sumBy(Object.values(votes), "value");
+    };
+
     // set user's vote on link to 1
     let upvote = (linkId, uid) => {
         return vote(linkId, uid, 1);
@@ -1654,7 +1712,11 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE) {
                 getVote(link.key, uid)
                     .then(vote => {
                         link.vote = vote;
-                        resolve(link);
+                        getVoteTotal(link.key)
+                            .then(total => {
+                                link.score = total;
+                                resolve(link);
+                            });
                     });
             } else {
                 resolve(link);
@@ -1662,9 +1724,9 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE) {
         });
     };
 
-    return { upvote, downvote, unvote, getVote, loadVote };
+    return { upvote, downvote, unvote, getVote, loadVote, getVoteTotal };
 });
-},{"angular":30}],25:[function(require,module,exports){
+},{"angular":31,"lodash":41}],26:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1674,6 +1736,7 @@ let myApp = angular.module("mixtape", [ngRoute]);
 
 require("./router.js");
 require("./constants.js");
+require("./directives.js");
 
 require("./ctrl/menu");
 require("./ctrl/user");
@@ -1699,7 +1762,7 @@ require("./factory/firebase");
 require("./factory/tmdb");
 require("./factory/goodreads");
 require("./factory/musixmatch");
-},{"./constants.js":1,"./ctrl/home":2,"./ctrl/linkCard":3,"./ctrl/media/book":4,"./ctrl/media/media":5,"./ctrl/media/movie":6,"./ctrl/media/tv":7,"./ctrl/menu":8,"./ctrl/mix":9,"./ctrl/music/music":10,"./ctrl/music/playlist":11,"./ctrl/music/track":12,"./ctrl/profile":13,"./ctrl/user":14,"./factory/firebase":15,"./factory/goodreads":16,"./factory/link":17,"./factory/musixmatch":18,"./factory/spotify/auth":19,"./factory/spotify/playback":20,"./factory/spotify/playlist":21,"./factory/spotify/track":22,"./factory/tmdb":23,"./factory/vote":24,"./router.js":26,"angular":30,"angular-route":28}],26:[function(require,module,exports){
+},{"./constants.js":1,"./ctrl/home":2,"./ctrl/linkCard":3,"./ctrl/media/book":4,"./ctrl/media/media":5,"./ctrl/media/movie":6,"./ctrl/media/tv":7,"./ctrl/menu":8,"./ctrl/mix":9,"./ctrl/music/music":10,"./ctrl/music/playlist":11,"./ctrl/music/track":12,"./ctrl/profile":13,"./ctrl/user":14,"./directives.js":15,"./factory/firebase":16,"./factory/goodreads":17,"./factory/link":18,"./factory/musixmatch":19,"./factory/spotify/auth":20,"./factory/spotify/playback":21,"./factory/spotify/playlist":22,"./factory/spotify/track":23,"./factory/tmdb":24,"./factory/vote":25,"./router.js":27,"angular":31,"angular-route":29}],27:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1743,7 +1806,7 @@ angular.module("mixtape").config($routeProvider => {
             controller: "MixCtrl"
         });
 });
-},{"angular":30}],27:[function(require,module,exports){
+},{"angular":31}],28:[function(require,module,exports){
 /**
  * @license AngularJS v1.6.8
  * (c) 2010-2017 Google, Inc. http://angularjs.org
@@ -2969,11 +3032,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":27}],29:[function(require,module,exports){
+},{"./angular-route":28}],30:[function(require,module,exports){
 /**
  * @license AngularJS v1.6.8
  * (c) 2010-2017 Google, Inc. http://angularjs.org
@@ -37229,11 +37292,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":29}],31:[function(require,module,exports){
+},{"./angular":30}],32:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -37349,9 +37412,9 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],32:[function(require,module,exports){
-
 },{}],33:[function(require,module,exports){
+
+},{}],34:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -39067,7 +39130,7 @@ function numberIsNaN (obj) {
   return obj !== obj // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":31,"ieee754":36}],34:[function(require,module,exports){
+},{"base64-js":32,"ieee754":37}],35:[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -39178,7 +39241,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":38}],35:[function(require,module,exports){
+},{"../../is-buffer/index.js":39}],36:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -39482,7 +39545,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = nBytes * 8 - mLen - 1
@@ -39568,7 +39631,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -39593,7 +39656,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 /*!
  * Determine if an object is a Buffer
  *
@@ -39616,14 +39679,14 @@ function isSlowBuffer (obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
-},{}],39:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -56711,7 +56774,7 @@ module.exports = Array.isArray || function (arr) {
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -56758,7 +56821,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 }
 
 }).call(this,require('_process'))
-},{"_process":42}],42:[function(require,module,exports){
+},{"_process":43}],43:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -56944,10 +57007,10 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],43:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 module.exports = require('./lib/_stream_duplex.js');
 
-},{"./lib/_stream_duplex.js":44}],44:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":45}],45:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -57072,7 +57135,7 @@ function forEach(xs, f) {
     f(xs[i], i);
   }
 }
-},{"./_stream_readable":46,"./_stream_writable":48,"core-util-is":34,"inherits":37,"process-nextick-args":41}],45:[function(require,module,exports){
+},{"./_stream_readable":47,"./_stream_writable":49,"core-util-is":35,"inherits":38,"process-nextick-args":42}],46:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -57120,7 +57183,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":47,"core-util-is":34,"inherits":37}],46:[function(require,module,exports){
+},{"./_stream_transform":48,"core-util-is":35,"inherits":38}],47:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -58130,7 +58193,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./_stream_duplex":44,"./internal/streams/BufferList":49,"./internal/streams/destroy":50,"./internal/streams/stream":51,"_process":42,"core-util-is":34,"events":35,"inherits":37,"isarray":39,"process-nextick-args":41,"safe-buffer":56,"string_decoder/":59,"util":32}],47:[function(require,module,exports){
+},{"./_stream_duplex":45,"./internal/streams/BufferList":50,"./internal/streams/destroy":51,"./internal/streams/stream":52,"_process":43,"core-util-is":35,"events":36,"inherits":38,"isarray":40,"process-nextick-args":42,"safe-buffer":57,"string_decoder/":60,"util":33}],48:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -58345,7 +58408,7 @@ function done(stream, er, data) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":44,"core-util-is":34,"inherits":37}],48:[function(require,module,exports){
+},{"./_stream_duplex":45,"core-util-is":35,"inherits":38}],49:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -59012,7 +59075,7 @@ Writable.prototype._destroy = function (err, cb) {
   cb(err);
 };
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./_stream_duplex":44,"./internal/streams/destroy":50,"./internal/streams/stream":51,"_process":42,"core-util-is":34,"inherits":37,"process-nextick-args":41,"safe-buffer":56,"util-deprecate":60}],49:[function(require,module,exports){
+},{"./_stream_duplex":45,"./internal/streams/destroy":51,"./internal/streams/stream":52,"_process":43,"core-util-is":35,"inherits":38,"process-nextick-args":42,"safe-buffer":57,"util-deprecate":61}],50:[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -59087,7 +59150,7 @@ module.exports = function () {
 
   return BufferList;
 }();
-},{"safe-buffer":56}],50:[function(require,module,exports){
+},{"safe-buffer":57}],51:[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -59160,13 +59223,13 @@ module.exports = {
   destroy: destroy,
   undestroy: undestroy
 };
-},{"process-nextick-args":41}],51:[function(require,module,exports){
+},{"process-nextick-args":42}],52:[function(require,module,exports){
 module.exports = require('events').EventEmitter;
 
-},{"events":35}],52:[function(require,module,exports){
+},{"events":36}],53:[function(require,module,exports){
 module.exports = require('./readable').PassThrough
 
-},{"./readable":53}],53:[function(require,module,exports){
+},{"./readable":54}],54:[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -59175,13 +59238,13 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":44,"./lib/_stream_passthrough.js":45,"./lib/_stream_readable.js":46,"./lib/_stream_transform.js":47,"./lib/_stream_writable.js":48}],54:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":45,"./lib/_stream_passthrough.js":46,"./lib/_stream_readable.js":47,"./lib/_stream_transform.js":48,"./lib/_stream_writable.js":49}],55:[function(require,module,exports){
 module.exports = require('./readable').Transform
 
-},{"./readable":53}],55:[function(require,module,exports){
+},{"./readable":54}],56:[function(require,module,exports){
 module.exports = require('./lib/_stream_writable.js');
 
-},{"./lib/_stream_writable.js":48}],56:[function(require,module,exports){
+},{"./lib/_stream_writable.js":49}],57:[function(require,module,exports){
 /* eslint-disable node/no-deprecated-api */
 var buffer = require('buffer')
 var Buffer = buffer.Buffer
@@ -59245,7 +59308,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size)
 }
 
-},{"buffer":33}],57:[function(require,module,exports){
+},{"buffer":34}],58:[function(require,module,exports){
 (function (Buffer){
 ;(function (sax) { // wrapper for non-node envs
   sax.parser = function (strict, opt) { return new SAXParser(strict, opt) }
@@ -60814,7 +60877,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
 })(typeof exports === 'undefined' ? this.sax = {} : exports)
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":33,"stream":58,"string_decoder":59}],58:[function(require,module,exports){
+},{"buffer":34,"stream":59,"string_decoder":60}],59:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -60943,7 +61006,7 @@ Stream.prototype.pipe = function(dest, options) {
   return dest;
 };
 
-},{"events":35,"inherits":37,"readable-stream/duplex.js":43,"readable-stream/passthrough.js":52,"readable-stream/readable.js":53,"readable-stream/transform.js":54,"readable-stream/writable.js":55}],59:[function(require,module,exports){
+},{"events":36,"inherits":38,"readable-stream/duplex.js":44,"readable-stream/passthrough.js":53,"readable-stream/readable.js":54,"readable-stream/transform.js":55,"readable-stream/writable.js":56}],60:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -61216,7 +61279,7 @@ function simpleWrite(buf) {
 function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
-},{"safe-buffer":56}],60:[function(require,module,exports){
+},{"safe-buffer":57}],61:[function(require,module,exports){
 (function (global){
 
 /**
@@ -61287,7 +61350,7 @@ function config (name) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],61:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 module.exports = {
 
   isArray: function(value) {
@@ -61300,7 +61363,7 @@ module.exports = {
 
 };
 
-},{}],62:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 /*jslint node:true */
 
 var xml2js = require('./xml2js');
@@ -61315,7 +61378,7 @@ module.exports = {
   json2xml: json2xml
 };
 
-},{"./js2xml":63,"./json2xml":64,"./xml2js":66,"./xml2json":67}],63:[function(require,module,exports){
+},{"./js2xml":64,"./json2xml":65,"./xml2js":67,"./xml2json":68}],64:[function(require,module,exports){
 var helper = require('./options-helper');
 var isArray = require('./array-helper').isArray;
 
@@ -61637,7 +61700,7 @@ module.exports = function (js, options) {
   return xml;
 };
 
-},{"./array-helper":61,"./options-helper":65}],64:[function(require,module,exports){
+},{"./array-helper":62,"./options-helper":66}],65:[function(require,module,exports){
 (function (Buffer){
 var js2xml = require('./js2xml.js');
 
@@ -61659,7 +61722,7 @@ module.exports = function (json, options) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"./js2xml.js":63,"buffer":33}],65:[function(require,module,exports){
+},{"./js2xml.js":64,"buffer":34}],66:[function(require,module,exports){
 module.exports = {
 
   copyOptions: function (options) {
@@ -61696,7 +61759,7 @@ module.exports = {
 
 };
 
-},{}],66:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 var sax = require('sax');
 var expat /*= require('node-expat');*/ = { on: function () { }, parse: function () { } };
 var helper = require('./options-helper');
@@ -62051,7 +62114,7 @@ module.exports = function (xml, userOptions) {
 
 };
 
-},{"./array-helper":61,"./options-helper":65,"sax":57}],67:[function(require,module,exports){
+},{"./array-helper":62,"./options-helper":66,"sax":58}],68:[function(require,module,exports){
 var helper = require('./options-helper');
 var xml2js = require('./xml2js');
 
@@ -62075,4 +62138,4 @@ module.exports = function(xml, userOptions) {
   return json.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
 };
 
-},{"./options-helper":65,"./xml2js":66}]},{},[25]);
+},{"./options-helper":66,"./xml2js":67}]},{},[26]);

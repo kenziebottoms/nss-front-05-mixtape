@@ -1,6 +1,7 @@
 "use strict";
 
 const angular = require("angular");
+const _ = require("lodash");
 
 angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE) {
 
@@ -28,6 +29,20 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE) {
         });
     };
 
+    // promises the sum of all votes on given link
+    let getVoteTotal = linkId => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE.url}/votes.json?orderBy="linkId"&equalTo="${linkId}"`)
+                .then(({data}) => resolve(score(data)))
+                .catch(err => reject(err)); 
+        });
+    };
+
+    // returns sum of the values of the given vote objects
+    let score = votes => {
+        return _.sumBy(Object.values(votes), "value");
+    };
+
     // set user's vote on link to 1
     let upvote = (linkId, uid) => {
         return vote(linkId, uid, 1);
@@ -52,7 +67,11 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE) {
                 getVote(link.key, uid)
                     .then(vote => {
                         link.vote = vote;
-                        resolve(link);
+                        getVoteTotal(link.key)
+                            .then(total => {
+                                link.score = total;
+                                resolve(link);
+                            });
                     });
             } else {
                 resolve(link);
@@ -60,5 +79,5 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE) {
         });
     };
 
-    return { upvote, downvote, unvote, getVote, loadVote };
+    return { upvote, downvote, unvote, getVote, loadVote, getVoteTotal };
 });
