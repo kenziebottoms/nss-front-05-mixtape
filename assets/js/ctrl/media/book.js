@@ -30,6 +30,9 @@ angular.module("mixtape").controller("BookCtrl", function($scope, $q, $controlle
     Promise.all([
         $scope.getLinks($scope.typeId),
         $scope.getUserData()
+            .then(response => {
+                $scope.isSubscribed();
+            })
     ])
         .then(results => {
             $scope.getVotes();

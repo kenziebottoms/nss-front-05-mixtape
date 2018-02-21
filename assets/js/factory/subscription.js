@@ -1,6 +1,7 @@
 "use strict";
 
 const angular = require("angular");
+const _ = require("lodash");
 
 angular.module("mixtape").factory("SubscriptionFactory", function($q, $http, FIREBASE) {
     let subscribeMedia = (typeId, uid) => {
@@ -25,11 +26,10 @@ angular.module("mixtape").factory("SubscriptionFactory", function($q, $http, FIR
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.url}/subs.json?orderBy="uid"&equalTo="${uid}"`)
                 .then(({data}) => {
-                    let sub = Object.values(data);
-                    if (sub.length > 0) {
-                        // assigns the key as a property to the new anonymous object
-                        sub = sub[0];
-                        sub.key = Object.keys(data)[0];
+                    let key = _.findKey(data, ["media", typeId]);
+                    if (key) {
+                        let sub = data[key];
+                        sub.key = key;
                         resolve(sub);
                     } else {
                         reject();
