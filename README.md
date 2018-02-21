@@ -24,9 +24,11 @@ grunt
 - [ ] User receives notifications when others vote on their mixes or follow them.
 - [ ] User can subscribe to media and other users, causing relevant activity to populate their activity feed.
 
-## Resources
-
+## Organization
 - [MindMeister mind map](https://mm.tt/994144307?t=3TqRJrEdLy)
+- [Trello board](https://trello.com/b/oTWe6Xq2/mixify)
+
+## Resources
 - [Angular $controller inheritance](https://stackoverflow.com/questions/18461263/can-an-angularjs-controller-inherit-from-another-controller-in-the-same-module)
 - [Mixify proxy server](https://github.com/kenziebottoms/mixify-proxy-server) forked from [Node proxy server](https://github.com/BlaiseRoberts/proxy-server)
 
