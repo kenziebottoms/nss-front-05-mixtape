@@ -27,7 +27,43 @@ angular.module("mixtape")
         url: "http://mixify-proxy.herokuapp.com/mm",
         key: "5c7575fabfc4c38a7527bdb8298a1915"
     });
-},{"angular":31}],2:[function(require,module,exports){
+},{"angular":33}],2:[function(require,module,exports){
+"use strict";
+
+const angular = require("angular");
+const _ = require("lodash");
+
+angular.module("mixtape").controller("FavoritesCtrl", function($scope, SubscriptionFactory, SpotifyAuthFactory, LinkFactory) {
+    // get user data before proceeding
+    SpotifyAuthFactory.getActiveUserData()
+        .then(userData => {
+            $scope.user = userData;
+            // get active user's faves/subscriptions
+            return SubscriptionFactory.getSubscriptionsByUid($scope.user.id);
+        })
+        .then(results => {
+            let subs = Object.values(results);
+            // load subscriptions with music/media
+            let loadedSubPromises = subs.map(sub => {
+                if (sub.media) {
+                    return LinkFactory.loadMedia(sub);
+                } else {
+                    return LinkFactory.loadMusic(sub);
+                }
+            });
+            return Promise.all(loadedSubPromises);
+        })
+        // once they're all done, filter them
+        // TODO: sort by freshness
+        .then(loadedSubs => {
+            $scope.media = _.filter(loadedSubs, "media");
+            $scope.music = _.filter(loadedSubs, "music");
+        })
+        .catch(err => {
+            Materialize.toast(err, 3000, "pink accent-2");
+        });
+});
+},{"angular":33,"lodash":43}],3:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -41,15 +77,15 @@ angular.module("mixtape").controller("HomeCtrl", function($scope, $routeParams, 
         .catch(err => {
             $scope.links = {};
             Materialize.toast("No results. :(", 3000, "pink accent-2");
-            console.log(err);
         });
 });
-},{"angular":31}],3:[function(require,module,exports){
+},{"angular":33}],4:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
+const _ = require("lodash");
 
-angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $location, LinkFactory, VoteFactory, SpotifyAuthFactory, SpotifyPlaybackFactory) {
+angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $location, LinkFactory, VoteFactory, SpotifyAuthFactory, SpotifyPlaybackFactory, SubscriptionFactory) {
 
     // asynchronously updates $scope.user
     $scope.getUserData = () => {
@@ -66,10 +102,8 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
     // loads links with votes
     // ASSUMPTION: $scope.links has been initialized and set
     $scope.getVotes = () => {
-        $scope.links.filter(link => {
-            return link.uid != $scope.user.id;
-        }).map(link => {
-            return VoteFactory.loadVote(link, $scope.user.id);
+        $scope.links.map(link => {
+            VoteFactory.loadVote(link, $scope.user.id);
         });
     };
 
@@ -86,17 +120,17 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
     
     // upvotes the current link if not already upvoted
     $scope.upvote = linkId => {
-        let link = $scope.links.find(link => link.key == linkId);
+        let link = _.find($scope.links, ["key", linkId]);
         if (link.vote == 1) {
             VoteFactory.unvote(linkId, $scope.user.id)
                 .then(response => {
-                    link.score = link.score - link.vote;
+                    link.score -= link.vote;
                     link.vote = 0;
                 });
         } else {
             VoteFactory.upvote(linkId, $scope.user.id)
                 .then(response => {
-                    link.score = link.score - link.vote + 1;
+                    link.score -= link.vote-1;
                     link.vote = 1;
                 });
         }
@@ -108,13 +142,13 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
         if (link.vote == -1) {
             VoteFactory.unvote(linkId, $scope.user.id)
                 .then(response => {
-                    link.score = link.score - link.vote;
+                    link.score -= link.vote;
                     link.vote = 0;
                 });
         } else {
             VoteFactory.downvote(linkId, $scope.user.id)
                 .then(response => {
-                    link.score = link.score - link.vote - 1;
+                    link.score -= link.vote+1;
                     link.vote = -1;
                 });
         }
@@ -132,7 +166,7 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
     // turns shuffle off and plays the given playlist
     $scope.playPlaylist = (uid, id) => {
         SpotifyPlaybackFactory.turnOffShuffle()
-            .then( response => {
+            .then(response => {
                 SpotifyPlaybackFactory.playPlaylist(uid, id);
             });
     };
@@ -144,8 +178,19 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
                 SpotifyPlaybackFactory.playTrack(id);
             });
     };
+
+    // delete subscription by key
+    $scope.unsubscribe = key => {
+        SubscriptionFactory.unsubscribe(key)
+            .then(response => {
+                $scope.subscription = false;
+            })
+            .catch(err => {
+                Materialize.toast(err, 3000, "pink accent-2");
+            });
+    };
 });
-},{"angular":31}],4:[function(require,module,exports){
+},{"angular":33,"lodash":43}],5:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -178,17 +223,20 @@ angular.module("mixtape").controller("BookCtrl", function($scope, $q, $controlle
     Promise.all([
         $scope.getLinks($scope.typeId),
         $scope.getUserData()
+            .then(response => {
+                $scope.isSubscribed();
+            })
     ])
         .then(results => {
             $scope.getVotes();
         });
 });
-},{"angular":31}],5:[function(require,module,exports){
+},{"angular":33}],6:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("MediaCtrl", function($scope, $controller, $routeParams, $q, LinkFactory, VoteFactory) {
+angular.module("mixtape").controller("MediaCtrl", function($scope, $controller, $routeParams, $q, LinkFactory, VoteFactory, SubscriptionFactory) {
     
     // gets voting, deletion, playback methods from LinkCardCtrl
     $controller("LinkCardCtrl", {$scope: $scope});
@@ -206,8 +254,31 @@ angular.module("mixtape").controller("MediaCtrl", function($scope, $controller, 
                 });
         });
     };
+
+    // subscribe to media then update $scope.subscription accordingly
+    $scope.subscribe = () => {
+        SubscriptionFactory.subscribeMedia($scope.typeId, $scope.user.id)
+            .then(data => {
+                $scope.subscription = {key: data.name};
+            })
+            .catch(err => {
+                Materialize.toast(err, 3000, "pink accent-2");
+            });
+    };
+
+    // updates $scope.subscription according to Firebase
+    $scope.isSubscribed = () => {
+        SubscriptionFactory.isSubscribedMedia($scope.typeId, $scope.user.id)
+            .then(sub => {
+                $scope.subscription = sub;
+            })
+            .catch(err => {
+                $scope.subsription = false;
+            });
+    };
+
 });
-},{"angular":31}],6:[function(require,module,exports){
+},{"angular":33}],7:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -239,12 +310,15 @@ angular.module("mixtape").controller("MovieCtrl", function($scope, $q, $controll
     Promise.all([
         $scope.getLinks($scope.typeId),
         $scope.getUserData()
+            .then(response => {
+                $scope.isSubscribed();
+            })
     ])
     .then(results => {
         $scope.getVotes();
     });
 });
-},{"angular":31}],7:[function(require,module,exports){
+},{"angular":33}],8:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -277,12 +351,15 @@ angular.module("mixtape").controller("TvCtrl", function($scope, $q, $controller,
     Promise.all([
         $scope.getLinks($scope.typeId),
         $scope.getUserData()
+            .then(response => {
+                $scope.isSubscribed();
+            })
     ])
         .then(results => {
             $scope.getVotes();
         });
 });
-},{"angular":31}],8:[function(require,module,exports){
+},{"angular":33}],9:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -309,7 +386,7 @@ angular.module("mixtape").controller("MenuCtrl", function($scope, $rootScope, SP
         $rootScope.$broadcast('userChange', null);
     };
 });
-},{"angular":31}],9:[function(require,module,exports){
+},{"angular":33}],10:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -548,12 +625,12 @@ angular.module("mixtape").controller("MixCtrl", function ($scope, GoodreadsFacto
         $window.history.back();
     };
 });
-},{"angular":31}],10:[function(require,module,exports){
+},{"angular":33}],11:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("MusicCtrl", function($scope, $q, $controller, LinkFactory) {
+angular.module("mixtape").controller("MusicCtrl", function($scope, $q, $controller, LinkFactory, SubscriptionFactory) {
     
     // gets voting, deletion, playback methods from LinkCardCtrl
     $controller("LinkCardCtrl", {$scope: $scope});
@@ -569,8 +646,30 @@ angular.module("mixtape").controller("MusicCtrl", function($scope, $q, $controll
         });
     };
 
+    // subscribe to media then update $scope.subscription accordingly
+    $scope.subscribe = () => {
+        SubscriptionFactory.subscribeMusic($scope.typeId, $scope.user.id)
+            .then(data => {
+                $scope.subscription = {key: data.name};
+            })
+            .catch(err => {
+                Materialize.toast(err, 3000, "pink accent-2");
+            });
+    };
+
+    // updates $scope.subscription according to Firebase
+    $scope.isSubscribed = () => {
+        SubscriptionFactory.isSubscribedMusic($scope.typeId, $scope.user.id)
+            .then(sub => {
+                $scope.subscription = sub;
+            })
+            .catch(err => {
+                $scope.subsription = false;
+            });
+    };
+
 });
-},{"angular":31}],11:[function(require,module,exports){
+},{"angular":33}],12:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -614,14 +713,17 @@ angular.module("mixtape").controller("PlaylistCtrl", function($scope, $q, $contr
 
     // after user data and links are fetched and parsed, get the votes
     Promise.all([
-        $scope.getUserData(),
+        $scope.getUserData()
+            .then(response => {
+                $scope.isSubscribed();
+            }),
         $scope.getLinks($scope.typeId)
     ])
         .then(response => {
             $scope.getVotes();
         });
 });
-},{"angular":31}],12:[function(require,module,exports){
+},{"angular":33}],13:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -674,12 +776,15 @@ angular.module("mixtape").controller("TrackCtrl", function($scope, $q, $routePar
     Promise.all([
         $scope.getLinks($scope.typeId),
         $scope.getUserData()
+            .then(response => {
+                $scope.isSubscribed();
+            })
     ])
         .then(response => {
             $scope.getVotes();
         });
 });
-},{"angular":31}],13:[function(require,module,exports){
+},{"angular":33}],14:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -725,7 +830,7 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller
             $scope.getVotes();
         });
 });
-},{"angular":31}],14:[function(require,module,exports){
+},{"angular":33}],15:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -767,7 +872,7 @@ angular.module("mixtape").controller("UserCtrl", function($scope, $rootScope, $q
         $rootScope.$broadcast('userChange', null);
     };
 });
-},{"angular":31}],15:[function(require,module,exports){
+},{"angular":33}],16:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -788,7 +893,7 @@ angular.module("mixtape").directive("ngEnter", function () {
         }
     };
 });
-},{"angular":31}],16:[function(require,module,exports){
+},{"angular":33}],17:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -839,7 +944,9 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.url}/users/${username.replace(".",",")}.json`)
                 .then(({data}) => resolve(data))
-                .catch(err => console.log(err));
+                .catch(err => {
+                    Materialize.toast("No results. :(", 3000, "pink accent-2");
+                });
         });
     };
 
@@ -848,7 +955,9 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.url}/users/${username.replace(".",",")}/display_name.json`)
                 .then(({data}) => resolve(data))
-                .catch(err => console.log(err));
+                .catch(err => {
+                    Materialize.toast("No results. :(", 3000, "pink accent-2");
+                });
         });
     };
 
@@ -909,7 +1018,7 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
 
     return {getMediaByType, getMediaByTypeId, getTrackById, storeUserData, getUserData, getDisplayName, storeMedia, cacheMedia, storeMusic, getPlaylistByIds};
 });
-},{"angular":31}],17:[function(require,module,exports){
+},{"angular":33}],18:[function(require,module,exports){
 "use strict";
 
 const convert = require('xml-js');
@@ -970,7 +1079,7 @@ angular.module("mixtape").factory("GoodreadsFactory", function($q, $http, GOODRE
 
     return { getBookById, getLargeImage, parseApiInfo, searchByTitle };
 });
-},{"angular":31,"xml-js":63}],18:[function(require,module,exports){
+},{"angular":33,"xml-js":65}],19:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -981,27 +1090,28 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     // promises recent links, unique by media, sorts them newest first
     let getRecentLinks = limit => {
         return $q((resolve, reject) => {
-            $http.get(`${FIREBASE.url}/links.json?orderBy="added"&limitTo=${limit}`)
+            $http.get(`${FIREBASE.url}/links.json?orderBy="added"`)
                 .then(({ data }) => {
                     data = Object.entries(data);
-                    // collapses [key, value] into value: { key: ... }
+                    // [key, value] => value: { key: ... }
                     let links = data.map(link => {
                         link[1].key = link[0];
                         return link[1];
                     });
-                    // removes duplicate media
-                    // TODO: remove oldest duplicate media
-                    links = _.uniqBy(links, 'media');
+                    // removes oldest duplicate media
+                    links = _.sortBy(links, l => -l.added); // reverse sort by added
+                    links = _.uniqBy(links, 'media'); // eliminate second/third/etc. instances of same values
+                    // limit
+                    links = links.slice(0, limit);
+                    // loads links
                     let linkPromises = links.map(link => {
                         return loadLink(link);
                     });
                     return Promise.all(linkPromises);
                 })
                 .then(loadedLinks => {
-                    // sort by date added
-                    loadedLinks = _.sortBy(loadedLinks, "added");
                     // sort by newest first
-                    loadedLinks.reverse();
+                    loadedLinks = _.sortBy(loadedLinks, l => -l.added);
                     resolve(loadedLinks);
                 })
                 .catch(err => reject(err));
@@ -1080,8 +1190,8 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    // takes a link object with a reference to music
-    // promises a link object with a music object as a property
+    // takes an object with a reference to music
+    // promises an object with a music object as a property
     let loadMusic = link => {
         return $q((resolve, reject) => {
             let typeId = link.music;
@@ -1114,8 +1224,8 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    // takes a link object with a reference to media
-    // promises a link object with a media object as a property
+    // takes an object with a reference to media
+    // promises an object with a media object as a property
     let loadMedia = link => {
         return $q((resolve, reject) => {
             let typeId = link.media;
@@ -1128,8 +1238,8 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    // takes a link object with music & media references
-    // promises a link object with a music & media objects as properties
+    // takes an object with music & media references
+    // promises an object with a music & media objects as properties
     // NOTE: username = true/false, whether or not to fetch user's display_name
     let loadLink = (link, username) => {
         return $q((resolve, reject) => {
@@ -1160,6 +1270,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.url}/links.json?orderBy="uid"&equalTo="${uid}"`)
                 .then(({ data }) => {
+                    // checks for existing link between given media & music
                     Object.values(data).forEach(link => {
                         if (link.media == mediaTypeId &&
                             link.music == musicTypeId) {
@@ -1215,9 +1326,9 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    return { getLinksByUid, getLinksByMedia, getLinksByMusic, storeNewLink, getLinkByKey, editLink, deleteLink, getRecentLinks };
+    return { getLinksByUid, getLinksByMedia, getLinksByMusic, storeNewLink, getLinkByKey, editLink, deleteLink, getRecentLinks, loadMusic, loadMedia };
 });
-},{"angular":31,"lodash":41}],19:[function(require,module,exports){
+},{"angular":33,"lodash":43}],20:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1261,7 +1372,7 @@ angular.module("mixtape").factory("MusixmatchFactory", function($q, $http, MUSIX
     
     return {getLyrics};
 });
-},{"angular":31}],20:[function(require,module,exports){
+},{"angular":33}],21:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1363,7 +1474,7 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
 
     return { login, logout, getActiveToken, getActiveUserData, getUserData };
 });
-},{"angular":31}],21:[function(require,module,exports){
+},{"angular":33}],22:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1448,7 +1559,7 @@ angular.module("mixtape").factory("SpotifyPlaybackFactory", function ($q, $http,
 
     return { playTrack, playPlaylist, turnOffShuffle };
 });
-},{"angular":31}],22:[function(require,module,exports){
+},{"angular":33}],23:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1521,7 +1632,7 @@ angular.module("mixtape").factory("SpotifyPlaylistFactory", function($q, $http, 
     
     return { getPlaylistsByUid, searchUserPlaylists, getPlaylistByIds, parseApiInfo };
 });
-},{"angular":31}],23:[function(require,module,exports){
+},{"angular":33}],24:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1574,7 +1685,117 @@ angular.module("mixtape").factory("SpotifyTrackFactory", function($q, $http, Spo
 
     return { searchTracksByTitle, getTrackById, parseApiInfo };
 });
-},{"angular":31}],24:[function(require,module,exports){
+},{"angular":33}],25:[function(require,module,exports){
+"use strict";
+
+const angular = require("angular");
+const _ = require("lodash");
+
+angular.module("mixtape").factory("SubscriptionFactory", function($q, $http, FIREBASE) {
+
+    // adds a subscription between given media and user
+    let subscribeMedia = (typeId, uid) => {
+        return $q((resolve, reject) => {
+            let sub = { uid, media: typeId };
+            $http.post(`${FIREBASE.url}/subs.json`, sub)
+                .then(response => {
+                    if (response.status == 200) {
+                        resolve(response.data);
+                    } else {
+                        reject();
+                    }
+                })
+                .catch(err => {
+                    resolve(err);
+                });
+        });
+    };
+
+    // adds a subscription between given media and user
+    let subscribeMusic = (typeId, uid) => {
+        return $q((resolve, reject) => {
+            let sub = { uid, music: typeId };
+            $http.post(`${FIREBASE.url}/subs.json`, sub)
+                .then(response => {
+                    if (response.status == 200) {
+                        resolve(response.data);
+                    } else {
+                        reject();
+                    }
+                })
+                .catch(err => {
+                    resolve(err);
+                });
+        });
+    };
+
+    // promises the subscription object if the sub exists, rejects otherwise
+    let isSubscribedMedia = (typeId, uid) => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE.url}/subs.json?orderBy="uid"&equalTo="${uid}"`)
+                .then(({data}) => {
+                    let key = _.findKey(data, ["media", typeId]);
+                    if (key) {
+                        // data: {key: value} => value: { key: ... }
+                        let sub = data[key];
+                        sub.key = key;
+                        resolve(sub);
+                    } else {
+                        reject();
+                    }
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
+    };
+
+    // promises the subscription object if the sub exists, rejects otherwise
+    let isSubscribedMusic = (typeId, uid) => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE.url}/subs.json?orderBy="uid"&equalTo="${uid}"`)
+                .then(({data}) => {
+                    let key = _.findKey(data, ["music", typeId]);
+                    if (key) {
+                        let sub = data[key];
+                        sub.key = key;
+                        resolve(sub);
+                    } else {
+                        reject();
+                    }
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
+    };
+
+    // deletes subscription by key
+    let unsubscribe = key => {
+        return $q((resolve, reject) => {
+            $http.delete(`${FIREBASE.url}/subs/${key}.json`)
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
+    };
+
+    // promises list of subscriptions attached to given user
+    let getSubscriptionsByUid = uid => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE.url}/subs.json?orderBy="uid"&equalTo="${uid}"`)
+                .then(({data}) => {
+                    resolve(data);
+                });
+        });
+    };
+
+    return { subscribeMedia, subscribeMusic, isSubscribedMedia, isSubscribedMusic, unsubscribe, getSubscriptionsByUid };
+});
+},{"angular":33,"lodash":43}],26:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1642,7 +1863,7 @@ angular.module("mixtape").factory("TmdbFactory", function($q, $http, TMDB) {
 
     return {searchMoviesByTitle, searchTvShowsByTitle, getMovieById, getTvShowById, parseApiInfo};
 });
-},{"angular":31}],25:[function(require,module,exports){
+},{"angular":33}],27:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1705,28 +1926,31 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE) {
         });
     };
 
-    // integrate the vote into a link object
+    // integrate current user's vote and score into a link object
     let loadVote = (link, uid) => {
         return $q((resolve, reject) => {
-            if (link.uid != uid) {
-                getVote(link.key, uid)
-                    .then(vote => {
-                        link.vote = vote;
-                        getVoteTotal(link.key)
-                            .then(total => {
-                                link.score = total;
-                                resolve(link);
-                            });
-                    });
-            } else {
-                resolve(link);
-            }
+            // get vote total/score
+            getVoteTotal(link.key)
+                .then(total => {
+                    link.score = total;
+                    // if current user is not this link's author
+                    if (link.uid != uid) {
+                        // get current user's vote
+                        return getVote(link.key, uid);
+                    } else {
+                        resolve(link);
+                    }
+                })
+                .then(vote => {
+                    link.vote = vote;
+                    resolve(link);
+                });
         });
     };
 
     return { upvote, downvote, unvote, getVote, loadVote, getVoteTotal };
 });
-},{"angular":31,"lodash":41}],26:[function(require,module,exports){
+},{"angular":33,"lodash":43}],28:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1742,6 +1966,9 @@ require("./ctrl/menu");
 require("./ctrl/user");
 require("./ctrl/home");
 require("./ctrl/profile");
+require("./ctrl/mix");
+require("./ctrl/favorites");
+require("./ctrl/linkCard");
 require("./ctrl/media/media");
 require("./ctrl/media/movie");
 require("./ctrl/media/tv");
@@ -1749,8 +1976,6 @@ require("./ctrl/media/book");
 require("./ctrl/music/music");
 require("./ctrl/music/track");
 require("./ctrl/music/playlist");
-require("./ctrl/mix");
-require("./ctrl/linkCard");
 
 require("./factory/spotify/auth");
 require("./factory/spotify/track");
@@ -1758,11 +1983,12 @@ require("./factory/spotify/playlist");
 require("./factory/spotify/playback");
 require("./factory/vote");
 require("./factory/link");
+require("./factory/subscription");
 require("./factory/firebase");
 require("./factory/tmdb");
 require("./factory/goodreads");
 require("./factory/musixmatch");
-},{"./constants.js":1,"./ctrl/home":2,"./ctrl/linkCard":3,"./ctrl/media/book":4,"./ctrl/media/media":5,"./ctrl/media/movie":6,"./ctrl/media/tv":7,"./ctrl/menu":8,"./ctrl/mix":9,"./ctrl/music/music":10,"./ctrl/music/playlist":11,"./ctrl/music/track":12,"./ctrl/profile":13,"./ctrl/user":14,"./directives.js":15,"./factory/firebase":16,"./factory/goodreads":17,"./factory/link":18,"./factory/musixmatch":19,"./factory/spotify/auth":20,"./factory/spotify/playback":21,"./factory/spotify/playlist":22,"./factory/spotify/track":23,"./factory/tmdb":24,"./factory/vote":25,"./router.js":27,"angular":31,"angular-route":29}],27:[function(require,module,exports){
+},{"./constants.js":1,"./ctrl/favorites":2,"./ctrl/home":3,"./ctrl/linkCard":4,"./ctrl/media/book":5,"./ctrl/media/media":6,"./ctrl/media/movie":7,"./ctrl/media/tv":8,"./ctrl/menu":9,"./ctrl/mix":10,"./ctrl/music/music":11,"./ctrl/music/playlist":12,"./ctrl/music/track":13,"./ctrl/profile":14,"./ctrl/user":15,"./directives.js":16,"./factory/firebase":17,"./factory/goodreads":18,"./factory/link":19,"./factory/musixmatch":20,"./factory/spotify/auth":21,"./factory/spotify/playback":22,"./factory/spotify/playlist":23,"./factory/spotify/track":24,"./factory/subscription":25,"./factory/tmdb":26,"./factory/vote":27,"./router.js":29,"angular":33,"angular-route":31}],29:[function(require,module,exports){
 "use strict";
 
 const angular = require("angular");
@@ -1772,6 +1998,14 @@ angular.module("mixtape").config($routeProvider => {
         .when("/", {
             templateUrl: "assets/partials/home.html",
             controller: "HomeCtrl"
+        })
+        .when("/favorites", {
+            templateUrl: "assets/partials/favorites.html",
+            controller: "FavoritesCtrl"
+        })
+        .when("/new", {
+            templateUrl: "assets/partials/mix.html",
+            controller: "MixCtrl"
         })
         .when("/user/:uid/playlist/:id", {
             templateUrl: "assets/partials/playlist.html",
@@ -1793,10 +2027,6 @@ angular.module("mixtape").config($routeProvider => {
             templateUrl: "assets/partials/media.html",
             controller: "BookCtrl"
         })
-        .when("/new", {
-            templateUrl: "assets/partials/mix.html",
-            controller: "MixCtrl"
-        })
         .when("/track/:id", {
             templateUrl: "assets/partials/track.html",
             controller: "TrackCtrl"
@@ -1806,7 +2036,7 @@ angular.module("mixtape").config($routeProvider => {
             controller: "MixCtrl"
         });
 });
-},{"angular":31}],28:[function(require,module,exports){
+},{"angular":33}],30:[function(require,module,exports){
 /**
  * @license AngularJS v1.6.8
  * (c) 2010-2017 Google, Inc. http://angularjs.org
@@ -3032,11 +3262,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],29:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":28}],30:[function(require,module,exports){
+},{"./angular-route":30}],32:[function(require,module,exports){
 /**
  * @license AngularJS v1.6.8
  * (c) 2010-2017 Google, Inc. http://angularjs.org
@@ -37292,11 +37522,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],31:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":30}],32:[function(require,module,exports){
+},{"./angular":32}],34:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -37412,9 +37642,9 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],33:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 
-},{}],34:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -39130,7 +39360,7 @@ function numberIsNaN (obj) {
   return obj !== obj // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":32,"ieee754":37}],35:[function(require,module,exports){
+},{"base64-js":34,"ieee754":39}],37:[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -39241,7 +39471,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":39}],36:[function(require,module,exports){
+},{"../../is-buffer/index.js":41}],38:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -39545,7 +39775,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],37:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = nBytes * 8 - mLen - 1
@@ -39631,7 +39861,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],38:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -39656,7 +39886,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],39:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 /*!
  * Determine if an object is a Buffer
  *
@@ -39679,14 +39909,14 @@ function isSlowBuffer (obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
-},{}],40:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],41:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -56774,7 +57004,7 @@ module.exports = Array.isArray || function (arr) {
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],42:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -56821,7 +57051,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 }
 
 }).call(this,require('_process'))
-},{"_process":43}],43:[function(require,module,exports){
+},{"_process":45}],45:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -57007,10 +57237,10 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],44:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 module.exports = require('./lib/_stream_duplex.js');
 
-},{"./lib/_stream_duplex.js":45}],45:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":47}],47:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -57135,7 +57365,7 @@ function forEach(xs, f) {
     f(xs[i], i);
   }
 }
-},{"./_stream_readable":47,"./_stream_writable":49,"core-util-is":35,"inherits":38,"process-nextick-args":42}],46:[function(require,module,exports){
+},{"./_stream_readable":49,"./_stream_writable":51,"core-util-is":37,"inherits":40,"process-nextick-args":44}],48:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -57183,7 +57413,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":48,"core-util-is":35,"inherits":38}],47:[function(require,module,exports){
+},{"./_stream_transform":50,"core-util-is":37,"inherits":40}],49:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -58193,7 +58423,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./_stream_duplex":45,"./internal/streams/BufferList":50,"./internal/streams/destroy":51,"./internal/streams/stream":52,"_process":43,"core-util-is":35,"events":36,"inherits":38,"isarray":40,"process-nextick-args":42,"safe-buffer":57,"string_decoder/":60,"util":33}],48:[function(require,module,exports){
+},{"./_stream_duplex":47,"./internal/streams/BufferList":52,"./internal/streams/destroy":53,"./internal/streams/stream":54,"_process":45,"core-util-is":37,"events":38,"inherits":40,"isarray":42,"process-nextick-args":44,"safe-buffer":59,"string_decoder/":62,"util":35}],50:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -58408,7 +58638,7 @@ function done(stream, er, data) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":45,"core-util-is":35,"inherits":38}],49:[function(require,module,exports){
+},{"./_stream_duplex":47,"core-util-is":37,"inherits":40}],51:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -59075,7 +59305,7 @@ Writable.prototype._destroy = function (err, cb) {
   cb(err);
 };
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./_stream_duplex":45,"./internal/streams/destroy":51,"./internal/streams/stream":52,"_process":43,"core-util-is":35,"inherits":38,"process-nextick-args":42,"safe-buffer":57,"util-deprecate":61}],50:[function(require,module,exports){
+},{"./_stream_duplex":47,"./internal/streams/destroy":53,"./internal/streams/stream":54,"_process":45,"core-util-is":37,"inherits":40,"process-nextick-args":44,"safe-buffer":59,"util-deprecate":63}],52:[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -59150,7 +59380,7 @@ module.exports = function () {
 
   return BufferList;
 }();
-},{"safe-buffer":57}],51:[function(require,module,exports){
+},{"safe-buffer":59}],53:[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -59223,13 +59453,13 @@ module.exports = {
   destroy: destroy,
   undestroy: undestroy
 };
-},{"process-nextick-args":42}],52:[function(require,module,exports){
+},{"process-nextick-args":44}],54:[function(require,module,exports){
 module.exports = require('events').EventEmitter;
 
-},{"events":36}],53:[function(require,module,exports){
+},{"events":38}],55:[function(require,module,exports){
 module.exports = require('./readable').PassThrough
 
-},{"./readable":54}],54:[function(require,module,exports){
+},{"./readable":56}],56:[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -59238,13 +59468,13 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":45,"./lib/_stream_passthrough.js":46,"./lib/_stream_readable.js":47,"./lib/_stream_transform.js":48,"./lib/_stream_writable.js":49}],55:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":47,"./lib/_stream_passthrough.js":48,"./lib/_stream_readable.js":49,"./lib/_stream_transform.js":50,"./lib/_stream_writable.js":51}],57:[function(require,module,exports){
 module.exports = require('./readable').Transform
 
-},{"./readable":54}],56:[function(require,module,exports){
+},{"./readable":56}],58:[function(require,module,exports){
 module.exports = require('./lib/_stream_writable.js');
 
-},{"./lib/_stream_writable.js":49}],57:[function(require,module,exports){
+},{"./lib/_stream_writable.js":51}],59:[function(require,module,exports){
 /* eslint-disable node/no-deprecated-api */
 var buffer = require('buffer')
 var Buffer = buffer.Buffer
@@ -59308,7 +59538,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size)
 }
 
-},{"buffer":34}],58:[function(require,module,exports){
+},{"buffer":36}],60:[function(require,module,exports){
 (function (Buffer){
 ;(function (sax) { // wrapper for non-node envs
   sax.parser = function (strict, opt) { return new SAXParser(strict, opt) }
@@ -60877,7 +61107,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
 })(typeof exports === 'undefined' ? this.sax = {} : exports)
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":34,"stream":59,"string_decoder":60}],59:[function(require,module,exports){
+},{"buffer":36,"stream":61,"string_decoder":62}],61:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -61006,7 +61236,7 @@ Stream.prototype.pipe = function(dest, options) {
   return dest;
 };
 
-},{"events":36,"inherits":38,"readable-stream/duplex.js":44,"readable-stream/passthrough.js":53,"readable-stream/readable.js":54,"readable-stream/transform.js":55,"readable-stream/writable.js":56}],60:[function(require,module,exports){
+},{"events":38,"inherits":40,"readable-stream/duplex.js":46,"readable-stream/passthrough.js":55,"readable-stream/readable.js":56,"readable-stream/transform.js":57,"readable-stream/writable.js":58}],62:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -61279,7 +61509,7 @@ function simpleWrite(buf) {
 function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
-},{"safe-buffer":57}],61:[function(require,module,exports){
+},{"safe-buffer":59}],63:[function(require,module,exports){
 (function (global){
 
 /**
@@ -61350,7 +61580,7 @@ function config (name) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],62:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 module.exports = {
 
   isArray: function(value) {
@@ -61363,7 +61593,7 @@ module.exports = {
 
 };
 
-},{}],63:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 /*jslint node:true */
 
 var xml2js = require('./xml2js');
@@ -61378,7 +61608,7 @@ module.exports = {
   json2xml: json2xml
 };
 
-},{"./js2xml":64,"./json2xml":65,"./xml2js":67,"./xml2json":68}],64:[function(require,module,exports){
+},{"./js2xml":66,"./json2xml":67,"./xml2js":69,"./xml2json":70}],66:[function(require,module,exports){
 var helper = require('./options-helper');
 var isArray = require('./array-helper').isArray;
 
@@ -61700,7 +61930,7 @@ module.exports = function (js, options) {
   return xml;
 };
 
-},{"./array-helper":62,"./options-helper":66}],65:[function(require,module,exports){
+},{"./array-helper":64,"./options-helper":68}],67:[function(require,module,exports){
 (function (Buffer){
 var js2xml = require('./js2xml.js');
 
@@ -61722,7 +61952,7 @@ module.exports = function (json, options) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"./js2xml.js":64,"buffer":34}],66:[function(require,module,exports){
+},{"./js2xml.js":66,"buffer":36}],68:[function(require,module,exports){
 module.exports = {
 
   copyOptions: function (options) {
@@ -61759,7 +61989,7 @@ module.exports = {
 
 };
 
-},{}],67:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 var sax = require('sax');
 var expat /*= require('node-expat');*/ = { on: function () { }, parse: function () { } };
 var helper = require('./options-helper');
@@ -62114,7 +62344,7 @@ module.exports = function (xml, userOptions) {
 
 };
 
-},{"./array-helper":62,"./options-helper":66,"sax":58}],68:[function(require,module,exports){
+},{"./array-helper":64,"./options-helper":68,"sax":60}],70:[function(require,module,exports){
 var helper = require('./options-helper');
 var xml2js = require('./xml2js');
 
@@ -62138,4 +62368,4 @@ module.exports = function(xml, userOptions) {
   return json.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
 };
 
-},{"./options-helper":66,"./xml2js":67}]},{},[26]);
+},{"./options-helper":68,"./xml2js":69}]},{},[28]);

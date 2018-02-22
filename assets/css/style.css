@@ -78,6 +78,11 @@ i.material-icons.md-36 {
   font-size: 36px !important; }
 i.material-icons.md-48 {
   font-size: 48px !important; }
+i.material-icons.sub {
+  color: #00a849;
+  cursor: pointer; }
+  i.material-icons.sub:hover {
+    color: #16d064; }
 
 nav .brand-logo {
   padding: 0 2.5rem;
@@ -133,23 +138,25 @@ nav .brand-logo {
   .page-footer a {
     color: #00a849; }
 
-#recent {
+#recent, .faves {
   display: grid;
   grid-gap: 1rem; }
   @media screen and (min-width: 601px) {
-    #recent {
+    #recent, .faves {
       grid-template-columns: repeat(3, 1fr); } }
   @media screen and (min-width: 993px) {
-    #recent {
+    #recent, .faves {
       grid-template-columns: repeat(4, 1fr); } }
   @media screen and (min-width: 1200px) {
-    #recent {
+    #recent, .faves {
       grid-template-columns: repeat(5, 1fr); } }
-  #recent a {
+  #recent a, .faves a {
     display: block;
     padding: 80% 0;
     background-position: center;
     background-size: cover; }
+  #recent#music a, .faves#music a {
+    padding: 50% 0; }
 
 .tags {
   margin-top: .5em; }
@@ -206,7 +213,7 @@ nav .brand-logo {
     justify-content: center;
     align-items: stretch;
     background: #00a849;
-    color: #ccc;
+    color: #666;
     text-align: center; }
     #profile-links .link .ops a, #profile-links .link .votes a, #profile-links .search-result .ops a, #profile-links .search-result .votes a, #mediaSearchResults .link .ops a, #mediaSearchResults .link .votes a, #mediaSearchResults .search-result .ops a, #mediaSearchResults .search-result .votes a, #musicSearchResults .link .ops a, #musicSearchResults .link .votes a, #musicSearchResults .search-result .ops a, #musicSearchResults .search-result .votes a {
       text-align: center;
@@ -217,6 +224,7 @@ nav .brand-logo {
       #profile-links .link .ops a:hover, #profile-links .link .votes a:hover, #profile-links .search-result .ops a:hover, #profile-links .search-result .votes a:hover, #mediaSearchResults .link .ops a:hover, #mediaSearchResults .link .votes a:hover, #mediaSearchResults .search-result .ops a:hover, #mediaSearchResults .search-result .votes a:hover, #musicSearchResults .link .ops a:hover, #musicSearchResults .link .votes a:hover, #musicSearchResults .search-result .ops a:hover, #musicSearchResults .search-result .votes a:hover {
         background: #16d064; }
   #profile-links .link .votes, #profile-links .search-result .votes, #mediaSearchResults .link .votes, #mediaSearchResults .search-result .votes, #musicSearchResults .link .votes, #musicSearchResults .search-result .votes {
+    color: #898989;
     background: #494949; }
     #profile-links .link .votes a, #profile-links .search-result .votes a, #mediaSearchResults .link .votes a, #mediaSearchResults .search-result .votes a, #musicSearchResults .link .votes a, #musicSearchResults .search-result .votes a {
       color: #898989; }
