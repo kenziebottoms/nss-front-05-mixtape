@@ -16,9 +16,10 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                         link[1].key = link[0];
                         return link[1];
                     });
-                    // removes duplicate media
-                    // TODO: remove oldest duplicate media
-                    links = _.uniqBy(links, 'media');
+                    // removes oldest duplicate media
+                    links = _.sortBy(links, l => -l.added); // reverse sort by added
+                    links = _.uniqBy(links, 'media'); // eliminate second/third/etc. instances of same values
+                    // loads links
                     let linkPromises = links.map(link => {
                         return loadLink(link);
                     });
@@ -107,8 +108,8 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    // takes a link object with a reference to music
-    // promises a link object with a music object as a property
+    // takes an object with a reference to music
+    // promises an object with a music object as a property
     let loadMusic = link => {
         return $q((resolve, reject) => {
             let typeId = link.music;
@@ -141,8 +142,8 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    // takes a link object with a reference to media
-    // promises a link object with a media object as a property
+    // takes an object with a reference to media
+    // promises an object with a media object as a property
     let loadMedia = link => {
         return $q((resolve, reject) => {
             let typeId = link.media;
@@ -155,8 +156,8 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         });
     };
 
-    // takes a link object with music & media references
-    // promises a link object with a music & media objects as properties
+    // takes an object with music & media references
+    // promises an object with a music & media objects as properties
     // NOTE: username = true/false, whether or not to fetch user's display_name
     let loadLink = (link, username) => {
         return $q((resolve, reject) => {
@@ -187,6 +188,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.url}/links.json?orderBy="uid"&equalTo="${uid}"`)
                 .then(({ data }) => {
+                    // checks for existing link between given media & music
                     Object.values(data).forEach(link => {
                         if (link.media == mediaTypeId &&
                             link.music == musicTypeId) {
