@@ -8,7 +8,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     // promises recent links, unique by media, sorts them newest first
     let getRecentLinks = limit => {
         return $q((resolve, reject) => {
-            $http.get(`${FIREBASE.url}/links.json?orderBy="added"&limitTo=${limit}`)
+            $http.get(`${FIREBASE.url}/links.json?orderBy="added"`)
                 .then(({ data }) => {
                     data = Object.entries(data);
                     // [key, value] => value: { key: ... }
@@ -19,6 +19,8 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                     // removes oldest duplicate media
                     links = _.sortBy(links, l => -l.added); // reverse sort by added
                     links = _.uniqBy(links, 'media'); // eliminate second/third/etc. instances of same values
+                    // limit
+                    links = links.slice(0, limit);
                     // loads links
                     let linkPromises = links.map(link => {
                         return loadLink(link);
@@ -26,10 +28,8 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                     return Promise.all(linkPromises);
                 })
                 .then(loadedLinks => {
-                    // sort by date added
-                    loadedLinks = _.sortBy(loadedLinks, "added");
                     // sort by newest first
-                    loadedLinks.reverse();
+                    loadedLinks = _.sortBy(loadedLinks, l => -l.added);
                     resolve(loadedLinks);
                 })
                 .catch(err => reject(err));

@@ -84,7 +84,7 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
     // turns shuffle off and plays the given playlist
     $scope.playPlaylist = (uid, id) => {
         SpotifyPlaybackFactory.turnOffShuffle()
-            .then( response => {
+            .then(response => {
                 SpotifyPlaybackFactory.playPlaylist(uid, id);
             });
     };
@@ -97,13 +97,14 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
             });
     };
 
+    // delete subscription by key
     $scope.unsubscribe = key => {
         SubscriptionFactory.unsubscribe(key)
             .then(response => {
                 $scope.subscription = false;
             })
             .catch(err => {
-                Materialize.toast(err, 3000, "pink accent-2");                
+                Materialize.toast(err, 3000, "pink accent-2");
             });
     };
 });
