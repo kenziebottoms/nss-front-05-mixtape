@@ -1,8 +1,14 @@
 <div class="row container">
     <h3>Media</h3>
     <div id="media">
-        <div class="sub" ng-repeat="sub in subs">
-            {{sub}}
+        <div class="sub" ng-repeat="sub in media">
+            {{sub.media.image}}
+        </div>
+    </div>
+    <h3>Music</h3>
+    <div id="music">
+        <div class="sub" ng-repeat="sub in music">
+            {{sub.music.image}}
         </div>
     </div>
 </div>
