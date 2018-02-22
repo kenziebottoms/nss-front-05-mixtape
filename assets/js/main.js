@@ -13,6 +13,9 @@ require("./ctrl/menu");
 require("./ctrl/user");
 require("./ctrl/home");
 require("./ctrl/profile");
+require("./ctrl/mix");
+require("./ctrl/favorites");
+require("./ctrl/linkCard");
 require("./ctrl/media/media");
 require("./ctrl/media/movie");
 require("./ctrl/media/tv");
@@ -20,8 +23,6 @@ require("./ctrl/media/book");
 require("./ctrl/music/music");
 require("./ctrl/music/track");
 require("./ctrl/music/playlist");
-require("./ctrl/mix");
-require("./ctrl/linkCard");
 
 require("./factory/spotify/auth");
 require("./factory/spotify/track");
