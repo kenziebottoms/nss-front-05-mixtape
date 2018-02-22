@@ -180,7 +180,7 @@ nav {
     }
 }
 
-#recent {
+#recent, .faves {
     display: grid;
     grid-gap: 1rem;
     @media screen and (min-width: 601px) {
@@ -197,6 +197,11 @@ nav {
         padding: 80% 0;
         background-position: center;
         background-size: cover;
+    }
+    &#music {
+        a{
+            padding: 50% 0;
+        }
     }
 }
 .tags {

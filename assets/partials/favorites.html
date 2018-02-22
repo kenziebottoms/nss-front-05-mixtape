@@ -1,14 +1,16 @@
 <div class="row container">
     <h3>Media</h3>
-    <div id="media">
+    <div class="faves" id="media">
         <div class="sub" ng-repeat="sub in media">
-            {{sub.media.image}}
+                <a ng-href="#!/{{sub.media.type}}/{{sub.media.id}}" style="background-image: url({{sub.media.image}});">
+                </a>
         </div>
     </div>
     <h3>Music</h3>
-    <div id="music">
+    <div class="faves" id="music">
         <div class="sub" ng-repeat="sub in music">
-            {{sub.music.image}}
+            <a ng-href="#!/{{sub.music.type}}/{{sub.music.id}}" style="background-image: url({{sub.music.image}});">
+            </a>
         </div>
     </div>
 </div>
