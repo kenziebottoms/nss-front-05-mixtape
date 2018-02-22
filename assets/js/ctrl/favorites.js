@@ -26,7 +26,6 @@ angular.module("mixtape").controller("FavoritesCtrl", function($scope, Subscript
             $scope.music = _.filter(loadedSubs, "music");
         })
         .catch(err => {
-            console.log(err);
-            // Materialize.toast(err, 3000, "pink accent-2");
+            Materialize.toast(err, 3000, "pink accent-2");
         });
 });
