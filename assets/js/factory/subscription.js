@@ -94,5 +94,14 @@ angular.module("mixtape").factory("SubscriptionFactory", function($q, $http, FIR
         });
     };
 
-    return { subscribeMedia, subscribeMusic, isSubscribedMedia, isSubscribedMusic, unsubscribe };
+    let getSubscriptionsByUid = uid => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE.url}/subs.json?orderBy="uid"&equalTo="${uid}"`)
+                .then(({data}) => {
+                    resolve(data);
+                });
+        });
+    };
+
+    return { subscribeMedia, subscribeMusic, isSubscribedMedia, isSubscribedMusic, unsubscribe, getSubscriptionsByUid };
 });
