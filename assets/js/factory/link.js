@@ -11,7 +11,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
             $http.get(`${FIREBASE.url}/links.json?orderBy="added"&limitTo=${limit}`)
                 .then(({ data }) => {
                     data = Object.entries(data);
-                    // collapses [key, value] into value: { key: ... }
+                    // [key, value] => value: { key: ... }
                     let links = data.map(link => {
                         link[1].key = link[0];
                         return link[1];

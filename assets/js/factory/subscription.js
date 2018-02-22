@@ -48,6 +48,7 @@ angular.module("mixtape").factory("SubscriptionFactory", function($q, $http, FIR
                 .then(({data}) => {
                     let key = _.findKey(data, ["media", typeId]);
                     if (key) {
+                        // data: {key: value} => value: { key: ... }
                         let sub = data[key];
                         sub.key = key;
                         resolve(sub);

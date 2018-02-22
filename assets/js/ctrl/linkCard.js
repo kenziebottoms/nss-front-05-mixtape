@@ -1,6 +1,7 @@
 "use strict";
 
 const angular = require("angular");
+const _ = require("lodash");
 
 angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $location, LinkFactory, VoteFactory, SpotifyAuthFactory, SpotifyPlaybackFactory, SubscriptionFactory) {
 
@@ -37,17 +38,17 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
     
     // upvotes the current link if not already upvoted
     $scope.upvote = linkId => {
-        let link = $scope.links.find(link => link.key == linkId);
+        let link = _.find($scope.links, ["key", linkId]);
         if (link.vote == 1) {
             VoteFactory.unvote(linkId, $scope.user.id)
                 .then(response => {
-                    link.score = link.score - link.vote;
+                    link.score -= link.vote;
                     link.vote = 0;
                 });
         } else {
             VoteFactory.upvote(linkId, $scope.user.id)
                 .then(response => {
-                    link.score = link.score - link.vote + 1;
+                    link.score -= link.vote-1;
                     link.vote = 1;
                 });
         }
@@ -59,13 +60,13 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
         if (link.vote == -1) {
             VoteFactory.unvote(linkId, $scope.user.id)
                 .then(response => {
-                    link.score = link.score - link.vote;
+                    link.score -= link.vote;
                     link.vote = 0;
                 });
         } else {
             VoteFactory.downvote(linkId, $scope.user.id)
                 .then(response => {
-                    link.score = link.score - link.vote - 1;
+                    link.score -= link.vote+1;
                     link.vote = -1;
                 });
         }
