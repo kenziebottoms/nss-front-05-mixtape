@@ -48,7 +48,9 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.url}/users/${username.replace(".",",")}.json`)
                 .then(({data}) => resolve(data))
-                .catch(err => console.log(err));
+                .catch(err => {
+                    Materialize.toast("No results. :(", 3000, "pink accent-2");
+                });
         });
     };
 
@@ -57,7 +59,9 @@ angular.module("mixtape").factory("FirebaseFactory", function($q, $http, FIREBAS
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.url}/users/${username.replace(".",",")}/display_name.json`)
                 .then(({data}) => resolve(data))
-                .catch(err => console.log(err));
+                .catch(err => {
+                    Materialize.toast("No results. :(", 3000, "pink accent-2");
+                });
         });
     };
 

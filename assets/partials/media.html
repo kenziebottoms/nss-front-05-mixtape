@@ -1,9 +1,14 @@
 <div class="row container">
     <div class="col s12 m4 l5" id="sidebar">
         <img ng-src="{{media.image}}">
-        <h1>{{media.title}}</h1>
+        <h1>
+            {{media.title}}
+            <i ng-click="subscribe()" ng-show="!subscription" class="sub material-icons">star_border</i>
+            <i ng-click="unsubscribe(subscription.key)" ng-show="subscription" class="sub material-icons">star</i>
+        </h1>
         <h2>{{media.subtitle}}</h2>
     </div>
-    <div class="col s12 m8 l6 offset-l1" id="profile-links" ng-include="'assets/partials/linkCard.html'">
+    <div class="col s12 m8 l6 offset-l1">
+        <div id="profile-links" ng-include="'assets/partials/linkCard.html'"></div>
     </div>
 </div>

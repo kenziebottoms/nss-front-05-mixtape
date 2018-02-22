@@ -102,6 +102,13 @@ i.material-icons {
     &.md-48 {
         font-size: 48px !important;
     }
+    &.sub {
+        color: $green;
+        cursor: pointer;
+        &:hover {
+            color: $green-hl;
+        }
+    }
 }
 nav {
     .brand-logo {
@@ -173,7 +180,7 @@ nav {
     }
 }
 
-#recent {
+#recent, .faves {
     display: grid;
     grid-gap: 1rem;
     @media screen and (min-width: 601px) {
@@ -190,6 +197,11 @@ nav {
         padding: 80% 0;
         background-position: center;
         background-size: cover;
+    }
+    &#music {
+        a{
+            padding: 50% 0;
+        }
     }
 }
 .tags {
@@ -262,7 +274,7 @@ nav {
             justify-content: center;
             align-items: stretch;
             background: $green;
-            color: $w3;
+            color: $g3;
             text-align: center;
             a {
                 text-align: center;
@@ -276,6 +288,7 @@ nav {
             }
         }
         .votes {
+            color: $g4;
             background: $g2;
             a {
                 color: $g4;

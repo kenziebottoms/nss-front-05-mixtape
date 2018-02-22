@@ -60,22 +60,25 @@ angular.module("mixtape").factory("VoteFactory", function($q, $http, FIREBASE) {
         });
     };
 
-    // integrate the vote into a link object
+    // integrate current user's vote and score into a link object
     let loadVote = (link, uid) => {
         return $q((resolve, reject) => {
-            if (link.uid != uid) {
-                getVote(link.key, uid)
-                    .then(vote => {
-                        link.vote = vote;
-                        getVoteTotal(link.key)
-                            .then(total => {
-                                link.score = total;
-                                resolve(link);
-                            });
-                    });
-            } else {
-                resolve(link);
-            }
+            // get vote total/score
+            getVoteTotal(link.key)
+                .then(total => {
+                    link.score = total;
+                    // if current user is not this link's author
+                    if (link.uid != uid) {
+                        // get current user's vote
+                        return getVote(link.key, uid);
+                    } else {
+                        resolve(link);
+                    }
+                })
+                .then(vote => {
+                    link.vote = vote;
+                    resolve(link);
+                });
         });
     };
 

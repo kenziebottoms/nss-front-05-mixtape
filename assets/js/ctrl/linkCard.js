@@ -1,8 +1,9 @@
 "use strict";
 
 const angular = require("angular");
+const _ = require("lodash");
 
-angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $location, LinkFactory, VoteFactory, SpotifyAuthFactory, SpotifyPlaybackFactory) {
+angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $location, LinkFactory, VoteFactory, SpotifyAuthFactory, SpotifyPlaybackFactory, SubscriptionFactory) {
 
     // asynchronously updates $scope.user
     $scope.getUserData = () => {
@@ -19,10 +20,8 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
     // loads links with votes
     // ASSUMPTION: $scope.links has been initialized and set
     $scope.getVotes = () => {
-        $scope.links.filter(link => {
-            return link.uid != $scope.user.id;
-        }).map(link => {
-            return VoteFactory.loadVote(link, $scope.user.id);
+        $scope.links.map(link => {
+            VoteFactory.loadVote(link, $scope.user.id);
         });
     };
 
@@ -39,17 +38,17 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
     
     // upvotes the current link if not already upvoted
     $scope.upvote = linkId => {
-        let link = $scope.links.find(link => link.key == linkId);
+        let link = _.find($scope.links, ["key", linkId]);
         if (link.vote == 1) {
             VoteFactory.unvote(linkId, $scope.user.id)
                 .then(response => {
-                    link.score = link.score - link.vote;
+                    link.score -= link.vote;
                     link.vote = 0;
                 });
         } else {
             VoteFactory.upvote(linkId, $scope.user.id)
                 .then(response => {
-                    link.score = link.score - link.vote + 1;
+                    link.score -= link.vote-1;
                     link.vote = 1;
                 });
         }
@@ -61,13 +60,13 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
         if (link.vote == -1) {
             VoteFactory.unvote(linkId, $scope.user.id)
                 .then(response => {
-                    link.score = link.score - link.vote;
+                    link.score -= link.vote;
                     link.vote = 0;
                 });
         } else {
             VoteFactory.downvote(linkId, $scope.user.id)
                 .then(response => {
-                    link.score = link.score - link.vote - 1;
+                    link.score -= link.vote+1;
                     link.vote = -1;
                 });
         }
@@ -85,7 +84,7 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
     // turns shuffle off and plays the given playlist
     $scope.playPlaylist = (uid, id) => {
         SpotifyPlaybackFactory.turnOffShuffle()
-            .then( response => {
+            .then(response => {
                 SpotifyPlaybackFactory.playPlaylist(uid, id);
             });
     };
@@ -95,6 +94,17 @@ angular.module("mixtape").controller("LinkCardCtrl", function($scope, $q, $locat
         SpotifyPlaybackFactory.turnOffShuffle()
             .then(response => {
                 SpotifyPlaybackFactory.playTrack(id);
+            });
+    };
+
+    // delete subscription by key
+    $scope.unsubscribe = key => {
+        SubscriptionFactory.unsubscribe(key)
+            .then(response => {
+                $scope.subscription = false;
+            })
+            .catch(err => {
+                Materialize.toast(err, 3000, "pink accent-2");
             });
     };
 });

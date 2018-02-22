@@ -29,6 +29,9 @@ angular.module("mixtape").controller("MovieCtrl", function($scope, $q, $controll
     Promise.all([
         $scope.getLinks($scope.typeId),
         $scope.getUserData()
+            .then(response => {
+                $scope.isSubscribed();
+            })
     ])
     .then(results => {
         $scope.getVotes();
