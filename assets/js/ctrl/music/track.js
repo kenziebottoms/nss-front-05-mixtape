@@ -50,6 +50,9 @@ angular.module("mixtape").controller("TrackCtrl", function($scope, $q, $routePar
     Promise.all([
         $scope.getLinks($scope.typeId),
         $scope.getUserData()
+            .then(response => {
+                $scope.isSubscribed();
+            })
     ])
         .then(response => {
             $scope.getVotes();

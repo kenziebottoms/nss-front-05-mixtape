@@ -8,6 +8,14 @@ angular.module("mixtape").config($routeProvider => {
             templateUrl: "assets/partials/home.html",
             controller: "HomeCtrl"
         })
+        .when("/favorites", {
+            templateUrl: "assets/partials/favorites.html",
+            controller: "FavoritesCtrl"
+        })
+        .when("/new", {
+            templateUrl: "assets/partials/mix.html",
+            controller: "MixCtrl"
+        })
         .when("/user/:uid/playlist/:id", {
             templateUrl: "assets/partials/playlist.html",
             controller: "PlaylistCtrl"
@@ -27,10 +35,6 @@ angular.module("mixtape").config($routeProvider => {
         .when("/book/:id", {
             templateUrl: "assets/partials/media.html",
             controller: "BookCtrl"
-        })
-        .when("/new", {
-            templateUrl: "assets/partials/mix.html",
-            controller: "MixCtrl"
         })
         .when("/track/:id", {
             templateUrl: "assets/partials/track.html",

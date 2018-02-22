@@ -285,6 +285,12 @@
             "media": "movie:765",
             "music": "track:2z83t0gfxu3Dnb0XUDBR3B",
             "uid": "iiimosley"
+        },
+        "-L5uU5Pw9sqWhzRnCxli": {
+            "added": 1519252170,
+            "media": "book:8852",
+            "music": "track:05upTOIUy52H1laROm3B0y",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
         }
     },
     "media": {
@@ -300,7 +306,7 @@
         "book:22584": {
             "id": "22584",
             "image": "https://images.gr-assets.com/books/1398026028l/22584.jpg",
-            "last_cached": 1518727607,
+            "last_cached": 1519169628,
             "small_image": "https://images.gr-assets.com/books/1398026028m/22584.jpg",
             "subtitle": "Philip K. Dick",
             "title": "Flow My Tears, the Policeman Said",
@@ -309,7 +315,7 @@
         "book:375802": {
             "id": "375802",
             "image": "https://images.gr-assets.com/books/1408303130l/375802.jpg",
-            "last_cached": 1518728500,
+            "last_cached": 1519241595,
             "small_image": "https://images.gr-assets.com/books/1408303130m/375802.jpg",
             "subtitle": "Orson Scott Card",
             "title": "Ender's Game (Ender's Saga, #1)",
@@ -324,10 +330,19 @@
             "title": "Emma",
             "type": "book"
         },
+        "book:8852": {
+            "id": "8852",
+            "image": "https://images.gr-assets.com/books/1459795224l/8852.jpg",
+            "last_cached": 1519252170,
+            "small_image": "https://images.gr-assets.com/books/1459795224m/8852.jpg",
+            "subtitle": "William Shakespeare",
+            "title": "Macbeth",
+            "type": "book"
+        },
         "book:888628": {
             "id": "888628",
             "image": "https://images.gr-assets.com/books/1281419771l/888628.jpg",
-            "last_cached": 1518715101,
+            "last_cached": 1519241970,
             "small_image": "https://images.gr-assets.com/books/1281419771m/888628.jpg",
             "subtitle": "William Gibson",
             "title": "Neuromancer (Sprawl, #1)",
@@ -336,7 +351,7 @@
         "movie:10634": {
             "id": 10634,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/kkoGT4bnK5oGiNbzGGcXzrXMSxn.jpg",
-            "last_cached": 1518728550,
+            "last_cached": 1519168335,
             "small_image": "http://image.tmdb.org/t/p/w185/kkoGT4bnK5oGiNbzGGcXzrXMSxn.jpg",
             "subtitle": "1995",
             "title": "Friday",
@@ -345,7 +360,7 @@
         "movie:1093": {
             "id": 1093,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/gwPV0aXkNyb33BcLTbYH6b1bxya.jpg",
-            "last_cached": 1518728428,
+            "last_cached": 1519170140,
             "small_image": "http://image.tmdb.org/t/p/w185/gwPV0aXkNyb33BcLTbYH6b1bxya.jpg",
             "subtitle": "1958",
             "title": "Elevator to the Gallows",
@@ -354,7 +369,7 @@
         "movie:115": {
             "id": 115,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/qiE3ovg9TPylHReZjizQ40LsKZV.jpg",
-            "last_cached": 1518728972,
+            "last_cached": 1519169788,
             "small_image": "http://image.tmdb.org/t/p/w185/qiE3ovg9TPylHReZjizQ40LsKZV.jpg",
             "subtitle": "1998",
             "title": "The Big Lebowski",
@@ -363,7 +378,7 @@
         "movie:11542": {
             "id": 11542,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/wJuBAkVbd2xaauodX3Ronqvw06O.jpg",
-            "last_cached": 1518727271,
+            "last_cached": 1519169643,
             "small_image": "http://image.tmdb.org/t/p/w185/wJuBAkVbd2xaauodX3Ronqvw06O.jpg",
             "subtitle": "1980",
             "title": "Altered States",
@@ -372,7 +387,7 @@
         "movie:122": {
             "id": 122,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
-            "last_cached": 1518725855,
+            "last_cached": 1519237293,
             "small_image": "http://image.tmdb.org/t/p/w185/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
             "subtitle": "2003",
             "title": "The Lord of the Rings: The Return of the King",
@@ -381,7 +396,7 @@
         "movie:140607": {
             "id": 140607,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/weUSwMdQIa3NaXVzwUoIIcAi85d.jpg",
-            "last_cached": 1518728045,
+            "last_cached": 1519237054,
             "small_image": "http://image.tmdb.org/t/p/w185/weUSwMdQIa3NaXVzwUoIIcAi85d.jpg",
             "subtitle": "2015",
             "title": "Star Wars: The Force Awakens",
@@ -399,7 +414,7 @@
         "movie:286217": {
             "id": 286217,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/5aGhaIHYuQbqlHWvWYqMCnj40y2.jpg",
-            "last_cached": 1518729676,
+            "last_cached": 1519168109,
             "small_image": "http://image.tmdb.org/t/p/w185/5aGhaIHYuQbqlHWvWYqMCnj40y2.jpg",
             "subtitle": "2015",
             "title": "The Martian",
@@ -408,7 +423,7 @@
         "movie:679": {
             "id": 679,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/nORMXEkYEbzkU5WkMWMgRDJwjSZ.jpg",
-            "last_cached": 1518725369,
+            "last_cached": 1519251913,
             "small_image": "http://image.tmdb.org/t/p/w185/nORMXEkYEbzkU5WkMWMgRDJwjSZ.jpg",
             "subtitle": "1986",
             "title": "Aliens",
@@ -417,7 +432,7 @@
         "movie:680": {
             "id": 680,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/dM2w364MScsjFf8pfMbaWUcWrR.jpg",
-            "last_cached": 1518728194,
+            "last_cached": 1519169844,
             "small_image": "http://image.tmdb.org/t/p/w185/dM2w364MScsjFf8pfMbaWUcWrR.jpg",
             "subtitle": "1994",
             "title": "Pulp Fiction",
@@ -426,7 +441,7 @@
         "movie:68721": {
             "id": 68721,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/1Ilv6ryHUv6rt9zIsbSEJUmmbEi.jpg",
-            "last_cached": 1518728342,
+            "last_cached": 1519236021,
             "small_image": "http://image.tmdb.org/t/p/w185/1Ilv6ryHUv6rt9zIsbSEJUmmbEi.jpg",
             "subtitle": "2013",
             "title": "Iron Man 3",
@@ -435,7 +450,7 @@
         "movie:7453": {
             "id": 7453,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/fOb4cJMhnZ11BoHNUii3Vcfo3XU.jpg",
-            "last_cached": 1518728536,
+            "last_cached": 1519169877,
             "small_image": "http://image.tmdb.org/t/p/w185/fOb4cJMhnZ11BoHNUii3Vcfo3XU.jpg",
             "subtitle": "2005",
             "title": "The Hitchhiker's Guide to the Galaxy",
@@ -444,7 +459,7 @@
         "movie:765": {
             "id": 765,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/n49mpgUsPgBfRg2qIEj31HX0chu.jpg",
-            "last_cached": 1518729839,
+            "last_cached": 1519169614,
             "small_image": "http://image.tmdb.org/t/p/w185/n49mpgUsPgBfRg2qIEj31HX0chu.jpg",
             "subtitle": "1987",
             "title": "Evil Dead II",
@@ -489,7 +504,7 @@
         "tv:40008": {
             "id": 40008,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/kArcGHvTb7m1v6RFHdU40jpiGZD.jpg",
-            "last_cached": 1518725235,
+            "last_cached": 1519234913,
             "small_image": "http://image.tmdb.org/t/p/w185/kArcGHvTb7m1v6RFHdU40jpiGZD.jpg",
             "subtitle": "2013",
             "title": "Hannibal",
@@ -498,7 +513,7 @@
         "tv:48891": {
             "id": 48891,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/7tTvREykun6WeGJ4hy7sCG9TOeP.jpg",
-            "last_cached": 1518728263,
+            "last_cached": 1519170149,
             "small_image": "http://image.tmdb.org/t/p/w185/7tTvREykun6WeGJ4hy7sCG9TOeP.jpg",
             "subtitle": "2013",
             "title": "Brooklyn Nine-Nine",
@@ -516,7 +531,7 @@
         "tv:63351": {
             "id": 63351,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/rTmal9fDbwh5F0waol2hq35U4ah.jpg",
-            "last_cached": 1518728584,
+            "last_cached": 1519168102,
             "small_image": "http://image.tmdb.org/t/p/w185/rTmal9fDbwh5F0waol2hq35U4ah.jpg",
             "subtitle": "2015",
             "title": "Narcos",
@@ -525,7 +540,7 @@
         "tv:66732": {
             "id": 66732,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/lXS60geme1LlEob5Wgvj3KilClA.jpg",
-            "last_cached": 1518728396,
+            "last_cached": 1519168096,
             "small_image": "http://image.tmdb.org/t/p/w185/lXS60geme1LlEob5Wgvj3KilClA.jpg",
             "subtitle": "2016",
             "title": "Stranger Things",
@@ -534,7 +549,7 @@
         "tv:8592": {
             "id": 8592,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/9kWSJ9c8NlBY2WgfvOZZ71kafSx.jpg",
-            "last_cached": 1518724677,
+            "last_cached": 1519168433,
             "small_image": "http://image.tmdb.org/t/p/w185/9kWSJ9c8NlBY2WgfvOZZ71kafSx.jpg",
             "subtitle": "2009",
             "title": "Parks and Recreation",
@@ -545,9 +560,9 @@
         "12136603542:73vpIvjoslrOFDpHLh05Hq": {
             "id": "73vpIvjoslrOFDpHLh05Hq",
             "image": "https://mosaic.scdn.co/640/661e1a935e2eacdd45c05ef618565535e7bed2ad4560525b0513307695ba9d95b129fe4e8528b3754b3a58a1547e9bea423e8c6850970f7ca684e47e368c87cec42546e198e1f0b1315955109ef9d789",
-            "last_cached": 1518731232,
+            "last_cached": 1519169889,
             "small_image": "https://mosaic.scdn.co/640/661e1a935e2eacdd45c05ef618565535e7bed2ad4560525b0513307695ba9d95b129fe4e8528b3754b3a58a1547e9bea423e8c6850970f7ca684e47e368c87cec42546e198e1f0b1315955109ef9d789",
-            "subtitle": "18 tracks",
+            "subtitle": "21 tracks",
             "title": "LOVE. FEAT. ZACARI.",
             "uid": "12136603542"
         },
@@ -572,7 +587,7 @@
         "argfktkjctj5wyte1c3wsqt70:2hGdbH12AbgXFRnJgLttZM": {
             "id": "2hGdbH12AbgXFRnJgLttZM",
             "image": "https://mosaic.scdn.co/640/b89bd6dbfa1772b398c2f30c82103475c9aecd0f4f3a6e2aebbbba0540fbe556e03a2a023c67a7cc52fc1b3b08807194b87cd7e4fd68f5118d991e44251328c9534c55c5cdebacd5120e78297cdc6006",
-            "last_cached": 1518732054,
+            "last_cached": 1519251937,
             "small_image": "https://mosaic.scdn.co/640/b89bd6dbfa1772b398c2f30c82103475c9aecd0f4f3a6e2aebbbba0540fbe556e03a2a023c67a7cc52fc1b3b08807194b87cd7e4fd68f5118d991e44251328c9534c55c5cdebacd5120e78297cdc6006",
             "subtitle": "15 tracks",
             "title": "Emo Ren",
@@ -590,10 +605,36 @@
         "argfktkjctj5wyte1c3wsqt70:5AhOTtbysi5vZnfJlQFsuu": {
             "id": "5AhOTtbysi5vZnfJlQFsuu",
             "image": "https://mosaic.scdn.co/640/7ba5754ca3d9aa92c6f1f0f18a3d4b56a3870cf141e413e282a84f77be939962ad41a7baa72cc962a3f4543fb95eef159084f7f80cd68b3a1ed1a49fb7c2abd6b885d72054911492f020bdd71f298d70",
-            "last_cached": 1518724447,
+            "last_cached": 1519242092,
             "small_image": "https://mosaic.scdn.co/640/7ba5754ca3d9aa92c6f1f0f18a3d4b56a3870cf141e413e282a84f77be939962ad41a7baa72cc962a3f4543fb95eef159084f7f80cd68b3a1ed1a49fb7c2abd6b885d72054911492f020bdd71f298d70",
             "subtitle": "10 tracks",
             "title": "Neuromancer",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        }
+    },
+    "subs": {
+        "-L5tqlCuymZ8b66FkpK9": {
+            "media": "tv:66732",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L5tqnPj5iDrr3cilo8e": {
+            "media": "movie:140607",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L5tqo4mwW1qOKmETsWQ": {
+            "media": "book:375802",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L5tsclNU4lCOgzDvE9O": {
+            "music": "playlist:argfktkjctj5wyte1c3wsqt70:5AhOTtbysi5vZnfJlQFsuu",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L5ttRE-q_G3oyGxwOvs": {
+            "music": "track:1dWvuCErtHSFAuDVzjbLeb",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L5ttS9QZQgVbv2x87Cn": {
+            "media": "movie:765",
             "uid": "argfktkjctj5wyte1c3wsqt70"
         }
     },
@@ -606,6 +647,14 @@
             "subtitle": "Radiohead",
             "title": "Fake Plastic Trees"
         },
+        "05upTOIUy52H1laROm3B0y": {
+            "id": "05upTOIUy52H1laROm3B0y",
+            "image": "https://i.scdn.co/image/39d9e25c75af01dfcf73d7c66aaeca968ef827f4",
+            "last_cached": 1519252177,
+            "small_image": "https://i.scdn.co/image/2cc0420f6b778b411e4ebb9c31d4546f31e84c7e",
+            "subtitle": "Truslow",
+            "title": "Liar"
+        },
         "0F0MA0ns8oXwGw66B2BSXm": {
             "id": "0F0MA0ns8oXwGw66B2BSXm",
             "image": "https://i.scdn.co/image/12168e7d4f2b515f6116cdb13a945f87c8ff22f2",
@@ -617,7 +666,7 @@
         "0KtMmvqSo5Bvy3bVsxNGwD": {
             "id": "0KtMmvqSo5Bvy3bVsxNGwD",
             "image": "https://i.scdn.co/image/d931139ff5d17c5e98e6fed7be93431d468db556",
-            "last_cached": 1518644212,
+            "last_cached": 1519240770,
             "small_image": "https://i.scdn.co/image/0ca0778a882c7b6e4873f8998f2b7dfb741d733e",
             "subtitle": "Regina Spektor",
             "title": "Ballad Of A Politician"
@@ -657,7 +706,7 @@
         "1dWvuCErtHSFAuDVzjbLeb": {
             "id": "1dWvuCErtHSFAuDVzjbLeb",
             "image": "https://i.scdn.co/image/21e7e6a42520eb2b940fd925641a79968c1003ff",
-            "last_cached": 1518731213,
+            "last_cached": 1519242296,
             "small_image": "https://i.scdn.co/image/8bdd73ca56ebc317aaeaa02ed4456f02bc354a50",
             "subtitle": "Kenny Rogers & The First Edition",
             "title": "Just Dropped In (To See What Condition My Condition Is In)"
@@ -737,7 +786,7 @@
         "3PxxBt3BnzhtyPSqDcgQQ9": {
             "id": "3PxxBt3BnzhtyPSqDcgQQ9",
             "image": "https://i.scdn.co/image/b345572d2bd9e2ee08e5b56f3a66a5ea01f94a68",
-            "last_cached": 1518728584,
+            "last_cached": 1519169793,
             "small_image": "https://i.scdn.co/image/61e514dc5dd8bcd20855e508069b84298b7beac7",
             "subtitle": "Run The Jewels",
             "title": "Don't Get Captured"
@@ -769,7 +818,7 @@
         "5ChOqvELRLFjWCa87eUF8K": {
             "id": "5ChOqvELRLFjWCa87eUF8K",
             "image": "https://i.scdn.co/image/c9c17b7b78f44ee32aa38a0bc15fc415b921c9ed",
-            "last_cached": 1518727607,
+            "last_cached": 1519169631,
             "small_image": "https://i.scdn.co/image/0434a79a622bfa7eb5b4cff123e132b47d53aa85",
             "subtitle": "The Units",
             "title": "High Pressure Days"
@@ -777,7 +826,7 @@
         "5PQOIflzV81tWs1vU398cl": {
             "id": "5PQOIflzV81tWs1vU398cl",
             "image": "https://i.scdn.co/image/a4246dbcd6956461bce65d138be401e4152f2d5d",
-            "last_cached": 1518724678,
+            "last_cached": 1519169856,
             "small_image": "https://i.scdn.co/image/3ca0e7e74accf464a1dd6af71176b43783b43ae0",
             "subtitle": "Dolly Parton",
             "title": "Working Girl"
@@ -889,7 +938,7 @@
         "7jLbTp3qZzah9kMIdW8e5M": {
             "id": "7jLbTp3qZzah9kMIdW8e5M",
             "image": "https://i.scdn.co/image/c09983461592f3add5662f098d19dd8141685cfd",
-            "last_cached": 1518728550,
+            "last_cached": 1519242239,
             "small_image": "https://i.scdn.co/image/3572686fc0936418328ed24b4413c0b1e8007dc4",
             "subtitle": "2Pac",
             "title": "Ghetto Gospel"
@@ -1024,7 +1073,7 @@
             "value": 1
         },
         "argfktkjctj5wyte1c3wsqt70:-L5EooDbFpwJUu1_97H3": {
-            "added": 1518727470,
+            "added": 1519169562,
             "linkId": "-L5EooDbFpwJUu1_97H3",
             "uid": "argfktkjctj5wyte1c3wsqt70",
             "value": 1
@@ -1035,14 +1084,38 @@
             "uid": "argfktkjctj5wyte1c3wsqt70",
             "value": 1
         },
+        "argfktkjctj5wyte1c3wsqt70:-L5QBm3KpusOEJ4n_Ndw": {
+            "added": 1519169644,
+            "linkId": "-L5QBm3KpusOEJ4n_Ndw",
+            "uid": "argfktkjctj5wyte1c3wsqt70",
+            "value": 1
+        },
+        "argfktkjctj5wyte1c3wsqt70:-L5QD2SsdwcLjQ14BdXt": {
+            "added": 1519251951,
+            "linkId": "-L5QD2SsdwcLjQ14BdXt",
+            "uid": "argfktkjctj5wyte1c3wsqt70",
+            "value": 1
+        },
+        "argfktkjctj5wyte1c3wsqt70:-L5QFqefkYmC7_3JkESU": {
+            "added": 1519170155,
+            "linkId": "-L5QFqefkYmC7_3JkESU",
+            "uid": "argfktkjctj5wyte1c3wsqt70",
+            "value": -1
+        },
         "argfktkjctj5wyte1c3wsqt70:-L5QG34r5nb5gYfNxHlZ": {
             "added": 1518729742,
             "linkId": "-L5QG34r5nb5gYfNxHlZ",
             "uid": "argfktkjctj5wyte1c3wsqt70",
             "value": 1
         },
+        "argfktkjctj5wyte1c3wsqt70:-L5QGlyJdNK1C_Qws-M9": {
+            "added": 1519170082,
+            "linkId": "-L5QGlyJdNK1C_Qws-M9",
+            "uid": "argfktkjctj5wyte1c3wsqt70",
+            "value": 1
+        },
         "argfktkjctj5wyte1c3wsqt70:-L5QKwSFQ48u4xTxFF3p": {
-            "added": 1518732073,
+            "added": 1519236032,
             "linkId": "-L5QKwSFQ48u4xTxFF3p",
             "uid": "argfktkjctj5wyte1c3wsqt70",
             "value": 1

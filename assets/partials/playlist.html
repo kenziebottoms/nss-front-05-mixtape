@@ -2,6 +2,8 @@
     <div class="col s12 m4 l4" id="sidebar">
         <img ng-src="{{music.image}}">
         <h1>
+            <i ng-click="subscribe()" ng-show="!subscription" class="sub material-icons">star_border</i>
+            <i ng-click="unsubscribe(subscription.key)" ng-show="subscription" class="sub material-icons">star</i>
             <a ng-click="playPlaylist(owner.id, music.id)" class="btn-floating btn waves-effect waves-light play"><i class="material-icons">play_arrow</i></a>
             {{music.title}}
         </h1>
