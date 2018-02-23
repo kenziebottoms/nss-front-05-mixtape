@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller, $q, FirebaseFactory, LinkFactory, $routeParams, SpotifyAuthFactory) {
+angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller, $q, FirebaseFactory, LinkFactory, $routeParams) {
 
     // gets voting, deletion, playback methods from LinkCardCtrl
     $controller("LinkCardCtrl", {$scope: $scope});
@@ -18,17 +18,16 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller
         });
     };
 
-    // promises list of 5 most recent loaded links by this user
+    // promises list most recent loaded links by this user
     $scope.getLinks = () => {
         return $q((resolve, reject) => {
-            LinkFactory.getLinksByUid($scope.profileUser.id, 5)
+            LinkFactory.getLinksByUid($scope.profileUser.id)
                 .then(data => {
                     $scope.links = data;
                     $scope.context = "profile";
                     resolve();
                 });
         });
-        
     };
 
     $scope.profileUser = {id: $routeParams.id };

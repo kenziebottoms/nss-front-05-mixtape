@@ -1,5 +1,6 @@
 <div class="row container">
     <h3>Media</h3>
+    <img class="ldg" src="assets/img/ldg.svg" ng-class="{'active': !media}">
     <div class="faves" id="media">
         <div class="sub" ng-repeat="sub in media">
                 <a ng-href="#!/{{sub.media.type}}/{{sub.media.id}}" style="background-image: url({{sub.media.image}});">
@@ -7,6 +8,7 @@
         </div>
     </div>
     <h3>Music</h3>
+    <img class="ldg" src="assets/img/ldg.svg" ng-class="{'active': !music}">
     <div class="faves" id="music">
         <div class="sub" ng-repeat="sub in music">
             <a ng-href="#!/{{sub.music.prefix}}{{sub.music.type}}/{{sub.music.id}}" style="background-image: url({{sub.music.image}});">
