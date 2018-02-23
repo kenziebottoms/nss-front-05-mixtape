@@ -2,7 +2,7 @@
 
 const angular = require("angular");
 
-angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOTIFY, FirebaseFactory) {
+angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOTIFY, FirebaseFactory, $rootScope) {
 
     // promises active user info from Spotify through current token
     let fetchUserInfo = token => {
@@ -56,6 +56,7 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
         localStorage.removeItem("spotifyUserToken");
         localStorage.removeItem("spotifyTokenExpiration");
         localStorage.removeItem("spotifyUserInfo");
+        $rootScope.$broadcast('userChange', null);
     };
 
     // promises user data for given user

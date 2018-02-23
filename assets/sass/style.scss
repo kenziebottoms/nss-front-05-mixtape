@@ -136,6 +136,11 @@ nav {
         background: $green;
         margin: .25 1rem;
     }
+    img {
+        margin: auto;
+        max-height: 60vh;
+        display: block;
+    }
 }
 .user-card {
     background: $g3;
