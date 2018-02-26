@@ -35,8 +35,9 @@ grunt
 ### Someday Goals
 
 - [ ] User receives notifications when others vote on their mixes or follow them.
-- [ ] Subscriptions know when you last looked at them and have little badges on them if they've been updated.
+- [ ] Subscriptions know when you last looked at them and have little badges on them if they've been updated since.
 - [ ] User can see who has up-/downvoted their mixes.
+- [ ] Users' most recently played track shows on hompage.
 
 ## Organization
 - [MindMeister mind map](https://mm.tt/994144307?t=3TqRJrEdLy)
