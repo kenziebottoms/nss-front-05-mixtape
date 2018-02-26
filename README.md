@@ -62,6 +62,7 @@ grunt
   - [Your API key](https://www.themoviedb.org/settings/api)
 - Goodreads
   - [API docs](https://www.goodreads.com/api)
-  - [Goodreads proxy server](https://github.com/kenziebottoms/goodreads-proxy-server), Kenzie Bottoms
+  - [Proxy server](https://github.com/kenziebottoms/mixify-proxy-server), Kenzie Bottoms
 - [Musixmatch](https://developer.musixmatch.com/)
   - [API docs](https://developer.musixmatch.com/documentation)
+  - [Proxy server](https://github.com/kenziebottoms/mixify-proxy-server), Kenzie Bottoms
