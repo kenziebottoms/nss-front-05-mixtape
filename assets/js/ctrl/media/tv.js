@@ -11,11 +11,12 @@ angular.module("mixtape").controller("TvCtrl", function($scope, $q, $controller,
     $scope.fetchInfo = (typeId) => {
         return $q((resolve, reject) => {
             TmdbFactory.getTvShowById($scope.id)
-                .then(show => {
+                .then(data => {
                     // clean up data for display and storage
-                    show = TmdbFactory.parseApiInfo("tv", show);
+                    let show = TmdbFactory.parseApiInfo("tv", data);
                     // pass data to dom
                     $scope.media = show;
+                    $scope.media.summary = data.overview;
                     resolve();
                     // update cached info in firebase
                     FirebaseFactory.cacheMedia(typeId, show);

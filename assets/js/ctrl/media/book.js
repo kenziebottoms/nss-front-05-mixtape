@@ -11,11 +11,12 @@ angular.module("mixtape").controller("BookCtrl", function($scope, $q, $controlle
     $scope.fetchInfo = () => {
         return $q((resolve, reject) => {
             GoodreadsFactory.getBookById($scope.id)
-                .then(book => {
+                .then(data => {
                     // clean up data for display and storage
-                    book = GoodreadsFactory.parseApiInfo(book);
+                    let book = GoodreadsFactory.parseApiInfo(data);
                     // pass book to dom
                     $scope.media = book;
+                    $scope.media.summary = data.description._cdata.split("<br")[0];
                     resolve();
                     // update cached info in Firebase
                     FirebaseFactory.cacheMedia($scope.typeId, book);

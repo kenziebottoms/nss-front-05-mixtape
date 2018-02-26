@@ -2,6 +2,15 @@
 
 Mixify is a platform on which to share playlists inspired by works of fiction and the individual tracks thereof.
 
+![](https://img.shields.io/badge/data-firebase-yellow.svg)
+![](https://img.shields.io/badge/template-angular-red.svg)
+![](https://img.shields.io/badge/modularity-browserify-blue.svg)
+![](https://img.shields.io/badge/task_runner-grunt-orange.svg)
+![](https://img.shields.io/badge/css_framework-materialize-ee6e73.svg)
+![](https://img.shields.io/badge/hosting-github_pages-green.svg)
+![](https://img.shields.io/badge/mvp-working-green.svg)
+![](https://img.shields.io/badge/bonus-wip-yellow.svg)
+
 ## Run locally
 
 ```bash
@@ -22,7 +31,12 @@ grunt
 - [x] User can play song or playlist from the web app.
 - [x] User can view song lyrics for individual tracks.
 - [x] User can subscribe to media and other users, causing relevant activity to populate their activity feed.
+
+### Someday Goals
+
 - [ ] User receives notifications when others vote on their mixes or follow them.
+- [ ] Subscriptions know when you last looked at them and have little badges on them if they've been updated.
+- [ ] User can see who has up-/downvoted their mixes.
 
 ## Organization
 - [MindMeister mind map](https://mm.tt/994144307?t=3TqRJrEdLy)
