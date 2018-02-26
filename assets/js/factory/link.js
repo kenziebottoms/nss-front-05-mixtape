@@ -37,7 +37,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     };
 
     // promises loaded links by a given user, newest first
-    let getLinksByUid = (uid, limit) => {
+    let getLinksByUid = (uid) => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.url}/links.json?orderBy="uid"&equalTo="${uid}"`)
                 .then(({ data }) => {
@@ -46,8 +46,6 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                     links = links.sort((a, b) => {
                         return +b[1].added - a[1].added;
                     });
-                    // takes only the first few
-                    links = links.slice(0, limit);
                     // loads each link
                     let linkPromises = links.map(link => {
                         return loadLink(link, false);

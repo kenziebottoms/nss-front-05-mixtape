@@ -1,7 +1,8 @@
 <div class="row container">
     <div class="col s12 m4 l5" id="sidebar">
+        <img class="ldg" src="assets/img/ldg.svg" ng-show="!media">
         <img ng-src="{{media.image}}">
-        <h1>
+        <h1 ng-show="media">
             {{media.title}}
             <i ng-click="subscribe()" ng-show="!subscription" class="sub material-icons">star_border</i>
             <i ng-click="unsubscribe(subscription.key)" ng-show="subscription" class="sub material-icons">star</i>

@@ -9,6 +9,9 @@
         <a ng-href="https://accounts.spotify.com/authorize?client_id={{key}}&redirect_uri=http%3A%2F%2Fkenzie.ink%2Fnss-front-capstone-mixify%2F&scope=user-read-recently-played%20user-modify-playback-state%20user-read-currently-playing&response_type=token">Login</a>
     </li>
     <li ng-show="user">
+        <a ng-href="#!/user/{{user.id}}">Profile</a>
+    </li>
+    <li ng-show="user">
         <a ng-click="logout()">Logout</a>
     </li>
 </ul>

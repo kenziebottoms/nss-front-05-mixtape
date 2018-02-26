@@ -21,8 +21,8 @@ grunt
 ### Stretch Goals
 - [x] User can play song or playlist from the web app.
 - [x] User can view song lyrics for individual tracks.
+- [x] User can subscribe to media and other users, causing relevant activity to populate their activity feed.
 - [ ] User receives notifications when others vote on their mixes or follow them.
-- [ ] User can subscribe to media and other users, causing relevant activity to populate their activity feed.
 
 ## Organization
 - [MindMeister mind map](https://mm.tt/994144307?t=3TqRJrEdLy)
