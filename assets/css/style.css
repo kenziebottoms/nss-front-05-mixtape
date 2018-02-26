@@ -102,6 +102,10 @@ nav .brand-logo {
   opacity: 1;
   background: #00a849;
   margin: .25 1rem; }
+#sidebar img {
+  margin: auto;
+  max-height: 60vh;
+  display: block; }
 
 .user-card {
   background: #666;

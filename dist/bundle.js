@@ -789,7 +789,7 @@ angular.module("mixtape").controller("TrackCtrl", function($scope, $q, $routePar
 
 const angular = require("angular");
 
-angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller, $q, FirebaseFactory, LinkFactory, $routeParams, SpotifyAuthFactory) {
+angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller, $q, FirebaseFactory, LinkFactory, $routeParams) {
 
     // gets voting, deletion, playback methods from LinkCardCtrl
     $controller("LinkCardCtrl", {$scope: $scope});
@@ -805,17 +805,16 @@ angular.module("mixtape").controller("ProfileCtrl", function($scope, $controller
         });
     };
 
-    // promises list of 5 most recent loaded links by this user
+    // promises list most recent loaded links by this user
     $scope.getLinks = () => {
         return $q((resolve, reject) => {
-            LinkFactory.getLinksByUid($scope.profileUser.id, 5)
+            LinkFactory.getLinksByUid($scope.profileUser.id)
                 .then(data => {
                     $scope.links = data;
                     $scope.context = "profile";
                     resolve();
                 });
         });
-        
     };
 
     $scope.profileUser = {id: $routeParams.id };
@@ -1119,7 +1118,7 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
     };
 
     // promises loaded links by a given user, newest first
-    let getLinksByUid = (uid, limit) => {
+    let getLinksByUid = (uid) => {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE.url}/links.json?orderBy="uid"&equalTo="${uid}"`)
                 .then(({ data }) => {
@@ -1128,8 +1127,6 @@ angular.module("mixtape").factory("LinkFactory", function ($q, $http, FIREBASE, 
                     links = links.sort((a, b) => {
                         return +b[1].added - a[1].added;
                     });
-                    // takes only the first few
-                    links = links.slice(0, limit);
                     // loads each link
                     let linkPromises = links.map(link => {
                         return loadLink(link, false);
@@ -1377,7 +1374,7 @@ angular.module("mixtape").factory("MusixmatchFactory", function($q, $http, MUSIX
 
 const angular = require("angular");
 
-angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOTIFY, FirebaseFactory) {
+angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOTIFY, FirebaseFactory, $rootScope) {
 
     // promises active user info from Spotify through current token
     let fetchUserInfo = token => {
@@ -1431,6 +1428,7 @@ angular.module("mixtape").factory("SpotifyAuthFactory", function($q, $http, SPOT
         localStorage.removeItem("spotifyUserToken");
         localStorage.removeItem("spotifyTokenExpiration");
         localStorage.removeItem("spotifyUserInfo");
+        $rootScope.$broadcast('userChange', null);
     };
 
     // promises user data for given user
