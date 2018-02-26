@@ -204,11 +204,12 @@ angular.module("mixtape").controller("BookCtrl", function($scope, $q, $controlle
     $scope.fetchInfo = () => {
         return $q((resolve, reject) => {
             GoodreadsFactory.getBookById($scope.id)
-                .then(book => {
+                .then(data => {
                     // clean up data for display and storage
-                    book = GoodreadsFactory.parseApiInfo(book);
+                    let book = GoodreadsFactory.parseApiInfo(data);
                     // pass book to dom
                     $scope.media = book;
+                    $scope.media.summary = data.description._cdata.split("<br")[0];
                     resolve();
                     // update cached info in Firebase
                     FirebaseFactory.cacheMedia($scope.typeId, book);
@@ -293,12 +294,14 @@ angular.module("mixtape").controller("MovieCtrl", function($scope, $q, $controll
         return $q((resolve, reject) => {
             $scope.media = null;
             TmdbFactory.getMovieById($scope.id)
-                .then(movie => {
+                .then(data => {
                     // clean up data for display and storage
-                    $scope.media = TmdbFactory.parseApiInfo("movie", movie);
+                    let movie = TmdbFactory.parseApiInfo("movie", data);
+                    $scope.media = movie;
+                    $scope.media.summary = data.overview;
                     resolve();
                     // update cached info in Firebase
-                    FirebaseFactory.cacheMedia($scope.typeId, $scope.media);
+                    FirebaseFactory.cacheMedia($scope.typeId, movie);
                 });
         });
     };
@@ -332,11 +335,12 @@ angular.module("mixtape").controller("TvCtrl", function($scope, $q, $controller,
     $scope.fetchInfo = (typeId) => {
         return $q((resolve, reject) => {
             TmdbFactory.getTvShowById($scope.id)
-                .then(show => {
+                .then(data => {
                     // clean up data for display and storage
-                    show = TmdbFactory.parseApiInfo("tv", show);
+                    let show = TmdbFactory.parseApiInfo("tv", data);
                     // pass data to dom
                     $scope.media = show;
+                    $scope.media.summary = data.overview;
                     resolve();
                     // update cached info in firebase
                     FirebaseFactory.cacheMedia(typeId, show);
