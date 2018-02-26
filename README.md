@@ -31,7 +31,12 @@ grunt
 - [x] User can play song or playlist from the web app.
 - [x] User can view song lyrics for individual tracks.
 - [x] User can subscribe to media and other users, causing relevant activity to populate their activity feed.
+
+### Someday Goals
+
 - [ ] User receives notifications when others vote on their mixes or follow them.
+- [ ] Subscriptions know when you last looked at them and have little badges on them if they've been updated.
+- [ ] User can see who has up-/downvoted their mixes.
 
 ## Organization
 - [MindMeister mind map](https://mm.tt/994144307?t=3TqRJrEdLy)
