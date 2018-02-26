@@ -15,6 +15,7 @@ angular.module("mixtape").controller("MovieCtrl", function($scope, $q, $controll
                 .then(movie => {
                     // clean up data for display and storage
                     $scope.media = TmdbFactory.parseApiInfo("movie", movie);
+                    $scope.media.summary = movie.overview;
                     resolve();
                     // update cached info in Firebase
                     FirebaseFactory.cacheMedia($scope.typeId, $scope.media);
