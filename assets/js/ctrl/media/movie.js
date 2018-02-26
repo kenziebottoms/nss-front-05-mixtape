@@ -12,13 +12,14 @@ angular.module("mixtape").controller("MovieCtrl", function($scope, $q, $controll
         return $q((resolve, reject) => {
             $scope.media = null;
             TmdbFactory.getMovieById($scope.id)
-                .then(movie => {
+                .then(data => {
                     // clean up data for display and storage
-                    $scope.media = TmdbFactory.parseApiInfo("movie", movie);
-                    $scope.media.summary = movie.overview;
+                    let movie = TmdbFactory.parseApiInfo("movie", data);
+                    $scope.media = movie;
+                    $scope.media.summary = data.overview;
                     resolve();
                     // update cached info in Firebase
-                    FirebaseFactory.cacheMedia($scope.typeId, $scope.media);
+                    FirebaseFactory.cacheMedia($scope.typeId, movie);
                 });
         });
     };
