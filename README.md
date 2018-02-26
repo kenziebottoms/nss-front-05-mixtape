@@ -2,6 +2,15 @@
 
 Mixify is a platform on which to share playlists inspired by works of fiction and the individual tracks thereof.
 
+![](https://img.shields.io/badge/data-firebase-yellow.svg)
+![](https://img.shields.io/badge/template-angular-red.svg)
+![](https://img.shields.io/badge/modularity-browserify-blue.svg)
+![](https://img.shields.io/badge/task_runner-grunt-orange.svg)
+![](https://img.shields.io/badge/css_framework-materialize-ee6e73.svg)
+![](https://img.shields.io/badge/hosting-github_pages-green.svg)
+![](https://img.shields.io/badge/mvp-working-green.svg)
+![](https://img.shields.io/badge/bonus-wip-yellow.svg)
+
 ## Run locally
 
 ```bash
