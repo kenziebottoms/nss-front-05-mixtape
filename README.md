@@ -18,6 +18,7 @@ git clone git@github.com:kenziebottoms/nss-front-capstone-mixify.git
 cd nss-front-capstone-mixify
 npm install
 grunt
+hs
 ```
 
 ## Goals
