@@ -172,15 +172,6 @@
             "music": "track:5ChOqvELRLFjWCa87eUF8K",
             "uid": "iiimosley"
         },
-        "-L5QEiHqKoPqTbEtNMNk": {
-            "added": 1518728045,
-            "media": "movie:140607",
-            "music": "playlist:argfktkjctj5wyte1c3wsqt70:2hGdbH12AbgXFRnJgLttZM",
-            "tags": [
-                "Kylo Ren"
-            ],
-            "uid": "argfktkjctj5wyte1c3wsqt70"
-        },
         "-L5QFHj1mKlJMS9zmHlB": {
             "added": 1518728194,
             "media": "movie:680",
@@ -256,21 +247,6 @@
             "music": "track:05upTOIUy52H1laROm3B0y",
             "uid": "argfktkjctj5wyte1c3wsqt70"
         },
-        "-L5zofL_bygGO89OMu43": {
-            "added": 1519341712,
-            "media": "movie:286217",
-            "music": "track:20EpQjfV7B4ZQJkIdHO1Tw",
-            "uid": "argfktkjctj5wyte1c3wsqt70"
-        },
-        "-L63i0ASJ8Rdo4txflY-": {
-            "added": 1519423853,
-            "media": "tv:66732",
-            "music": "track:7mMlbJlXXo2mRtQ4R9sIzD",
-            "tags": [
-                "Mike & Eleven"
-            ],
-            "uid": "argfktkjctj5wyte1c3wsqt70"
-        },
         "-L6HiRucZYEPfc7xuFFg": {
             "added": 1519658847,
             "media": "book:29044",
@@ -294,31 +270,81 @@
                 "Melanie"
             ],
             "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L6I42QrL8c90BKiH7to": {
+            "added": 1519664772,
+            "media": "movie:7453",
+            "music": "track:09281DcugUSja7Ik9193Be",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L6NX_0jfeB2gf4ZPliP": {
+            "added": 1519756398,
+            "media": "movie:140607",
+            "music": "playlist:argfktkjctj5wyte1c3wsqt70:2hGdbH12AbgXFRnJgLttZM",
+            "tags": [
+                "Kylo Ren"
+            ],
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L6wE6rBpO37jCej0inv": {
+            "added": 1520355278,
+            "media": "movie:181808",
+            "music": "playlist:argfktkjctj5wyte1c3wsqt70:1pxqUjcKAexhYVr4hxxsE4",
+            "tags": [
+                "Reylo",
+                "Rey",
+                "Kylo Ren"
+            ],
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L6wERULtkOiIcgqD_7Q": {
+            "added": 1520355362,
+            "media": "tv:66732",
+            "music": "playlist:argfktkjctj5wyte1c3wsqt70:0ZDCVbzV0Qca68nwRMtrt9",
+            "tags": [
+                "Nancy Wheeler",
+                "Jonathan Byers",
+                "Steve Harrington"
+            ],
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L6wEz1CfcVOiGXKWVxB": {
+            "added": 1520355504,
+            "media": "book:6437061",
+            "music": "playlist:argfktkjctj5wyte1c3wsqt70:3phDpsdUEe3hmfv8fysexT",
+            "tags": [
+                "Nahadoth/Itempas",
+                "Nahadoth",
+                "Itempas"
+            ],
+            "uid": "argfktkjctj5wyte1c3wsqt70"
         }
     },
     "media": {
         "book:17235026": {
             "id": "17235026",
             "image": "https://images.gr-assets.com/books/1403033579l/17235026.jpg",
-            "last_cached": 1519658974,
+            "last_cached": 1520355222,
             "small_image": "https://images.gr-assets.com/books/1403033579m/17235026.jpg",
             "subtitle": "M.R. Carey",
+            "summary": "Melanie is a very special girl. Dr. Caldwell calls her \"our little genius.\"",
             "title": "The Girl With All the Gifts (The Girl With All the Gifts #1)",
             "type": "book"
         },
         "book:17333324": {
             "id": "17333324",
             "image": "https://images.gr-assets.com/books/1397215917l/17333324.jpg",
-            "last_cached": 1519658876,
+            "last_cached": 1520355244,
             "small_image": "https://images.gr-assets.com/books/1397215917m/17333324.jpg",
             "subtitle": "Ann Leckie",
+            "summary": "On a remote, icy planet, the soldier known as Breq is drawing closer to completing her quest. Once, she was the <i>Justice of Toren</i> - a colossal starship with an artificial intelligence linking thousands of soldiers in the service of the Radch, the empire that conquered the galaxy. Now, an act of treachery has ripped it all away, leaving her with one fragile human body, unanswered questions, and a burning desire for vengeance.",
             "title": "Ancillary Justice (Imperial Radch, #1)",
             "type": "book"
         },
         "book:19161852": {
             "id": "19161852",
             "image": "https://images.gr-assets.com/books/1386803701l/19161852.jpg",
-            "last_cached": 1519341876,
+            "last_cached": 1519660308,
             "small_image": "https://images.gr-assets.com/books/1386803701m/19161852.jpg",
             "subtitle": "N.K. Jemisin",
             "title": "The Fifth Season (The Broken Earth, #1)",
@@ -327,7 +353,7 @@
         "book:22584": {
             "id": "22584",
             "image": "https://images.gr-assets.com/books/1398026028l/22584.jpg",
-            "last_cached": 1519356045,
+            "last_cached": 1519660441,
             "small_image": "https://images.gr-assets.com/books/1398026028m/22584.jpg",
             "subtitle": "Philip K. Dick",
             "title": "Flow My Tears, the Policeman Said",
@@ -336,19 +362,30 @@
         "book:29044": {
             "id": "29044",
             "image": "https://images.gr-assets.com/books/1451554846l/29044.jpg",
-            "last_cached": 1519658847,
+            "last_cached": 1520355224,
             "small_image": "https://images.gr-assets.com/books/1451554846m/29044.jpg",
             "subtitle": "Donna Tartt",
+            "summary": "Under the influence of their charismatic classics professor, a group of clever, eccentric misfits at an elite New England college discover a way of thinking and living that is a world away from the humdrum existence of their contemporaries. But when they go beyond the boundaries of normal morality they slip gradually from obsession to corruption and betrayal, and at last - inexorably - into evil.",
             "title": "The Secret History",
             "type": "book"
         },
         "book:375802": {
             "id": "375802",
             "image": "https://images.gr-assets.com/books/1408303130l/375802.jpg",
-            "last_cached": 1519340315,
+            "last_cached": 1520355438,
             "small_image": "https://images.gr-assets.com/books/1408303130m/375802.jpg",
             "subtitle": "Orson Scott Card",
+            "summary": "Ender's Game is a 1985 military science fiction novel by American author Orson Scott Card. Set in Earth's future, the novel presents an imperiled mankind after two conflicts with the \"buggers\", an insectoid alien species. In preparation for an anticipated third invasion, children, including the novel's protagonist, Ender Wiggin, are trained from a very young age through increasingly difficult games including some in zero gravity, where Ender's tactical genius is revealed.",
             "title": "Ender's Game (Ender's Saga, #1)",
+            "type": "book"
+        },
+        "book:6437061": {
+            "id": "6437061",
+            "image": "https://images.gr-assets.com/books/1303143211l/6437061.jpg",
+            "last_cached": 1520355504,
+            "small_image": "https://images.gr-assets.com/books/1303143211m/6437061.jpg",
+            "subtitle": "N.K. Jemisin",
+            "title": "The Hundred Thousand Kingdoms (Inheritance Trilogy, #1)",
             "type": "book"
         },
         "book:6969": {
@@ -363,9 +400,10 @@
         "book:8852": {
             "id": "8852",
             "image": "https://images.gr-assets.com/books/1459795224l/8852.jpg",
-            "last_cached": 1519342596,
+            "last_cached": 1519667350,
             "small_image": "https://images.gr-assets.com/books/1459795224m/8852.jpg",
             "subtitle": "William Shakespeare",
+            "summary": "Folger Shakespeare Library: the world's leading center for Shakespeare studies.",
             "title": "Macbeth",
             "type": "book"
         },
@@ -381,7 +419,7 @@
         "movie:10634": {
             "id": 10634,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/kkoGT4bnK5oGiNbzGGcXzrXMSxn.jpg",
-            "last_cached": 1519342271,
+            "last_cached": 1519664739,
             "small_image": "http://image.tmdb.org/t/p/w185/kkoGT4bnK5oGiNbzGGcXzrXMSxn.jpg",
             "subtitle": "1995",
             "title": "Friday",
@@ -399,7 +437,7 @@
         "movie:115": {
             "id": 115,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/qiE3ovg9TPylHReZjizQ40LsKZV.jpg",
-            "last_cached": 1519424455,
+            "last_cached": 1519664743,
             "small_image": "http://image.tmdb.org/t/p/w185/qiE3ovg9TPylHReZjizQ40LsKZV.jpg",
             "subtitle": "1998",
             "title": "The Big Lebowski",
@@ -408,16 +446,17 @@
         "movie:11542": {
             "id": 11542,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/wJuBAkVbd2xaauodX3Ronqvw06O.jpg",
-            "last_cached": 1519169643,
+            "last_cached": 1519667392,
             "small_image": "http://image.tmdb.org/t/p/w185/wJuBAkVbd2xaauodX3Ronqvw06O.jpg",
             "subtitle": "1980",
+            "summary": "A research scientist (William Hurt) explores the boundaries and frontiers of consciousness. Using sensory deprivation and hallucinogenic mixtures from native American shamans, he explores these altered states of consciousness and finds that memory, time, and perhaps reality itself are states of mind.",
             "title": "Altered States",
             "type": "movie"
         },
         "movie:122": {
             "id": 122,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
-            "last_cached": 1519237293,
+            "last_cached": 1519660418,
             "small_image": "http://image.tmdb.org/t/p/w185/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
             "subtitle": "2003",
             "title": "The Lord of the Rings: The Return of the King",
@@ -426,9 +465,10 @@
         "movie:140607": {
             "id": 140607,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/weUSwMdQIa3NaXVzwUoIIcAi85d.jpg",
-            "last_cached": 1519658552,
+            "last_cached": 1520355209,
             "small_image": "http://image.tmdb.org/t/p/w185/weUSwMdQIa3NaXVzwUoIIcAi85d.jpg",
             "subtitle": "2015",
+            "summary": "Thirty years after defeating the Galactic Empire, Han Solo and his allies face a new threat from the evil Kylo Ren and his army of Stormtroopers.",
             "title": "Star Wars: The Force Awakens",
             "type": "movie"
         },
@@ -441,12 +481,22 @@
             "title": "Fantastic Planet",
             "type": "movie"
         },
+        "movie:181808": {
+            "id": 181808,
+            "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg",
+            "last_cached": 1520355543,
+            "small_image": "http://image.tmdb.org/t/p/w185/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg",
+            "subtitle": "2017",
+            "title": "Star Wars: The Last Jedi",
+            "type": "movie"
+        },
         "movie:286217": {
             "id": 286217,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/5aGhaIHYuQbqlHWvWYqMCnj40y2.jpg",
-            "last_cached": 1519658344,
+            "last_cached": 1519756362,
             "small_image": "http://image.tmdb.org/t/p/w185/5aGhaIHYuQbqlHWvWYqMCnj40y2.jpg",
             "subtitle": "2015",
+            "summary": "During a manned mission to Mars, Astronaut Mark Watney is presumed dead after a fierce storm and left behind by his crew. But Watney has survived and finds himself stranded and alone on the hostile planet. With only meager supplies, he must draw upon his ingenuity, wit and spirit to subsist and find a way to signal to Earth that he is alive.",
             "title": "The Martian",
             "type": "movie"
         },
@@ -471,27 +521,30 @@
         "movie:68721": {
             "id": 68721,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/1Ilv6ryHUv6rt9zIsbSEJUmmbEi.jpg",
-            "last_cached": 1519356151,
+            "last_cached": 1519667363,
             "small_image": "http://image.tmdb.org/t/p/w185/1Ilv6ryHUv6rt9zIsbSEJUmmbEi.jpg",
             "subtitle": "2013",
+            "summary": "When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.",
             "title": "Iron Man 3",
             "type": "movie"
         },
         "movie:7453": {
             "id": 7453,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/fOb4cJMhnZ11BoHNUii3Vcfo3XU.jpg",
-            "last_cached": 1519658326,
+            "last_cached": 1519754975,
             "small_image": "http://image.tmdb.org/t/p/w185/fOb4cJMhnZ11BoHNUii3Vcfo3XU.jpg",
             "subtitle": "2005",
+            "summary": "Mere seconds before the Earth is to be demolished by an alien construction crew, Arthur Dent is swept off the planet by his friend Ford Prefect, a researcher penning a new edition of \"The Hitchhiker's Guide to the Galaxy.\"",
             "title": "The Hitchhiker's Guide to the Galaxy",
             "type": "movie"
         },
         "movie:765": {
             "id": 765,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/n49mpgUsPgBfRg2qIEj31HX0chu.jpg",
-            "last_cached": 1519341099,
+            "last_cached": 1519754993,
             "small_image": "http://image.tmdb.org/t/p/w185/n49mpgUsPgBfRg2qIEj31HX0chu.jpg",
             "subtitle": "1987",
+            "summary": "Ash Williams and his girlfriend Linda find a log cabin in the woods with a voice recording from an archeologist who had recorded himself reciting ancient chants from “The Book of the Dead.” As they play the recording an evil power is unleashed taking over Linda’s body.",
             "title": "Evil Dead II",
             "type": "movie"
         },
@@ -516,9 +569,10 @@
         "tv:1427": {
             "id": 1427,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/f5gQRyTZ3v4asugU2F5HXE2FIDg.jpg",
-            "last_cached": 1518727417,
+            "last_cached": 1519666992,
             "small_image": "http://image.tmdb.org/t/p/w185/f5gQRyTZ3v4asugU2F5HXE2FIDg.jpg",
             "subtitle": "2013",
+            "summary": "The murder of a young boy in a small coastal town brings a media frenzy, which threatens to tear the community apart.",
             "title": "Broadchurch",
             "type": "tv"
         },
@@ -534,18 +588,20 @@
         "tv:40008": {
             "id": 40008,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/kArcGHvTb7m1v6RFHdU40jpiGZD.jpg",
-            "last_cached": 1519658540,
+            "last_cached": 1520355434,
             "small_image": "http://image.tmdb.org/t/p/w185/kArcGHvTb7m1v6RFHdU40jpiGZD.jpg",
             "subtitle": "2013",
+            "summary": "Both a gift and a curse, Graham has the extraordinary ability to think like his prey—he sees what they see, feels what they feel. But while Graham is pursuing an especially troubling, cannibalistic murderer, Special Agent Jack Crawford teams him with a highly respected psychiatrist – a man with a taste for the criminal minded – Dr. Hannibal Lecter.",
             "title": "Hannibal",
             "type": "tv"
         },
         "tv:48891": {
             "id": 48891,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/7tTvREykun6WeGJ4hy7sCG9TOeP.jpg",
-            "last_cached": 1519343570,
+            "last_cached": 1519667372,
             "small_image": "http://image.tmdb.org/t/p/w185/7tTvREykun6WeGJ4hy7sCG9TOeP.jpg",
             "subtitle": "2013",
+            "summary": "A single-camera ensemble comedy following the lives of an eclectic group of detectives in a New York precinct, including one slacker who is forced to shape up when he gets a new boss.",
             "title": "Brooklyn Nine-Nine",
             "type": "tv"
         },
@@ -561,16 +617,17 @@
         "tv:63351": {
             "id": 63351,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/rTmal9fDbwh5F0waol2hq35U4ah.jpg",
-            "last_cached": 1519168102,
+            "last_cached": 1519667350,
             "small_image": "http://image.tmdb.org/t/p/w185/rTmal9fDbwh5F0waol2hq35U4ah.jpg",
             "subtitle": "2015",
+            "summary": "The true story of Colombia's infamously violent and powerful drug cartels.",
             "title": "Narcos",
             "type": "tv"
         },
         "tv:66732": {
             "id": 66732,
             "image": "https://image.tmdb.org/t/p/w400_and_h600_bestv2/lXS60geme1LlEob5Wgvj3KilClA.jpg",
-            "last_cached": 1519423853,
+            "last_cached": 1520355529,
             "small_image": "http://image.tmdb.org/t/p/w185/lXS60geme1LlEob5Wgvj3KilClA.jpg",
             "subtitle": "2016",
             "title": "Stranger Things",
@@ -596,10 +653,28 @@
             "title": "LOVE. FEAT. ZACARI.",
             "uid": "12136603542"
         },
+        "argfktkjctj5wyte1c3wsqt70:0ZDCVbzV0Qca68nwRMtrt9": {
+            "id": "0ZDCVbzV0Qca68nwRMtrt9",
+            "image": "https://mosaic.scdn.co/640/64c84961f448d0b4015b62d3af4344889a97006fd64c336110af037402094dcb12dc8b941cc4e7355dff051e4d3c118f50e96ad09a10dc1ff28d730b513e9e917e4b58d161689dc5068bb7877cf585c4",
+            "last_cached": 1520355521,
+            "small_image": "https://mosaic.scdn.co/640/64c84961f448d0b4015b62d3af4344889a97006fd64c336110af037402094dcb12dc8b941cc4e7355dff051e4d3c118f50e96ad09a10dc1ff28d730b513e9e917e4b58d161689dc5068bb7877cf585c4",
+            "subtitle": "8 tracks",
+            "title": "Nancy/Jonathan/Steve",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "argfktkjctj5wyte1c3wsqt70:1pxqUjcKAexhYVr4hxxsE4": {
+            "id": "1pxqUjcKAexhYVr4hxxsE4",
+            "image": "https://mosaic.scdn.co/640/e60f28b3f68f9cc63fc7df1ff04f934888fa2081b7bf9e682e3dca64d2396bdea7b56005f23448ed0c15cbab6487c63f7fcb9fc4b485a8a4377687e1c901ac12eeb5df68ac267eef20cc045e741927f2",
+            "last_cached": 1520355543,
+            "small_image": "https://mosaic.scdn.co/640/e60f28b3f68f9cc63fc7df1ff04f934888fa2081b7bf9e682e3dca64d2396bdea7b56005f23448ed0c15cbab6487c63f7fcb9fc4b485a8a4377687e1c901ac12eeb5df68ac267eef20cc045e741927f2",
+            "subtitle": "11 tracks",
+            "title": "Reylo",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
         "argfktkjctj5wyte1c3wsqt70:1uYBfbr6qA2pcLXJVl5PMt": {
             "id": "1uYBfbr6qA2pcLXJVl5PMt",
             "image": "https://mosaic.scdn.co/640/a7de5abfa8648f2506ad1e43e694e5bd5b11c9eed64c336110af037402094dcb12dc8b941cc4e735ad1474d4707f8d3c9bd33c10e653655319231a42886c0fe47aac8e31bcab118a182638e254372389",
-            "last_cached": 1519658542,
+            "last_cached": 1519755048,
             "small_image": "https://mosaic.scdn.co/640/a7de5abfa8648f2506ad1e43e694e5bd5b11c9eed64c336110af037402094dcb12dc8b941cc4e735ad1474d4707f8d3c9bd33c10e653655319231a42886c0fe47aac8e31bcab118a182638e254372389",
             "subtitle": "17 tracks",
             "title": "Will & Hannibal",
@@ -608,7 +683,7 @@
         "argfktkjctj5wyte1c3wsqt70:24cMfu8KaqWjQBsFw6Cn9p": {
             "id": "24cMfu8KaqWjQBsFw6Cn9p",
             "image": "https://mosaic.scdn.co/640/b3f5bcab8eed97a8a47a50546aa6706144b4d0aa443609cd35e43c7bdb272b3d1d9e80290e128bc51fffb3d855b9d8dbe92f94d8181ad86a12c1450383ba7ffaf2e24a45f17226b9d8e338601b776245",
-            "last_cached": 1519423721,
+            "last_cached": 1520355439,
             "small_image": "https://mosaic.scdn.co/640/b3f5bcab8eed97a8a47a50546aa6706144b4d0aa443609cd35e43c7bdb272b3d1d9e80290e128bc51fffb3d855b9d8dbe92f94d8181ad86a12c1450383ba7ffaf2e24a45f17226b9d8e338601b776245",
             "subtitle": "13 tracks",
             "title": "Ender",
@@ -617,10 +692,28 @@
         "argfktkjctj5wyte1c3wsqt70:2hGdbH12AbgXFRnJgLttZM": {
             "id": "2hGdbH12AbgXFRnJgLttZM",
             "image": "https://mosaic.scdn.co/640/b89bd6dbfa1772b398c2f30c82103475c9aecd0f4f3a6e2aebbbba0540fbe556e03a2a023c67a7cc52fc1b3b08807194b87cd7e4fd68f5118d991e44251328c9534c55c5cdebacd5120e78297cdc6006",
-            "last_cached": 1519658321,
+            "last_cached": 1520024705,
             "small_image": "https://mosaic.scdn.co/640/b89bd6dbfa1772b398c2f30c82103475c9aecd0f4f3a6e2aebbbba0540fbe556e03a2a023c67a7cc52fc1b3b08807194b87cd7e4fd68f5118d991e44251328c9534c55c5cdebacd5120e78297cdc6006",
             "subtitle": "15 tracks",
             "title": "Emo Ren",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "argfktkjctj5wyte1c3wsqt70:3XedsdK9E8iCTRV0npY3uv": {
+            "id": "3XedsdK9E8iCTRV0npY3uv",
+            "image": "https://mosaic.scdn.co/640/d64c336110af037402094dcb12dc8b941cc4e73552fc1b3b08807194b87cd7e4fd68f5118d991e44a3ea10e10cd3401f6e06221a2460346198df037b4f3a6e2aebbbba0540fbe556e03a2a023c67a7cc",
+            "last_cached": 1519679750,
+            "small_image": "https://mosaic.scdn.co/640/d64c336110af037402094dcb12dc8b941cc4e73552fc1b3b08807194b87cd7e4fd68f5118d991e44a3ea10e10cd3401f6e06221a2460346198df037b4f3a6e2aebbbba0540fbe556e03a2a023c67a7cc",
+            "subtitle": "16 tracks",
+            "title": "Kylo Ren",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "argfktkjctj5wyte1c3wsqt70:3phDpsdUEe3hmfv8fysexT": {
+            "id": "3phDpsdUEe3hmfv8fysexT",
+            "image": "https://mosaic.scdn.co/640/59fbbabeecaade686c44c99e5d1102130556bba13ab7dbf92eeac3d7d13700066efb450649ff786769bb8bc83ba8645fff2dfa00fd7434866994e5a985461bbd254fb54e27f6d09733c8949639bf2f6d",
+            "last_cached": 1520355504,
+            "small_image": "https://mosaic.scdn.co/640/59fbbabeecaade686c44c99e5d1102130556bba13ab7dbf92eeac3d7d13700066efb450649ff786769bb8bc83ba8645fff2dfa00fd7434866994e5a985461bbd254fb54e27f6d09733c8949639bf2f6d",
+            "subtitle": "6 tracks",
+            "title": "Naha/Tempa",
             "uid": "argfktkjctj5wyte1c3wsqt70"
         },
         "argfktkjctj5wyte1c3wsqt70:4LGiA8WL1N7jooFLybAYod": {
@@ -643,16 +736,8 @@
         }
     },
     "subs": {
-        "-L5tqlCuymZ8b66FkpK9": {
-            "media": "tv:66732",
-            "uid": "argfktkjctj5wyte1c3wsqt70"
-        },
         "-L5tqnPj5iDrr3cilo8e": {
             "media": "movie:140607",
-            "uid": "argfktkjctj5wyte1c3wsqt70"
-        },
-        "-L5zjWlmgt6Cx-rjtoPL": {
-            "media": "movie:679",
             "uid": "argfktkjctj5wyte1c3wsqt70"
         },
         "-L5zjxqzX-EZnmp6z52U": {
@@ -665,6 +750,18 @@
         },
         "-L63hZrxACx1D4PF91UZ": {
             "media": "tv:40008",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L6HnxxcXClLwtqWdRLU": {
+            "media": "book:17333324",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L6Ho0s2FMEWpCsuyl85": {
+            "media": "book:19161852",
+            "uid": "argfktkjctj5wyte1c3wsqt70"
+        },
+        "-L6IxzQxLuGbsnPan-o0": {
+            "media": "tv:66732",
             "uid": "argfktkjctj5wyte1c3wsqt70"
         }
     },
@@ -684,6 +781,14 @@
             "small_image": "https://i.scdn.co/image/2cc0420f6b778b411e4ebb9c31d4546f31e84c7e",
             "subtitle": "Truslow",
             "title": "Liar"
+        },
+        "09281DcugUSja7Ik9193Be": {
+            "id": "09281DcugUSja7Ik9193Be",
+            "image": "https://i.scdn.co/image/3bab0acfa23f62c77dc75452bff5630c96863d08",
+            "last_cached": 1519664771,
+            "small_image": "https://i.scdn.co/image/3216a61ac0585cdc9f02ad3044306922fccb04f4",
+            "subtitle": "All Time Low",
+            "title": "So Long, and Thanks for All The Booze"
         },
         "0F0MA0ns8oXwGw66B2BSXm": {
             "id": "0F0MA0ns8oXwGw66B2BSXm",
@@ -712,7 +817,7 @@
         "163F4SPkExGwITk7VKz5sp": {
             "id": "163F4SPkExGwITk7VKz5sp",
             "image": "https://i.scdn.co/image/2cf1b79f2663619a87a2732dfb3cba153a9707e1",
-            "last_cached": 1518723741,
+            "last_cached": 1520355529,
             "small_image": "https://i.scdn.co/image/2ed6f4a26d7e6ec311901d8694ed18b4097d3866",
             "subtitle": "Bad Suns",
             "title": "Salt"
@@ -736,7 +841,7 @@
         "1aLAI1HsBDY1ju1g5cqljK": {
             "id": "1aLAI1HsBDY1ju1g5cqljK",
             "image": "https://i.scdn.co/image/836a2b674aaef7db8a5862850815988ab9e13057",
-            "last_cached": 1519658847,
+            "last_cached": 1519660336,
             "small_image": "https://i.scdn.co/image/c5d3f0e97343024219f2a228cabdd26080137f8b",
             "subtitle": "Ghostly Kisses",
             "title": "Never Know"
@@ -792,7 +897,7 @@
         "2z83t0gfxu3Dnb0XUDBR3B": {
             "id": "2z83t0gfxu3Dnb0XUDBR3B",
             "image": "https://i.scdn.co/image/4c1d45f684af397a69730bd3010bd6f9e2785312",
-            "last_cached": 1518729839,
+            "last_cached": 1519754994,
             "small_image": "https://i.scdn.co/image/3d70d9c426563303a8b548a9790fc4f5a2c2af48",
             "subtitle": "Bad Brains",
             "title": "Big Take Over"
@@ -840,7 +945,7 @@
         "3aUfWeMesfVs2niopKjNxV": {
             "id": "3aUfWeMesfVs2niopKjNxV",
             "image": "https://i.scdn.co/image/64c84961f448d0b4015b62d3af4344889a97006f",
-            "last_cached": 1519658974,
+            "last_cached": 1519661300,
             "small_image": "https://i.scdn.co/image/140e498321321b9a9d443482962549647dcf3972",
             "subtitle": "CHVRCHES",
             "title": "Clearest Blue"
@@ -856,7 +961,7 @@
         "453QwgDIG95NmmLqSxnPsR": {
             "id": "453QwgDIG95NmmLqSxnPsR",
             "image": "https://i.scdn.co/image/1b9620a8657dd6853437d914896cd314cde1e19c",
-            "last_cached": 1519658876,
+            "last_cached": 1519660352,
             "small_image": "https://i.scdn.co/image/9a4e0a5e239b9e2a7c805f1cc0d166d633b597a6",
             "subtitle": "Jon Bellion",
             "title": "iRobot"
@@ -880,7 +985,7 @@
         "5ChOqvELRLFjWCa87eUF8K": {
             "id": "5ChOqvELRLFjWCa87eUF8K",
             "image": "https://i.scdn.co/image/c9c17b7b78f44ee32aa38a0bc15fc415b921c9ed",
-            "last_cached": 1519169631,
+            "last_cached": 1519660441,
             "small_image": "https://i.scdn.co/image/0434a79a622bfa7eb5b4cff123e132b47d53aa85",
             "subtitle": "The Units",
             "title": "High Pressure Days"
@@ -952,7 +1057,7 @@
         "6wjb6rlWb4P8NRcZpP17UJ": {
             "id": "6wjb6rlWb4P8NRcZpP17UJ",
             "image": "https://i.scdn.co/image/791353302b5393cc3e6e903beb02c85f47b43a66",
-            "last_cached": 1518207195,
+            "last_cached": 1519660306,
             "small_image": "https://i.scdn.co/image/1625eaa94bc5a0289a14168e2340656b2e178663",
             "subtitle": "Bad Suns",
             "title": "Maybe We're Meant To Be Alone"
@@ -976,7 +1081,7 @@
         "78tro1rpoxmqjbjiRRRzoH": {
             "id": "78tro1rpoxmqjbjiRRRzoH",
             "image": "https://i.scdn.co/image/54b005998a18976a9fc7f5c867ceb63068e37786",
-            "last_cached": 1518727183,
+            "last_cached": 1519660424,
             "small_image": "https://i.scdn.co/image/4baf7e491befd6c4b009245c53951d5103b0c634",
             "subtitle": "Panic! At The Disco",
             "title": "The End Of All Things"
@@ -984,7 +1089,7 @@
         "7LqYqe7uhDc1pw9urRoGq6": {
             "id": "7LqYqe7uhDc1pw9urRoGq6",
             "image": "https://i.scdn.co/image/a2dd407c4fc3761eb12af1b8ca58537c8491e7db",
-            "last_cached": 1519658318,
+            "last_cached": 1520355445,
             "small_image": "https://i.scdn.co/image/3260fb1ad33c2af5d351841e48a550c6c9a9f8e6",
             "subtitle": "Bad Suns",
             "title": "This Was a Home Once"
@@ -1008,7 +1113,7 @@
         "7mMlbJlXXo2mRtQ4R9sIzD": {
             "id": "7mMlbJlXXo2mRtQ4R9sIzD",
             "image": "https://i.scdn.co/image/a2fa45dcbbceee1493dae812d504ebc8fdca6411",
-            "last_cached": 1519423853,
+            "last_cached": 1519679677,
             "small_image": "https://i.scdn.co/image/aa5f4cfb2a7a78decb268d93ac38e5944c1aae81",
             "subtitle": "Imogen Heap",
             "title": "Hide and Seek"
@@ -1184,6 +1289,12 @@
             "uid": "argfktkjctj5wyte1c3wsqt70",
             "value": 1
         },
+        "argfktkjctj5wyte1c3wsqt70:-L5QGa9ZzItmYQ86at9r": {
+            "added": 1519679775,
+            "linkId": "-L5QGa9ZzItmYQ86at9r",
+            "uid": "argfktkjctj5wyte1c3wsqt70",
+            "value": 1
+        },
         "argfktkjctj5wyte1c3wsqt70:-L5QGlyJdNK1C_Qws-M9": {
             "added": 1519170082,
             "linkId": "-L5QGlyJdNK1C_Qws-M9",
@@ -1191,7 +1302,7 @@
             "value": 1
         },
         "argfktkjctj5wyte1c3wsqt70:-L5QKwSFQ48u4xTxFF3p": {
-            "added": 1519342861,
+            "added": 1519756371,
             "linkId": "-L5QKwSFQ48u4xTxFF3p",
             "uid": "argfktkjctj5wyte1c3wsqt70",
             "value": 1
